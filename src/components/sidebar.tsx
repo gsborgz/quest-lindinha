@@ -1,11 +1,11 @@
 'use client'
 
-import { MoonIcon, SunIcon, ShoppingBagIcon, HomeIcon } from "@heroicons/react/24/solid";
+import { MoonIcon, SunIcon, ShoppingBagIcon, HomeIcon, ArrowLeftOnRectangleIcon } from "@heroicons/react/24/solid";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { MenuContext } from "@/contexts/menu";
-import { SidebarButtonProps, SidebarLinkProps } from "@type/menu.type";
+import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from "@type/menu.type";
 
 export default function Sidebar() {
   const { menuActive } = useContext(MenuContext);
@@ -15,7 +15,14 @@ export default function Sidebar() {
   const moonIcon = <MoonIcon className='h-5 w-5 text-slate-700' />;
   const homeIcon = <HomeIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
   const shoppingBagIcon = <ShoppingBagIcon className="h-5 w-5 text-slate-700 dark:text-neutral-50" />;
+  const logoutIcon = <ArrowLeftOnRectangleIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />
   const isDarkTheme = resolvedTheme === 'dark';
+  const sidebarItems: SidebarItem[] = [
+    { label: 'Início', to: '/dashboard', icon: homeIcon, menuActive },
+    { label: 'Loja', to: '/shop', icon: shoppingBagIcon, menuActive },
+    { label: 'Tema', arialLabel: 'Change Theme', icon: isDarkTheme ? sunIcon : moonIcon, action: () => setTheme(isDarkTheme ? 'light' : 'dark'), menuActive },
+    { label: 'Sair', arialLabel: 'Logout', to: '/', icon: logoutIcon, menuActive }
+  ];
 
   useEffect(() => setMounted(true), []);
 
@@ -27,33 +34,32 @@ export default function Sidebar() {
     <aside className='border-r min-h-[93%] fixed left-0 top-[7%] z-30 bg-neutral-50 dark:bg-slate-900 border-neutral-200 dark:border-slate-700'>
       <ul className="flex flex-col justify-between">
         <div>
-          <li>
-            <SidebarLink
-              label='Início'
-              to='/dashboard'
-              icon={ homeIcon }
-              menuActive={ menuActive }
-            />
-          </li>
-
-          <li>
-            <SidebarLink
-              label='Loja'
-              to='/shop'
-              icon={ shoppingBagIcon }
-              menuActive={ menuActive }
-            />
-          </li>
-
-          <li>
-            <SidebarButton
-              label='Tema'
-              aria-label="Change App Theme"
-              icon={ isDarkTheme ? sunIcon : moonIcon }
-              action={ () => setTheme(isDarkTheme ? 'light' : 'dark') }
-              menuActive={ menuActive }
-            />
-          </li>
+          { sidebarItems.map((item, index) => {
+            if (item.to) {
+              return (
+                <li key={ index }>
+                  <SidebarLink
+                    label={ item.label }
+                    to={ item.to }
+                    icon={ item.icon }
+                    menuActive={ item.menuActive }
+                  />
+                </li>
+              )
+            } else {
+              return (
+                <li key={ index }>
+                  <SidebarButton
+                    label={ item.label }
+                    aria-label={ item.arialLabel }
+                    icon={ item.icon }
+                    action={ () => item.action ? item.action() : null }
+                    menuActive={ item.menuActive }
+                  />
+                </li>
+              )
+            }
+          }) }
         </div>
       </ul>
     </aside>
@@ -78,7 +84,7 @@ function SidebarLink(props: SidebarLinkProps) {
 function SidebarButton(props: SidebarButtonProps) {
   return (
     <button
-      aria-label={ props['aria-label'] }
+      aria-label={ props.ariaLabel }
       type='button'
       className='flex items-center justify-center transition-colors hover:bg-neutral-200 dark:hover:bg-zinc-700 px-5 py-5'
       onClick={ props.action }

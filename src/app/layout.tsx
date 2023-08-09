@@ -3,9 +3,8 @@ import { Inter } from 'next/font/google';
 import GlobalProviders from '@/providers/global';
 import Header from '@components/header';
 import Footer from '@/components/footer';
-import Sidebar from '@/components/sidebar';
-import { MenuProvider } from '../providers/menu';
-import Main from '../components/main';
+import { MenuProvider } from '@providers/menu';
+import Main from '@components/main';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,12 +21,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MenuProvider>
             <Header />
 
-            <Sidebar />
+            <Main>
+              { children }
+            </Main>
           </MenuProvider>
-
-          <Main>
-            { children }
-          </Main>
 
           <Footer />
         </GlobalProviders>
