@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useContext } from "react";
-import Avatar from "@/components/avatar";
+import Avatar from "@/components/avatar.component";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import { MenuContext } from "@/contexts/menu";
+import { MenuContext } from "@/contexts/menu.context";
 
 export default function Header() {
   const { toggleMenu } = useContext(MenuContext);
