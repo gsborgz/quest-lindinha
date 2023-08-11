@@ -18,7 +18,7 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
         <XCircleIcon className='h-5 w-5 cursor-pointer' onClick={ () => toggleModal(null) } />
       </section>
 
-      <section>
+      <section className='flex flex-row flex-wrap justify-between'>
         { props.children }
       </section>
     </div>
