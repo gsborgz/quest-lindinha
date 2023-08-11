@@ -7,7 +7,7 @@ export default function Modal(props: PropsWithChildren<ModalProps>) {
   const { toggleModal } = useContext(ModalContext);
 
   return (
-    <div className='min-w-[30%] max-w-sm rounded overflow-hidden shadow-lg dark:bg-slate-700 p-5'>
+    <div className='min-w-[30%] max-w-sm rounded overflow-hidden shadow-lg bg-slate-100 dark:bg-slate-700 p-5'>
       <section className='flex flex-row items-center justify-between mb-4'>
         <div className='flex flex-row items-center'>
           { props.icon }

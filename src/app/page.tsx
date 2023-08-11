@@ -1,65 +1,65 @@
+'use client'
+
+import Image from 'next/image';
+import Input from '@components/input.component';
+import { useContext, useState } from 'react';
+import { SignInData } from '@type/auth.type';
+import Button from '@components/button.component';
+import { AuthContext } from '@contexts/auth.context';
+import Divider from '@components/divider.component';
+import Link from 'next/link';
+
 export default function Home() {
+  const { signIn } = useContext(AuthContext);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const data = new SignInData();
+
+  function logIn() {
+    data.email = email;
+    data.password = password;
+
+    signIn(data);
+  }
+
   return (
-    <>
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
+    <section className='flex flex-row justify-between items-center min-h-full'>
+      <Image src='/images/default-3.svg' alt='opening image' width={700} height={700} className='ml-16' />
 
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
+      <div className='rounded shadow-lg p-8 bg-slate-100 dark:bg-slate-700 w-[30%] flex flex-col gap-8'>
+        <form className='flex flex-col gap-8' onSubmit={ logIn }>
+          <Input
+            id='user_email'
+            label='E-mail'
+            type='email'
+            required
+            maxLength={ 50 }
+            onChange={ (event) => setEmail(event.target.value) }
+          />
 
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
+          <Input
+            id='user_password'
+            label='Senha'
+            type='password'
+            required
+            minLength={ 8 }
+            maxLength={ 100 }
+            onChange={ (event) => setPassword(event.target.value) }
+          />
 
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
+          <Button type='submit' label='ENTRAR' primary />
+        </form>
 
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
+        <div className='flex items-center justify-center text-sm'>
+          <Link href='/forgot-password'>Esqueci minha senha</Link>
+        </div>
 
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
+        <Divider text='OU' />
 
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
+        <div className='flex items-center justify-center text-sm'>
+          <Link href='/signup'>Criar uma conta</Link>
+        </div>
       </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-
-      <div className='pb-10'>
-        <h1 className='text-3xl font-bold'>NextJs 13 Starter with Theme</h1>
-      </div>
-    </>
+    </section>
   )
 }
