@@ -27,6 +27,7 @@
       "@components/*": ["./src/components/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@providers/*": ["./src/providers/*"],
+      "@api/*": ["./src/api/*"],
       "@type/*": ["./src/types/*"],
     }
   },

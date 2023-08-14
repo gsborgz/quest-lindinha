@@ -1,8 +1,8 @@
 export type AuthData = {
   isSignedIn: boolean;
-  signIn: (data: SignInData) => void;
-  signUp: (data: SignUpData) => void;
-  signOut: () => void;
+  signin: (data: SignInData) => Promise<void>;
+  signup: (data: SignUpData) => Promise<void>;
+  signout: () => Promise<void>;
 }
 
 export class SignInData {
@@ -14,11 +14,17 @@ export class SignInData {
 }
 
 export class SignUpData {
-  
+
   public name: string;
   public email: string;
   public password: string;
   public password_confirmation: string;
   public expires_in: number;
+
+}
+
+export class PasswordResetRequestData {
+
+  public email: string;
 
 }
