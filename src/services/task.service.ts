@@ -1,5 +1,5 @@
 import BaseService from '@/services/base.service';
-import { UpsertTaskData } from '@/types/task.type';
+import { Task } from '@/types/task.type';
 
 export default class TaskService extends BaseService {
 
@@ -7,7 +7,7 @@ export default class TaskService extends BaseService {
     return this.get('/tasks');
   }
 
-  public async upsert(data: UpsertTaskData) {
+  public async upsert(data: Task) {
     return this.post('/tasks', data);
   }
 

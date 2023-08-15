@@ -5,6 +5,12 @@ export type AuthData = {
   signout: () => Promise<void>;
 }
 
+export class SigninResult {
+
+  public token: string;
+
+}
+
 export class SignInData {
 
   public email: string;

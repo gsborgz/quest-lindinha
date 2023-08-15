@@ -2,16 +2,16 @@ const url = process.env.API_URL || 'http://localhost:3333';
 
 export default class BaseService {
 
-  public async get(uri: string, headers?: Record<string, any>) {
+  public async get<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
     const config = {
       method: 'GET',
       headers
     };
 
-    return this.dataFetch(uri, config);
+    return this.dataFetch<E>(uri, config);
   }
 
-  public async post(uri: string, data: Record<string, any>, headers?: Record<string, any>) {
+  public async post<E>(uri: string, data: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
     const config: RequestInit = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -21,10 +21,10 @@ export default class BaseService {
       }
     };
 
-    return this.dataFetch(uri, config);
+    return this.dataFetch<E>(uri, config);
   }
 
-  public async put(uri: string, data?: Record<string, any>, headers?: Record<string, any>) {
+  public async put<E>(uri: string, data?: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
     const config: RequestInit = {
       method: 'PUT',
       headers: {
@@ -37,24 +37,31 @@ export default class BaseService {
       config['body'] = JSON.stringify(data);
     }
 
-    return this.dataFetch(uri, config);
+    return this.dataFetch<E>(uri, config);
   }
 
-  public async delete(uri: string, headers?: Record<string, any>) {
+  public async delete<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
     const config: RequestInit = {
       method: 'DELETE',
       headers
     };
 
-    return this.dataFetch(uri, config);
+    return this.dataFetch<E>(uri, config);
   }
 
-  private async dataFetch(uri: string, config?: RequestInit) {
+  private async dataFetch<E>(uri: string, config?: RequestInit): Promise<E | null> {
     try {
       const response = await fetch(`${url}${uri}`, config);
-      return await response.json();
+
+      if (response.ok) {
+        return response.json() as E;
+      }
+
+      return null;
     } catch (error) {
-      return console.log(error);
+      console.log(error);
+
+      return null;
     }
   }
 

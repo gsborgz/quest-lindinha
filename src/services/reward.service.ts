@@ -1,5 +1,5 @@
 import BaseService from '@/services/base.service';
-import { UpsertRewardData } from '@/types/reward.type';
+import { Reward } from '@/types/reward.type';
 
 export default class RewardService extends BaseService {
 
@@ -7,7 +7,7 @@ export default class RewardService extends BaseService {
     return this.get('/rewards');
   }
 
-  public async upsert(data: UpsertRewardData) {
+  public async upsert(data: Reward) {
     return this.post('/rewards', data);
   }
 
