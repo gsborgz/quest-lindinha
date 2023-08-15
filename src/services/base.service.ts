@@ -2,7 +2,7 @@ const url = process.env.API_URL || 'http://localhost:3333';
 
 export default class BaseService {
 
-  public async get<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
+  protected async get<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
     const config = {
       method: 'GET',
       headers
@@ -11,7 +11,7 @@ export default class BaseService {
     return this.dataFetch<E>(uri, config);
   }
 
-  public async post<E>(uri: string, data: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
+  protected async post<E>(uri: string, data: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
     const config: RequestInit = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -24,7 +24,7 @@ export default class BaseService {
     return this.dataFetch<E>(uri, config);
   }
 
-  public async put<E>(uri: string, data?: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
+  protected async put<E>(uri: string, data?: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
     const config: RequestInit = {
       method: 'PUT',
       headers: {
@@ -40,7 +40,7 @@ export default class BaseService {
     return this.dataFetch<E>(uri, config);
   }
 
-  public async delete<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
+  protected async delete<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
     const config: RequestInit = {
       method: 'DELETE',
       headers
@@ -66,5 +66,3 @@ export default class BaseService {
   }
 
 }
-
-export const baseService = new BaseService();
