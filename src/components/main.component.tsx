@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react';
-import { AuthContext } from '@contexts/auth.context';
+import { AuthContext } from '@/contexts/auth.context';
 
 export default function Main({ children }: { children: React.ReactNode }) {
   const { isSignedIn } = useContext(AuthContext);

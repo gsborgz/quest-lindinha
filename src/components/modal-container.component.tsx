@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react';
-import { ModalContext } from '@contexts/modal.context';
+import { ModalContext } from '@/contexts/modal.context';
 
 export default function ModalContainer() {
   const { showModal, modalContent } = useContext(ModalContext);

@@ -1,4 +1,4 @@
-import Modal from '@components/modal.component';
+import Modal from '@/components/modal.component';
 import { ArrowDownCircleIcon } from '@heroicons/react/24/solid'
 
 export default function Teste() {

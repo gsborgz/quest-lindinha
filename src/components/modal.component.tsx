@@ -1,7 +1,7 @@
 import { PropsWithChildren, useContext } from 'react';
-import { ModalProps } from '@/types/modal.type';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { ModalContext } from '@contexts/modal.context';
+import { ModalProps } from '@/types/modal.type';
+import { ModalContext } from '@/contexts/modal.context';
 
 export default function Modal(props: PropsWithChildren<ModalProps>) {
   const { toggleModal } = useContext(ModalContext);

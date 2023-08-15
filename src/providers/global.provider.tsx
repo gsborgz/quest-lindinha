@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from 'next-themes';
 import ModalProvider from '@/providers/modal.provider';
-import AuthProvider from './auth.provider';
+import AuthProvider from '@/providers/auth.provider';
 
 export default function GlobalProviders({ children }: { children: React.ReactNode }) {
   return (

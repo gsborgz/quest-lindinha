@@ -5,12 +5,14 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '@/contexts/menu.context';
-import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@type/menu.type';
-import { ModalContext } from '@contexts/modal.context';
-import Teste from '../dialogs/teste.dialog';
+import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/menu.type';
+import { ModalContext } from '@/contexts/modal.context';
+import Teste from '@/dialogs/teste.dialog';
+import { AuthContext } from '@/contexts/auth.context';
 
 export default function Sidebar() {
   const { menuActive } = useContext(MenuContext);
+  const { isSignedIn } = useContext(AuthContext);
   const { showModal, toggleModal } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
@@ -40,7 +42,7 @@ export default function Sidebar() {
     }
   }
 
-  if (!mounted) {
+  if (!mounted || !isSignedIn) {
     return null
   }
 

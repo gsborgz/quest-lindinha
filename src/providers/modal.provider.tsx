@@ -1,8 +1,8 @@
 'use client'
 
-import { ModalContext } from "@/contexts/modal.context";
-import { useState } from "react";
-import { ModalContent } from "@type/modal.type";
+import { useState } from 'react';
+import { ModalContext } from '@/contexts/modal.context';
+import { ModalContent } from '@/types/modal.type';
 
 export default function ModalProvider({ children }: { children: React.ReactNode }) {
   const [showModal, setShowModal] = useState(false);

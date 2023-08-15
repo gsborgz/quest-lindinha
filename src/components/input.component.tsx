@@ -1,4 +1,4 @@
-import { InputProps } from '@type/input.type';
+import { InputProps } from '@/types/input.type';
 
 export default function Input(props: InputProps) {
   return (

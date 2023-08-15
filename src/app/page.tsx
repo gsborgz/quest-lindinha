@@ -1,12 +1,12 @@
 'use client'
 
 import Image from 'next/image';
-import Input from '@components/input.component';
+import Input from '@/components/input.component';
 import { useContext, useState } from 'react';
-import { SignInData } from '@type/auth.type';
-import Button from '@components/button.component';
-import { AuthContext } from '@contexts/auth.context';
-import Divider from '@components/divider.component';
+import { SignInData } from '@/types/auth.type';
+import Button from '@/components/button.component';
+import { AuthContext } from '@/contexts/auth.context';
+import Divider from '@/components/divider.component';
 import Link from 'next/link';
 
 export default function Home() {

@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react';
-import { AuthContext } from '@contexts/auth.context';
-import { SignInData, SignUpData } from '@type/auth.type';
-import { authApi } from '../api/auth.api';
+import { AuthContext } from '@/contexts/auth.context';
+import { SignInData, SignUpData } from '@/types/auth.type';
+import { authApi } from '@/api/auth.api';
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isSignedIn, setIsSignedIn] = useState(false);

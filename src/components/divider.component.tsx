@@ -1,4 +1,4 @@
-import { DividerProps } from '@type/divider.type';
+import { DividerProps } from '@/types/divider.type';
 
 export default function Divider(props: DividerProps) {
   return (
