@@ -1,7 +1,7 @@
-import BaseApi from '@api/base.api';
-import { UpsertTaskData } from '@type/task.type';
+import BaseService from '@/services/base.service';
+import { UpsertTaskData } from '@/types/task.type';
 
-export default class TaskApi extends BaseApi {
+export default class TaskService extends BaseService {
 
   public async findAll() {
     return this.get('/tasks');
@@ -21,4 +21,4 @@ export default class TaskApi extends BaseApi {
 
 }
 
-export const taskApi = new TaskApi();
+export const taskService = new TaskService();

@@ -1,7 +1,7 @@
-import BaseApi from '@api/base.api';
-import { UpsertRewardData } from '@type/reward.type';
+import BaseService from '@/services/base.service';
+import { UpsertRewardData } from '@/types/reward.type';
 
-export default class RewardApi extends BaseApi {
+export default class RewardService extends BaseService {
 
   public async findAll() {
     return this.get('/rewards');
@@ -21,4 +21,4 @@ export default class RewardApi extends BaseApi {
 
 }
 
-export const rewardApi = new RewardApi();
+export const rewardService = new RewardService();

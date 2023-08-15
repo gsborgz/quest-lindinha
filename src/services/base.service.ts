@@ -1,6 +1,6 @@
 const url = process.env.API_URL || 'http://localhost:3333';
 
-export default class BaseApi {
+export default class BaseService {
 
   public async get(uri: string, headers?: Record<string, any>) {
     const config = {
@@ -60,4 +60,4 @@ export default class BaseApi {
 
 }
 
-export const baseApi = new BaseApi();
+export const baseService = new BaseService();

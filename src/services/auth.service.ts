@@ -1,7 +1,7 @@
-import BaseApi from '@api/base.api';
-import { PasswordResetRequestData, SignInData, SignUpData } from '@type/auth.type';
+import BaseService from '@/services/base.service';
+import { PasswordResetRequestData, SignInData, SignUpData } from '@/types/auth.type';
 
-export default class AuthApi extends BaseApi {
+export default class AuthService extends BaseService {
 
   public async me() {
     return this.get('/auth/me');
@@ -25,4 +25,4 @@ export default class AuthApi extends BaseApi {
 
 }
 
-export const authApi = new AuthApi();
+export const authService = new AuthService();

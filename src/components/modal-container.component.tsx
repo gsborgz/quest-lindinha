@@ -6,13 +6,13 @@ import { ModalContext } from '@/contexts/modal.context';
 export default function ModalContainer() {
   const { showModal, modalContent } = useContext(ModalContext);
 
+  if (!showModal || !modalContent) {
+    return null;
+  }
+
   return (
-    <>
-      { showModal && modalContent ? (
-        <section className='container fixed z-30 flex items-center justify-center h-full w-full'>
-          { modalContent }
-        </section>
-      ) : <></> }
-    </>
+    <section className='container fixed z-30 flex items-center justify-center h-full w-full'>
+      { modalContent }
+    </section>
   );
 }
