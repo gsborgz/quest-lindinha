@@ -12,6 +12,7 @@ export default function Input(props: InputProps) {
         required={ props.required }
         maxLength={ props.maxLength }
         minLength={ props.minLength }
+        onChange={ props.onChange }
       ></input>
     </div>
   );

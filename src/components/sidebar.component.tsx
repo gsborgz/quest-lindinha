@@ -12,7 +12,7 @@ import { AuthContext } from '@/contexts/auth.context';
 
 export default function Sidebar() {
   const { menuActive } = useContext(MenuContext);
-  const { isSignedIn } = useContext(AuthContext);
+  const { isSignedIn, signout } = useContext(AuthContext);
   const { showModal, toggleModal } = useContext(ModalContext);
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
@@ -27,7 +27,7 @@ export default function Sidebar() {
     { label: 'Loja', to: '/shop', icon: shoppingBagIcon, menuActive },
     { label: 'Tema', arialLabel: 'Change Theme', icon: isDarkTheme ? sunIcon : moonIcon, action: () => setTheme(isDarkTheme ? 'light' : 'dark'), menuActive },
     { label: 'Teste', arialLabel: 'Logout', action: setModal, icon: logoutIcon, menuActive },
-    { label: 'Sair', arialLabel: 'Logout', to: '/', icon: logoutIcon, menuActive }
+    { label: 'Sair', arialLabel: 'Logout', action: signout, icon: logoutIcon, menuActive }
   ];
 
   useEffect(() => setMounted(true), []);

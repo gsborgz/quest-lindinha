@@ -1,19 +1,21 @@
 import BaseService from '@/services/base.service';
-import { PasswordResetRequestData, SignInData, SignUpData, SigninResult } from '@/types/auth.type';
+import { PasswordResetRequestData, SignInData, SignUpData, SignInResult } from '@/types/auth.type';
 import { User } from '@/types/user.type';
 import { BaseMessage } from '@/types/base.type';
 
 export default class AuthService extends BaseService {
 
   public async me(): Promise<User | null> {
-    return this.get('/auth/me');
+    const headers = this.getAuthorizationHeader();
+
+    return this.get('/auth/me', headers);
   }
 
-  public async signin(data: SignInData): Promise<SigninResult | null> {
+  public async signin(data: SignInData): Promise<SignInResult | null> {
     return this.post('/auth/signin', data);
   }
 
-  public async signup(data: SignUpData): Promise<SigninResult | null> {
+  public async signup(data: SignUpData): Promise<SignInResult | null> {
     return this.post('/auth/signup', data);
   }
 
@@ -22,7 +24,9 @@ export default class AuthService extends BaseService {
   }
 
   public async signout(): Promise<any> {
-    return this.delete('/auth/signout');
+    const headers = this.getAuthorizationHeader();
+
+    return this.delete('/auth/signout', headers);
   }
 
 }

@@ -1,4 +1,3 @@
-const url = process.env.API_URL || 'http://localhost:3333';
 
 export default class BaseService {
 
@@ -49,9 +48,21 @@ export default class BaseService {
     return this.dataFetch<E>(uri, config);
   }
 
+  protected getAuthorizationHeader(): Record<string, any> {
+    const token = localStorage.getItem('token');
+
+    return {
+      authorization: `${token}`
+    };
+  }
+
   private async dataFetch<E>(uri: string, config?: RequestInit): Promise<E | null> {
     try {
-      const response = await fetch(`${url}${uri}`, config);
+      const response = await fetch(`${process.env.API_URL}${uri}`, config);
+
+      if (response.status === 401) {
+        return null as E;
+      }
 
       if (response.ok) {
         return response.json() as E;
@@ -61,7 +72,7 @@ export default class BaseService {
     } catch (error) {
       console.log(error);
 
-      return null;
+      return null as E;
     }
   }
 

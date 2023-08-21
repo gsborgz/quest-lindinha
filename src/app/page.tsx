@@ -14,11 +14,14 @@ export default function Home() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  async function logIn() {
-    const data = new SignInData();
+  async function logIn(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-    data.email = email;
-    data.password = password;
+    if (!email || !password) {
+      return;
+    }
+
+    const data = new SignInData(email, password);
 
     await signin(data);
   }
@@ -27,7 +30,7 @@ export default function Home() {
     <section className='flex flex-row justify-between items-center min-h-full'>
       <Image src='/images/default-3.svg' alt='opening image' width={700} height={700} className='ml-16' />
 
-      <div className='rounded shadow-lg p-8 bg-slate-100 dark:bg-slate-700 w-[30%] flex flex-col gap-8'>
+      <div className='rounded shadow-lg p-8 bg-slate-100 dark:bg-slate-700 min-w-[30%] flex flex-col gap-8'>
         <form className='flex flex-col gap-8' onSubmit={ logIn }>
           <Input
             id='user_email'
