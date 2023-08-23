@@ -12,9 +12,34 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const [me, setMe] = useState<User | null>(null);
   const router = useRouter();
   const pathName = usePathname();
+  
+  useEffect(() => {
+    const isSignedIn = localStorage.getItem('isSignedIn');
+    const token = localStorage.getItem('token');
 
-  useEffect(() => checkIfIsSignedIn());
+    if (isSignedIn === 'true' && token) {
+      setIsSignedIn(true);
 
+      try {
+        setMeData();
+      } catch (error) {
+        setIsSignedIn(false);
+        clearLocalStorage();
+  
+        router.push('/');
+      }
+
+      if (pathName === '/' || pathName === '/signup') {
+        router.push('/dashboard');
+      }
+    } else {
+      setIsSignedIn(false);
+      clearLocalStorage();
+
+      router.push('/');
+    }
+  }, [isSignedIn, me, pathName, router]);
+  
   async function signin(data: SignInData) {
     const response = await authService.signin(data);
 
@@ -60,7 +85,6 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const user = await authService.me();
 
     if (user) {
-      localStorage.setItem('me', JSON.stringify(user));
       localStorage.setItem('isSignedIn', 'true');
 
       setMe(user);
@@ -76,30 +100,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     localStorage.setItem('token', token);
   }
 
-  function checkIfIsSignedIn() {
-    const isSignedIn = localStorage.getItem('isSignedIn');
-    const token = localStorage.getItem('token');
-    const me = localStorage.getItem('me');
-
-
-    if (isSignedIn === 'true' && token && me) {
-      setIsSignedIn(true);
-
-      if (pathName === '/' || pathName === '/signup') {
-        router.push('/dashboard');
-      }
-    } else {
-      setIsSignedIn(false);
-      clearLocalStorage();
-
-      router.push('/');
-    }
-  }
-
   function clearLocalStorage() {
     localStorage.setItem('isSignedIn', 'false');
     localStorage.removeItem('token');
-    localStorage.removeItem('me');
   }
 
   return (
