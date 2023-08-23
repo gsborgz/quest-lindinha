@@ -26,7 +26,6 @@ export default function Sidebar() {
     { label: 'Início', to: '/dashboard', icon: homeIcon, menuActive },
     { label: 'Loja', to: '/shop', icon: shoppingBagIcon, menuActive },
     { label: 'Tema', arialLabel: 'Change Theme', icon: isDarkTheme ? sunIcon : moonIcon, action: () => setTheme(isDarkTheme ? 'light' : 'dark'), menuActive },
-    { label: 'Teste', arialLabel: 'Logout', action: setModal, icon: logoutIcon, menuActive },
     { label: 'Sair', arialLabel: 'Logout', action: signout, icon: logoutIcon, menuActive }
   ];
 

@@ -8,26 +8,17 @@ import { useRouter, usePathname } from 'next/navigation';
 import { User } from '@/types/user.type';
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [me, setMe] = useState<User | null>(null);
   const router = useRouter();
   const pathName = usePathname();
-  
+
   useEffect(() => {
     const isSignedIn = localStorage.getItem('isSignedIn');
     const token = localStorage.getItem('token');
 
     if (isSignedIn === 'true' && token) {
       setIsSignedIn(true);
-
-      try {
-        setMeData();
-      } catch (error) {
-        setIsSignedIn(false);
-        clearLocalStorage();
-  
-        router.push('/');
-      }
 
       if (pathName === '/' || pathName === '/signup') {
         router.push('/dashboard');
@@ -36,7 +27,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       setIsSignedIn(false);
       clearLocalStorage();
 
-      router.push('/');
+      if (pathName === '/dashboard' || pathName === '/shop') {
+        router.push('/');
+      }
     }
   }, [isSignedIn, me, pathName, router]);
   
@@ -72,12 +65,13 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }
 
   async function logIn(response: SignInResult) {
-    setToken(response);
-    setMeData();
-    
-    
-    if (isSignedIn) {
-      router.push('/dashboard'); 
+    if (response.token) {
+      setToken(response);
+      setMeData();
+  
+      if (isSignedIn) {
+        router.push('/dashboard'); 
+      }
     }
   }
 
