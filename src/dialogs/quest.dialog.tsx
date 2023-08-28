@@ -5,15 +5,18 @@ import Input from '@/components/input.component';
 import Button from '@/components/button.component';
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/contexts/modal.context';
-import { questService } from '../services/quest.service';
+import { questService } from '@/services/quest.service';
+import { SnackbarContext } from '@/contexts/snackbar.context';
+import { SnackbarType } from '@/types/snackbar.type';
 
 export default function QuestDialog(props: QuestDialogData) {
   const { closeModal } = useContext(ModalContext);
-  const icon = <MapIcon className='h-5 w-5' />;
-  const title = props.quest?.name || 'Nova Missão';
+  const { openSnackbar } = useContext(SnackbarContext);
   const [name, setName] = useState<string>('');
   const [value, setValue] = useState<number>(100);
   const [date, setDate] = useState<string>('');
+  const icon = <MapIcon className='h-5 w-5' />;
+  const title = props.quest?.name || 'Nova Missão';
 
   async function save(event: React.FormEvent) {
     event.preventDefault();
@@ -27,7 +30,10 @@ export default function QuestDialog(props: QuestDialogData) {
     const newQuest = await questService.upsert(quest);
 
     if (newQuest) {
+      openSnackbar('Missão criada com sucesso!', SnackbarType.SUCCESS);
       closeModal();
+    } else {
+      openSnackbar('Erro ao criar missão!', SnackbarType.ERROR);
     }
   }
 

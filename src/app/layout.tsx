@@ -7,6 +7,7 @@ import { MenuProvider } from '@/providers/menu.provider';
 import Main from '@/components/main.component';
 import Sidebar from '@/components/sidebar.component';
 import ModalContainer from '@/components/modal-container.component';
+import SnackbarContainer from '@/components/snackbar-container.component';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Sidebar />
 
             <Main>
+              <SnackbarContainer />
               <ModalContainer />
 
               { children }
