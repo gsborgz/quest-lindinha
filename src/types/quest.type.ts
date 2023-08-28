@@ -14,3 +14,12 @@ export enum QuestStatus {
   COMPLETED = 'completed',
   CANCELED = 'canceled'
 }
+
+export type QuestDialogData = {
+  quest?: Quest;
+}
+
+export type QuestButtonData = {
+  quest?: Quest;
+}
+

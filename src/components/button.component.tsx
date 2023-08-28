@@ -9,12 +9,20 @@ export default function Button(props: ButtonProps) {
   return (
     <>
       { props.to ? (
-        <Link href={ props.to } className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} font-bold py-2 px-4 rounded w-full flex items-center justify-center` }>
-          { props.label }
+        <Link
+          href={ props.to }
+          className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} font-bold py-2 px-4 rounded w-full flex gap-2 items-center justify-center` }
+        >
+          { props.icon || null }
+          { props.label || null }
         </Link>
       ) : (
-        <button type={ props.type } className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} font-bold py-2 px-4 rounded w-full` } onClick={ props.onClick }>
-          { props.label }
+        <button
+          type={ props.type }
+          className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} font-bold py-2 px-4 rounded w-full flex gap-2 items-center justify-center` } onClick={ props.onClick }
+        >
+          { props.icon || null }
+          { props.label || null }
         </button>
       ) }
     </>

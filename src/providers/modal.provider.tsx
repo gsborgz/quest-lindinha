@@ -24,8 +24,13 @@ export default function ModalProvider({ children }: { children: React.ReactNode 
     }
   }
 
+  function closeModal() {
+    setShowModal(false);
+    setModalContent(null);
+  }
+
   return (
-    <ModalContext.Provider value={{ showModal, modalContent, toggleModal }}>
+    <ModalContext.Provider value={{ showModal, modalContent, toggleModal, closeModal }}>
       { children }
     </ModalContext.Provider>
   );

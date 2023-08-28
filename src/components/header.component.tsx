@@ -5,6 +5,7 @@ import Avatar from '@/components/avatar.component';
 import { Bars3Icon } from '@heroicons/react/24/solid';
 import { MenuContext } from '@/contexts/menu.context';
 import { AuthContext } from '@/contexts/auth.context';
+import QuestButton from '@/components/quest-button.component.';
 
 export default function Header() {
   const { isSignedIn } = useContext(AuthContext);
@@ -26,6 +27,8 @@ export default function Header() {
           >
             <Bars3Icon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />
           </button>
+
+          <QuestButton />
         </div>
 
         <div className='flex items-center justify-end px-4 py-3'>

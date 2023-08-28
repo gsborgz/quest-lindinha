@@ -2,9 +2,10 @@ export type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';
   bgColor?: string;
   textColor?: string;
-  label: string;
+  label?: string;
   primary?: boolean;
   secondary?: boolean;
+  icon?: JSX.Element;
   onClick?: () => void;
   to?: string;
 }

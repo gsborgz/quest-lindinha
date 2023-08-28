@@ -5,6 +5,8 @@ export type InputProps = {
   placeholder?: string;
   maxLength?: number;
   minLength?: number;
+  min?: number;
+  max?: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 }
