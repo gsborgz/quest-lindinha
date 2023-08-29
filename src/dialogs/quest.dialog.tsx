@@ -15,10 +15,10 @@ export default function QuestDialog(props: QuestDialogData) {
   const [name, setName] = useState<string>('');
   const [value, setValue] = useState<number>(100);
   const [date, setDate] = useState<string>('');
-  const icon = <MapIcon className='h-5 w-5' />;
+  const icon = <MapIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
   const title = props.quest?.name || 'Nova Missão';
 
-  async function save(event: React.FormEvent) {
+  function save(event: React.FormEvent) {
     event.preventDefault();
 
     const quest = new Quest();
@@ -27,14 +27,14 @@ export default function QuestDialog(props: QuestDialogData) {
     quest.value = value;
     quest.date = new Date(date);
 
-    const newQuest = await questService.upsert(quest);
-
-    if (newQuest) {
-      openSnackbar('Missão criada com sucesso!', SnackbarType.SUCCESS);
-      closeModal();
-    } else {
-      openSnackbar('Erro ao criar missão!', SnackbarType.ERROR);
-    }
+    questService.upsert(quest)
+      .then(() => {
+        openSnackbar('Missão criada com sucesso!', SnackbarType.SUCCESS);
+        closeModal();
+      })
+      .catch(() => {
+        openSnackbar('Erro ao criar missão!', SnackbarType.ERROR);
+      });
   }
 
   function setQuestValue(value: number) {

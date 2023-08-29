@@ -8,13 +8,16 @@ import Button from '@/components/button.component';
 import { AuthContext } from '@/contexts/auth.context';
 import Divider from '@/components/divider.component';
 import Link from 'next/link';
+import { SnackbarContext } from '@/contexts/snackbar.context';
+import { SnackbarType } from '@/types/snackbar.type';
 
 export default function Home() {
+  const { openSnackbar } = useContext(SnackbarContext);
   const { signin } = useContext(AuthContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  async function logIn(event: React.FormEvent<HTMLFormElement>) {
+  function logIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!email || !password) {
@@ -23,7 +26,13 @@ export default function Home() {
 
     const data = new SignInData(email, password);
 
-    await signin(data);
+    signin(data)
+      .then(() => {
+        openSnackbar('Seja bem vindo!', SnackbarType.SUCCESS);
+      })
+      .catch(() => {
+        openSnackbar('Erro ao efetuar login!', SnackbarType.ERROR);
+      });
   }
 
   return (

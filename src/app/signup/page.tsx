@@ -3,20 +3,23 @@
 import Image from 'next/image';
 import { useContext, useState } from 'react';
 import { AuthContext } from '@/contexts/auth.context';
-import Input from '../../components/input.component';
-import { SignUpData } from '../../types/auth.type';
-import Button from '../../components/button.component';
+import Input from '@/components/input.component';
+import { SignUpData } from '@/types/auth.type';
+import Button from '@/components/button.component';
 import Link from 'next/link';
-import Divider from '../../components/divider.component';
+import Divider from '@/components/divider.component';
+import { SnackbarContext } from '@/contexts/snackbar.context';
+import { SnackbarType } from '@/types/snackbar.type';
 
 export default function SignUp() {
-  const { signup } = useContext(AuthContext);
+  const { openSnackbar } = useContext(SnackbarContext);
+  const { signup } = useContext(AuthContext);1
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
 
-  async function logIn(event: React.FormEvent<HTMLFormElement>) {
+  function logIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!name || !email || !password || !passwordConfirmation) {
@@ -29,7 +32,13 @@ export default function SignUp() {
 
     const data = new SignUpData(name, email, password, passwordConfirmation);
 
-    await signup(data);
+    signup(data)
+      .then(() => {
+        openSnackbar('Conta criada com sucesso. Seja bem vindo!', SnackbarType.SUCCESS);
+      })
+      .catch(() => {
+        openSnackbar('Erro ao criar conta!', SnackbarType.ERROR);
+      });
   }
 
   return (

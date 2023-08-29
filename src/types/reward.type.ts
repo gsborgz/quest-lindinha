@@ -9,6 +9,14 @@ export class Reward {
   public updated_at: Date;
 }
 
+export type RewardDialogData = {
+  reward?: Reward;
+}
+
+export type RewardButtonData = {
+  reward?: Reward;
+}
+
 export enum RewardStatus {
   AVAILABLE = 'available',
   CLAIMED = 'claimed',
