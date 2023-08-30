@@ -1,51 +1,52 @@
+import { RequestOptions } from '@/types/base.type';
 
 export default class BaseService {
 
-  protected async get<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
+  protected async get<E>(options: RequestOptions): Promise<E> {
     const config = {
       method: 'GET',
-      headers
+      headers: options.headers,
     };
 
-    return this.dataFetch<E>(uri, config);
+    return this.dataFetch<E>(options.uri, config, options.query);
   }
 
-  protected async post<E>(uri: string, data: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
+  protected async post<E>(options: RequestOptions): Promise<E> {
     const config: RequestInit = {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(options.data),
       headers: {
         'Content-Type': 'application/json',
-        ...headers
+        ...options.headers
       }
     };
 
-    return this.dataFetch<E>(uri, config);
+    return this.dataFetch<E>(options.uri, config, options.query);
   }
 
-  protected async put<E>(uri: string, data?: Record<string, any>, headers?: Record<string, any>): Promise<E | null> {
+  protected async put<E>(options: RequestOptions): Promise<E> {    
     const config: RequestInit = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        ...headers
+        ...options.headers
       }
     };
 
-    if (data) {
-      config['body'] = JSON.stringify(data);
+    if (options.data) {
+      config['body'] = JSON.stringify(options.data);
     }
 
-    return this.dataFetch<E>(uri, config);
+    return this.dataFetch<E>(options.uri, config, options.query);
   }
 
-  protected async delete<E>(uri: string, headers?: Record<string, any>): Promise<E | null> {
+  protected async delete<E>(options: RequestOptions): Promise<E> {
     const config: RequestInit = {
       method: 'DELETE',
-      headers
+      headers: options.headers
     };
 
-    return this.dataFetch<E>(uri, config);
+    return this.dataFetch<E>(options.uri, config, options.query);
   }
 
   protected getAuthorizationHeader(): Record<string, any> {
@@ -56,24 +57,24 @@ export default class BaseService {
     };
   }
 
-  private async dataFetch<E>(uri: string, config?: RequestInit): Promise<E | null> {
-    try {
-      const response = await fetch(`${process.env.API_URL}${uri}`, config);
+  private async dataFetch<E>(uri: string, config: RequestInit, query?: Record<string, any>): Promise<E> {
+    const url = new URL(`${process.env.API_URL}${uri}`);
 
-      if (response.status === 401) {
-        return null as E;
-      }
-
-      if (response.ok) {
-        return response.json() as E;
-      }
-
-      return null;
-    } catch (error) {
-      console.log(error);
-
-      return null as E;
+    if (query) {
+      Object.keys(query).forEach(key => url.searchParams.append(key, query[key]));
     }
+
+    return fetch(url, config)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+
+        return response.json();
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
   }
 
 }

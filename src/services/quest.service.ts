@@ -1,30 +1,45 @@
 import BaseService from '@/services/base.service';
 import { Quest } from '@/types/quest.type';
+import { RequestOptions } from '@/types/base.type';
 
 export default class QuestService extends BaseService {
 
-  public async findAll(): Promise<Quest[] | null> {
-    const headers = this.getAuthorizationHeader();
+  public async findAll(query?: Record<string, any>): Promise<Quest[]> {
+    const options = new RequestOptions();
 
-    return this.get('/quests', headers);
+    options.headers = this.getAuthorizationHeader();
+    options.query = query;
+    options.uri = '/quests';
+
+    return this.get(options);
   }
 
-  public async upsert(data: Quest): Promise<Quest | null> {
-    const headers = this.getAuthorizationHeader();
+  public async upsert(data: Quest): Promise<Quest> {
+    const options = new RequestOptions();
 
-    return this.post('/quests', data, headers);
+    options.data = data;
+    options.headers = this.getAuthorizationHeader();
+    options.uri = '/quests';
+
+    return this.post(options);
   }
 
-  public async finish(id: string): Promise<any | null> {
-    const headers = this.getAuthorizationHeader();
+  public async complete(id: string): Promise<any> {
+    const options = new RequestOptions();
 
-    return this.put(`/quests/${id}/complete`, headers);
+    options.headers = this.getAuthorizationHeader();
+    options.uri = `/quests/${id}/complete`;
+
+    return this.put(options);
   }
 
-  public async remove(id: string): Promise<any | null> {
-    const headers = this.getAuthorizationHeader();
+  public async remove(id: string): Promise<any> {
+    const options = new RequestOptions();
 
-    return this.delete(`/quests/${id}`, headers);
+    options.headers = this.getAuthorizationHeader();
+    options.uri = `/quests/${id}`;
+
+    return this.delete(options);
   }
 
 }

@@ -1,30 +1,45 @@
 import BaseService from '@/services/base.service';
 import { Reward } from '@/types/reward.type';
+import { RequestOptions } from '@/types/base.type';
 
 export default class RewardService extends BaseService {
 
-  public async findAll(): Promise<Reward[] | null> {
-    const headers = this.getAuthorizationHeader();
+  public async findAll(query?: Record<string, any>): Promise<Reward[]> {
+    const options = new RequestOptions();
 
-    return this.get('/rewards', headers);
+    options.query = query;
+    options.uri = '/rewards';
+    options.headers = this.getAuthorizationHeader();
+
+    return this.get(options);
   }
 
-  public async upsert(data: Reward): Promise<Reward | null> {
-    const headers = this.getAuthorizationHeader();
+  public async upsert(data: Reward): Promise<Reward> {
+    const options = new RequestOptions();
 
-    return this.post('/rewards', data, headers);
+    options.data = data;
+    options.uri = '/rewards';
+    options.headers = this.getAuthorizationHeader();
+
+    return this.post(options);
   }
 
-  public async claim(id: string): Promise<any | null> {
-    const headers = this.getAuthorizationHeader();
+  public async claim(id: string): Promise<any> {
+    const options = new RequestOptions();
 
-    return this.put(`/rewards/${id}/claim`, headers);
+    options.uri = `/rewards/${id}/claim`;
+    options.headers = this.getAuthorizationHeader();
+
+    return this.put(options);
   }
 
-  public async remove(id: string): Promise<any | null> {
-    const headers = this.getAuthorizationHeader();
+  public async remove(id: string): Promise<any> {
+    const options = new RequestOptions();
 
-    return this.delete(`/rewards/${id}`, headers);
+    options.headers = this.getAuthorizationHeader();
+    options.uri = `/rewards/${id}`;
+
+    return this.delete(options);
   }
 
 }

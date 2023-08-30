@@ -1,32 +1,53 @@
 import BaseService from '@/services/base.service';
 import { PasswordResetRequestData, SignInData, SignUpData, SignInResult } from '@/types/auth.type';
 import { User } from '@/types/user.type';
-import { BaseMessage } from '@/types/base.type';
+import { BaseMessage, RequestOptions } from '@/types/base.type';
 
 export default class AuthService extends BaseService {
 
-  public async me(): Promise<User | null> {
-    const headers = this.getAuthorizationHeader();
+  public async me(): Promise<User> {
+    const options = new RequestOptions();
 
-    return this.get('/auth/me', headers);
+    options.headers = this.getAuthorizationHeader();
+    options.uri = '/auth/me';
+    
+    return this.get(options);
   }
 
-  public async signin(data: SignInData): Promise<SignInResult | null> {
-    return this.post('/auth/signin', data);
+  public async signin(data: SignInData): Promise<SignInResult> {
+    const options = new RequestOptions();
+
+    options.data = data;
+    options.uri = '/auth/signin';
+
+    return this.post(options);
   }
 
-  public async signup(data: SignUpData): Promise<SignInResult | null> {
-    return this.post('/auth/signup', data);
+  public async signup(data: SignUpData): Promise<SignInResult> {
+    const options = new RequestOptions();
+
+    options.data = data;
+    options.uri = '/auth/signup';
+
+    return this.post(options);
   }
 
-  public async requestPasswordReset(data: PasswordResetRequestData): Promise<BaseMessage | null> {
-    return this.post('/auth/request-password-reset', data);
+  public async requestPasswordReset(data: PasswordResetRequestData): Promise<BaseMessage> {
+    const options = new RequestOptions();
+
+    options.data = data;
+    options.uri = '/auth/request-password-reset';
+    
+    return this.post(options);
   }
 
   public async signout(): Promise<any> {
-    const headers = this.getAuthorizationHeader();
+    const options = new RequestOptions();
 
-    return this.delete('/auth/signout', headers);
+    options.headers = this.getAuthorizationHeader();
+    options.uri = '/auth/signout';
+
+    return this.delete(options);
   }
 
 }

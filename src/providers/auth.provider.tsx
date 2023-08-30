@@ -34,34 +34,24 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }, [isSignedIn, me, pathName, router]);
   
   async function signin(data: SignInData) {
-    const response = await authService.signin(data);
-
-    if (!response) {
-      console.log('erro em signin');      
-    }
-
-    logIn(response as SignInResult);
+    authService.signin(data)
+      .then(response => logIn(response as SignInResult))
+      .catch(error => console.log(error));
   }
 
   async function signup(data: SignUpData) {
-    const response = await authService.signup(data);
-
-    if (!response) {
-      console.log('erro em signup');
-    }
-
-    logIn(response as SignInResult);
+    authService.signup(data)
+      .then(response => logIn(response as SignInResult))
+      .catch(error => console.log(error));
   }
 
   async function signout() {
-    const response = await authService.signout();
-
-    if (!response) {
-      console.log('erro em signout');
-    }
-
-    setIsSignedIn(false);
-    clearLocalStorage();
+    authService.signout()
+      .catch(error => console.log(error))
+      .finally(() => {
+        clearLocalStorage();
+        setIsSignedIn(false);
+      });
   }
 
   async function logIn(response: SignInResult) {
@@ -76,16 +66,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }
 
   async function setMeData() {
-    const user = await authService.me();
+    authService.me()
+      .then(user => {
+        localStorage.setItem('isSignedIn', 'true');
 
-    if (user) {
-      localStorage.setItem('isSignedIn', 'true');
-
-      setMe(user);
-      setIsSignedIn(true);
-    } else {
-      console.log('erro em getMe');
-    }
+        setMe(user);
+        setIsSignedIn(true);
+      })
+      .catch(error => console.log(error));
   }
 
   function setToken(response: SignInResult) {
