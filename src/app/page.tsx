@@ -5,7 +5,7 @@ import Input from '@/components/input.component';
 import { useContext, useState } from 'react';
 import { SignInData } from '@/types/auth.type';
 import Button from '@/components/button.component';
-import { AuthContext } from '@/contexts/auth.context';
+import { SessionContext } from '@/contexts/session.context';
 import Divider from '@/components/divider.component';
 import Link from 'next/link';
 import { SnackbarContext } from '@/contexts/snackbar.context';
@@ -13,7 +13,7 @@ import { SnackbarType } from '@/types/snackbar.type';
 
 export default function Home() {
   const { openSnackbar } = useContext(SnackbarContext);
-  const { signin } = useContext(AuthContext);
+  const { signin } = useContext(SessionContext);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 

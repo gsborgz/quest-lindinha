@@ -1,4 +1,6 @@
-import { Reward, RewardDialogData } from '@/types/reward.type';
+'use client'
+
+import { Reward, RewardDialogData, RewardStatus } from '@/types/reward.type';
 import Modal from '@/components/modal.component';
 import { GiftIcon } from '@heroicons/react/24/solid';
 import { useContext, useState } from 'react';
@@ -8,6 +10,8 @@ import { SnackbarType } from '@/types/snackbar.type';
 import Button from '@/components/button.component';
 import Input from '@/components/input.component';
 import { rewardService } from '@/services/reward.service';
+import { usePathname } from 'next/navigation';
+import { SessionContext } from '@/contexts/session.context';
 
 export default function RewardDialog(props: RewardDialogData) {
   const { closeModal } = useContext(ModalContext);
@@ -17,6 +21,8 @@ export default function RewardDialog(props: RewardDialogData) {
   const [value, setValue] = useState<number>(100);
   const title = props.reward?.name || 'Nova Recompensa';
   const icon = <GiftIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
+  const { toggleLoadRewards } = useContext(SessionContext);
+  const pathName = usePathname();
 
   function save(event: React.FormEvent) {
     event.preventDefault();
@@ -27,10 +33,18 @@ export default function RewardDialog(props: RewardDialogData) {
     reward.description = description;
     reward.value = value;
 
+    if (props.reward?._id) {
+      reward._id = props.reward?._id;
+      reward.status = props.reward?.status;
+    } else {
+      reward.status = RewardStatus.AVAILABLE;
+    }
+
     rewardService.upsert(reward)
       .then(() => {
         openSnackbar('Recompensa criada com sucesso!', SnackbarType.SUCCESS);
         closeModal();
+        toggleLoadRewards();
       })
       .catch(() => {
         openSnackbar('Erro ao criar recompensa!', SnackbarType.ERROR);

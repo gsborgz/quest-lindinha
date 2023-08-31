@@ -1,14 +1,16 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { AuthContext } from '@/contexts/auth.context';
+import { SessionContext } from '@/contexts/session.context';
 import { SignInData, SignUpData, SignInResult } from '@/types/auth.type';
 import { authService } from '@/services/auth.service';
 import { useRouter, usePathname } from 'next/navigation';
 import { User } from '@/types/user.type';
 
-export default function AuthProvider({ children }: { children: React.ReactNode }) {
+export default function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [loadRewards, setLoadRewards] = useState<boolean>(true);
+  const [loadQuests, setLoadQuests] = useState<boolean>(true);
   const [me, setMe] = useState<User | null>(null);
   const router = useRouter();
   const pathName = usePathname();
@@ -87,9 +89,21 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     localStorage.removeItem('token');
   }
 
+  function toggleLoadQuests() {
+    if (pathName === '/dashboard') {
+      setLoadQuests(!loadQuests);
+    }
+  }
+
+  function toggleLoadRewards() {
+    if (pathName === '/shop') {
+      setLoadRewards(!loadRewards);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ isSignedIn, signin, signup, signout, me }}>
+    <SessionContext.Provider value={{ isSignedIn, me, loadQuests, loadRewards, signin, signup, signout, toggleLoadQuests, toggleLoadRewards }}>
       { children }
-    </AuthContext.Provider>
+    </SessionContext.Provider>
   );
 }

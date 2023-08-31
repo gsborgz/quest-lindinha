@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
 import React, { useContext } from 'react';
 import Avatar from '@/components/avatar.component';
 import { Bars3Icon, PlusIcon } from '@heroicons/react/24/solid';
 import { MenuContext } from '@/contexts/menu.context';
-import { AuthContext } from '@/contexts/auth.context';
+import { SessionContext } from '@/contexts/session.context';
 import { QuestButtonData } from '@/types/quest.type';
 import { ModalContext } from '@/contexts/modal.context';
 import QuestDialog from '@/dialogs/quest.dialog';
@@ -13,7 +13,7 @@ import RewardDialog from '@/dialogs/reward.dialog';
 import { RewardButtonData } from '@/types/reward.type';
 
 export default function Header() {
-  const { isSignedIn } = useContext(AuthContext);
+  const { isSignedIn } = useContext(SessionContext);
   const { toggleMenu } = useContext(MenuContext);
 
   if (!isSignedIn) {
@@ -71,7 +71,7 @@ function RewardButton(props: RewardButtonData) {
 
   function setModal() {
     if (!showModal) {
-      const dialog = <RewardDialog reward={props.reward}  />;
+      const dialog = <RewardDialog reward={props.reward} />;
 
       toggleModal(dialog);
     } else {

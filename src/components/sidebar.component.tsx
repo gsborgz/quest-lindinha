@@ -6,11 +6,11 @@ import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '@/contexts/menu.context';
 import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/menu.type';
-import { AuthContext } from '@/contexts/auth.context';
+import { SessionContext } from '@/contexts/session.context';
 
 export default function Sidebar() {
   const { menuActive } = useContext(MenuContext);
-  const { isSignedIn, signout } = useContext(AuthContext);
+  const { isSignedIn, signout } = useContext(SessionContext);
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const sunIcon = <SunIcon className='h-5 w-5 text-neutral-50' />;

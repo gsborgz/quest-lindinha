@@ -2,12 +2,12 @@
 
 import { ThemeProvider } from 'next-themes';
 import ModalProvider from '@/providers/modal.provider';
-import AuthProvider from '@/providers/auth.provider';
+import SessionProvider from '@/providers/session.provider';
 import SnackbarProvider from '@/providers/snackbar.provider';
 
 export default function GlobalProviders({ children }: { children: React.ReactNode }) {
   return (
-    <AuthProvider>
+    <SessionProvider>
       <ThemeProvider attribute="class">
         <SnackbarProvider>
           <ModalProvider>
@@ -15,6 +15,6 @@ export default function GlobalProviders({ children }: { children: React.ReactNod
           </ModalProvider>
         </SnackbarProvider>
       </ThemeProvider>
-    </AuthProvider>
+    </SessionProvider>
   );
 }

@@ -6,9 +6,9 @@ export class BaseMessage {
 
 export class RequestOptions {
 
-  headers?: Record<string, any>;
-  query?: Record<string, any>;
-  data?: Record<string, any>;
   uri: string;
+  data?: Record<string, any>;
+  query?: Record<string, any>;
+  headers?: Record<string, any>;
 
 }

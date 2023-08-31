@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useContext, useState } from 'react';
-import { AuthContext } from '@/contexts/auth.context';
+import { SessionContext } from '@/contexts/session.context';
 import Input from '@/components/input.component';
 import { SignUpData } from '@/types/auth.type';
 import Button from '@/components/button.component';
@@ -13,7 +13,7 @@ import { SnackbarType } from '@/types/snackbar.type';
 
 export default function SignUp() {
   const { openSnackbar } = useContext(SnackbarContext);
-  const { signup } = useContext(AuthContext);1
+  const { signup } = useContext(SessionContext);1
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');

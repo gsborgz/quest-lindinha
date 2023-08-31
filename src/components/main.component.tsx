@@ -1,10 +1,10 @@
 'use client'
 
 import { useContext } from 'react';
-import { AuthContext } from '@/contexts/auth.context';
+import { SessionContext } from '@/contexts/session.context';
 
 export default function Main({ children }: { children: React.ReactNode }) {
-  const { isSignedIn } = useContext(AuthContext);
+  const { isSignedIn } = useContext(SessionContext);
 
   return (
     <main className={ `${isSignedIn ? 'min-h-[93%]' : 'h-full' } w-full flex flex-row bg-blue-50 dark:bg-slate-800` }>

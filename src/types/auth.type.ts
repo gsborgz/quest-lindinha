@@ -1,13 +1,3 @@
-import { User } from '@/types/user.type';
-
-export type AuthData = {
-  isSignedIn: boolean;
-  signin: (data: SignInData) => Promise<void>;
-  signup: (data: SignUpData) => Promise<void>;
-  signout: () => Promise<void>;
-  me: User | null;
-}
-
 export class SignInResult {
 
   public token: string;

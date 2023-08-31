@@ -17,6 +17,15 @@ export type RewardButtonData = {
   reward?: Reward;
 }
 
+export type RewardCardProps = {
+  reward: Reward;
+}
+
+export type ClaimRewardButtonProps = {
+  value: number;
+  rewardId: string;
+}
+
 export enum RewardStatus {
   AVAILABLE = 'available',
   CLAIMED = 'claimed',
