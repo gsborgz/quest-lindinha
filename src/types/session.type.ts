@@ -9,6 +9,6 @@ export type SessionData = {
   me: User | null;
   loadQuests: boolean;
   loadRewards: boolean;
-  toggleLoadQuests: () => void;
-  toggleLoadRewards: () => void;
+  setLoadRewards: (value: boolean) => void;
+  setLoadQuests: (value: boolean) => void;
 }

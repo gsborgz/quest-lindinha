@@ -6,6 +6,7 @@ export type ButtonProps = {
   primary?: boolean;
   secondary?: boolean;
   icon?: JSX.Element;
+  full?: boolean;
   onClick?: () => void;
   to?: string;
 }

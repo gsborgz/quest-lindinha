@@ -9,8 +9,8 @@ import { User } from '@/types/user.type';
 
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const [loadRewards, setLoadRewards] = useState<boolean>(true);
-  const [loadQuests, setLoadQuests] = useState<boolean>(true);
+  const [loadRewards, setLoadRewards] = useState<boolean>(false);
+  const [loadQuests, setLoadQuests] = useState<boolean>(false);
   const [me, setMe] = useState<User | null>(null);
   const router = useRouter();
   const pathName = usePathname();
@@ -89,20 +89,8 @@ export default function SessionProvider({ children }: { children: React.ReactNod
     localStorage.removeItem('token');
   }
 
-  function toggleLoadQuests() {
-    if (pathName === '/dashboard') {
-      setLoadQuests(!loadQuests);
-    }
-  }
-
-  function toggleLoadRewards() {
-    if (pathName === '/shop') {
-      setLoadRewards(!loadRewards);
-    }
-  }
-
   return (
-    <SessionContext.Provider value={{ isSignedIn, me, loadQuests, loadRewards, signin, signup, signout, toggleLoadQuests, toggleLoadRewards }}>
+    <SessionContext.Provider value={{ isSignedIn, me, loadQuests, loadRewards, signin, signup, signout, setLoadRewards, setLoadQuests }}>
       { children }
     </SessionContext.Provider>
   );

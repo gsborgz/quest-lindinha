@@ -6,25 +6,23 @@ export default function Button(props: ButtonProps) {
   const teal = 'bg-teal-400';
   const textWhite = 'text-white';
 
+  if (props.to) {
+    <Link
+      href={ props.to }
+      className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} ${props.full ? 'w-full' : ''} font-bold py-2 px-4 rounded flex gap-2 items-center justify-center` }
+    >
+      { props.icon || null }
+      { props.label || null }
+    </Link>
+  }
+
   return (
-    <>
-      { props.to ? (
-        <Link
-          href={ props.to }
-          className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} font-bold py-2 px-4 rounded w-full flex gap-2 items-center justify-center` }
-        >
-          { props.icon || null }
-          { props.label || null }
-        </Link>
-      ) : (
-        <button
-          type={ props.type }
-          className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} font-bold py-2 px-4 rounded w-full flex gap-2 items-center justify-center` } onClick={ props.onClick }
-        >
-          { props.icon || null }
-          { props.label || null }
-        </button>
-      ) }
-    </>
+    <button
+      type={ props.type }
+      className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} ${props.full ? 'w-full' : ''} font-bold py-2 px-4 rounded flex gap-2 items-center justify-center` } onClick={ props.onClick }
+    >
+      { props.icon || null }
+      { props.label || null }
+    </button>
   );
 }
