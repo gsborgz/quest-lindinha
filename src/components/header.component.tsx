@@ -2,15 +2,11 @@
 
 import React, { useContext } from 'react';
 import Avatar from '@/components/avatar.component';
-import { Bars3Icon, PlusIcon } from '@heroicons/react/24/solid';
+import { Bars3Icon } from '@heroicons/react/24/solid';
 import { MenuContext } from '@/contexts/menu.context';
 import { SessionContext } from '@/contexts/session.context';
-import { QuestButtonData } from '@/types/quest.type';
-import { ModalContext } from '@/contexts/modal.context';
-import QuestDialog from '@/dialogs/quest.dialog';
-import Button from '@/components/button.component';
-import RewardDialog from '@/dialogs/reward.dialog';
-import { RewardButtonData } from '@/types/reward.type';
+import { CreateRewardButton } from '@/components/create-reward-button.component';
+import { CreateQuestButton } from '@/components/create-quest-button.component';
 
 export default function Header() {
   const { isSignedIn } = useContext(SessionContext);
@@ -34,9 +30,9 @@ export default function Header() {
           </button>
 
           <div className='flex items-center justify-start gap-4'>
-            <QuestButton />
+            <CreateQuestButton />
 
-            <RewardButton />
+            <CreateRewardButton />
           </div>
         </div>
 
@@ -46,38 +42,4 @@ export default function Header() {
       </nav>
     </header>
   );
-}
-
-function QuestButton(props: QuestButtonData) {
-  const { showModal, toggleModal } = useContext(ModalContext);
-  const icon = <PlusIcon className='h-5 w-5 ml-[-4px] text-neutral-50' />
-
-  function setModal() {
-    if (!showModal) {
-      const dialog = <QuestDialog quest={props.quest}  />;
-
-      toggleModal(dialog);
-    } else {
-      toggleModal(null)
-    }
-  }
-
-  return <Button icon={ icon } label='Missão' onClick={ setModal } primary />
-}
-
-function RewardButton(props: RewardButtonData) {
-  const { showModal, toggleModal } = useContext(ModalContext);
-  const icon = <PlusIcon className='h-5 w-5 ml-[-4px] text-neutral-50' />
-
-  function setModal() {
-    if (!showModal) {
-      const dialog = <RewardDialog reward={props.reward} />;
-
-      toggleModal(dialog);
-    } else {
-      toggleModal(null)
-    }
-  }
-
-  return <Button icon={ icon } label='Recompensa' onClick={ setModal } primary />
 }

@@ -15,6 +15,7 @@ export type RewardDialogData = {
 
 export type RewardButtonData = {
   reward?: Reward;
+  full?: boolean;
 }
 
 export type RewardCardProps = {

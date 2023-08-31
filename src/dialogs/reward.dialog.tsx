@@ -10,7 +10,6 @@ import { SnackbarType } from '@/types/snackbar.type';
 import Button from '@/components/button.component';
 import Input from '@/components/input.component';
 import { rewardService } from '@/services/reward.service';
-import { usePathname } from 'next/navigation';
 import { SessionContext } from '@/contexts/session.context';
 
 export default function RewardDialog(props: RewardDialogData) {
@@ -21,8 +20,7 @@ export default function RewardDialog(props: RewardDialogData) {
   const [value, setValue] = useState<number>(100);
   const title = props.reward?.name || 'Nova Recompensa';
   const icon = <GiftIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
-  const { toggleLoadRewards } = useContext(SessionContext);
-  const pathName = usePathname();
+  const { setLoadRewards } = useContext(SessionContext);
 
   function save(event: React.FormEvent) {
     event.preventDefault();
@@ -44,7 +42,7 @@ export default function RewardDialog(props: RewardDialogData) {
       .then(() => {
         openSnackbar('Recompensa criada com sucesso!', SnackbarType.SUCCESS);
         closeModal();
-        toggleLoadRewards();
+        setLoadRewards(true);
       })
       .catch(() => {
         openSnackbar('Erro ao criar recompensa!', SnackbarType.ERROR);
