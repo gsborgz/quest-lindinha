@@ -23,3 +23,11 @@ export type QuestButtonData = {
   quest?: Quest;
 }
 
+export type QuestCardProps = {
+  quest: Quest;
+}
+
+export type CompleteQuestButtonProps = {
+  value: number;
+  questId: string;
+}

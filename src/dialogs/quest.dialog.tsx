@@ -1,6 +1,6 @@
 import Modal from '@/components/modal.component';
 import { MapIcon } from '@heroicons/react/24/solid'
-import { Quest, QuestDialogData } from '@/types/quest.type';
+import { Quest, QuestDialogData, QuestStatus } from '@/types/quest.type';
 import Input from '@/components/input.component';
 import Button from '@/components/button.component';
 import { useContext, useState } from 'react';
@@ -8,10 +8,12 @@ import { ModalContext } from '@/contexts/modal.context';
 import { questService } from '@/services/quest.service';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/snackbar.type';
+import { SessionContext } from '../contexts/session.context';
 
 export default function QuestDialog(props: QuestDialogData) {
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
+  const { setLoadQuests } = useContext(SessionContext);
   const [name, setName] = useState<string>('');
   const [value, setValue] = useState<number>(100);
   const [date, setDate] = useState<string>('');
@@ -27,13 +29,21 @@ export default function QuestDialog(props: QuestDialogData) {
     quest.value = value;
     quest.date = new Date(date);
 
+    if (props.quest?._id) {
+      quest._id = props.quest?._id;
+      quest.status = props.quest?.status;
+    } else {
+      quest.status = QuestStatus.PENDING;
+    }
+
     questService.upsert(quest)
       .then(() => {
-        openSnackbar('Missão criada com sucesso!', SnackbarType.SUCCESS);
+        openSnackbar('Certo! Missão iniciada.', SnackbarType.SUCCESS);
         closeModal();
+        setLoadQuests(true);
       })
       .catch(() => {
-        openSnackbar('Erro ao criar missão!', SnackbarType.ERROR);
+        openSnackbar('Vish... Deu ruim ao criar a missão!', SnackbarType.ERROR);
       });
   }
 
