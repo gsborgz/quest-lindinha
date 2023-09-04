@@ -10,7 +10,7 @@ import { SessionContext } from '@/contexts/session.context';
 
 export default function Sidebar() {
   const { menuActive } = useContext(MenuContext);
-  const { isSignedIn, signout } = useContext(SessionContext);
+  const { user, signout } = useContext(SessionContext);
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme, setTheme } = useTheme();
   const sunIcon = <SunIcon className='h-5 w-5 text-neutral-50' />;
@@ -28,7 +28,7 @@ export default function Sidebar() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted || !isSignedIn) {
+  if (!mounted || !user) {
     return null
   }
 

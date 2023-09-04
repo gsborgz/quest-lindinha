@@ -8,33 +8,32 @@ import { useRouter, usePathname } from 'next/navigation';
 import { User } from '@/types/user.type';
 
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
-  const [me, setMe] = useState<User | null>(null);
+  const [checkSession, setCheckSession] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null | undefined>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const publicRoutes = ['/', '/signup'];
   const router = useRouter();
   const pathName = usePathname();
 
   useEffect(() => {
-    const isSignedIn = localStorage.getItem('isSignedIn');
-    const token = localStorage.getItem('token');
+    setToken(localStorage.getItem('token'));
+    setCheckSession(true);
+  }, []);
 
-    if (isSignedIn === 'true' && token) {
-      setIsSignedIn(true);
+  if (token && publicRoutes.includes(pathName)) {
+    router.push('/dashboard');
+  }
 
-      if (pathName === '/' || pathName === '/signup') {
-        router.push('/dashboard');
-      }
-    } else {
-      setIsSignedIn(false);
-      clearLocalStorage();
+  if (!token && !publicRoutes.includes(pathName)) {
+    router.push('/');
+  }
 
-      if (pathName === '/dashboard' || pathName === '/shop') {
-        router.push('/');
-      }
-    }
-  }, [isSignedIn, me, pathName, router]);
-  
+  if (checkSession) {
+    checkSessionData();
+  }
+
   async function signin(data: SignInData) {
     authService.signin(data)
       .then(response => logIn(response as SignInResult))
@@ -49,48 +48,64 @@ export default function SessionProvider({ children }: { children: React.ReactNod
 
   async function signout() {
     authService.signout()
+      .then(() => logOut())
       .catch(error => console.log(error))
       .finally(() => {
-        clearLocalStorage();
-        setIsSignedIn(false);
+        clearTokenData();
       });
   }
 
   async function logIn(response: SignInResult) {
-    if (response.token) {
-      setToken(response);
-      setMeData();
-  
-      if (isSignedIn) {
-        router.push('/dashboard'); 
-      }
+    const { token } = response;
+
+    if (token) {
+      setTokenData(token);
+
+      await setUserData();
+
+      router.push('/dashboard');
     }
   }
 
-  async function setMeData() {
-    authService.me()
+  function logOut() {
+    setUser(null);
+    clearTokenData();
+
+    router.push('/');
+  }
+
+  function checkSessionData() {
+    if (token && publicRoutes.includes(pathName)) {
+      setUserData();
+    }
+
+    setCheckSession(false);
+  }
+
+  async function setUserData() {
+    await authService.me()
       .then(user => {
-        localStorage.setItem('isSignedIn', 'true');
-
-        setMe(user);
-        setIsSignedIn(true);
+        setUser(user);
       })
-      .catch(error => console.log(error));
+      .catch(() => {
+        clearTokenData();
+
+        router.push('/');
+      });
   }
 
-  function setToken(response: SignInResult) {
-    const { token } = response;
-
+  function setTokenData(token: string) {
     localStorage.setItem('token', token);
+    setToken(token);
   }
 
-  function clearLocalStorage() {
-    localStorage.setItem('isSignedIn', 'false');
+  function clearTokenData() {
     localStorage.removeItem('token');
+    setToken(null);
   }
 
   return (
-    <SessionContext.Provider value={{ isSignedIn, me, loadQuests, loadRewards, signin, signup, signout, setLoadRewards, setLoadQuests }}>
+    <SessionContext.Provider value={{ user, loadQuests, loadRewards, signin, signup, signout, setLoadRewards, setLoadQuests }}>
       { children }
     </SessionContext.Provider>
   );

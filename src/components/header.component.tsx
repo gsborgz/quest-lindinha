@@ -9,10 +9,10 @@ import { CreateRewardButton } from '@/components/create-reward-button.component'
 import { CreateQuestButton } from '@/components/create-quest-button.component';
 
 export default function Header() {
-  const { isSignedIn } = useContext(SessionContext);
+  const { user } = useContext(SessionContext);
   const { toggleMenu } = useContext(MenuContext);
 
-  if (!isSignedIn) {
+  if (!user) {
     return null;
   }
 
