@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Input from '@/components/input.component';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SignInData } from '@/types/auth.type';
 import Button from '@/components/button.component';
 import { SessionContext } from '@/contexts/session.context';
@@ -10,12 +10,18 @@ import Divider from '@/components/divider.component';
 import Link from 'next/link';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/snackbar.type';
+import Loading from '@/components/loading.component';
 
 export default function Home() {
   const { openSnackbar } = useContext(SnackbarContext);
   const { signin } = useContext(SessionContext);
+  const [mounted, setMounted] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   function logIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -33,6 +39,14 @@ export default function Home() {
       .catch(() => {
         openSnackbar('Erro ao efetuar login!', SnackbarType.ERROR);
       });
+  }
+
+  if (!mounted) {
+    return (
+      <section className='flex flex-row justify-between items-center min-h-full'>
+        <Loading />
+      </section>
+    ); 
   }
 
   return (

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SessionContext } from '@/contexts/session.context';
 import Input from '@/components/input.component';
 import { SignUpData } from '@/types/auth.type';
@@ -10,14 +10,20 @@ import Link from 'next/link';
 import Divider from '@/components/divider.component';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/snackbar.type';
+import Loading from '@/components/loading.component';
 
 export default function SignUp() {
   const { openSnackbar } = useContext(SnackbarContext);
-  const { signup } = useContext(SessionContext);1
+  const { signup } = useContext(SessionContext);
+  const [mounted, setMounted] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   function logIn(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,6 +45,14 @@ export default function SignUp() {
       .catch(() => {
         openSnackbar('Erro ao criar conta!', SnackbarType.ERROR);
       });
+  }
+
+  if (!mounted) {
+    return (
+      <section className='flex flex-row justify-between items-center min-h-full'>
+        <Loading />
+      </section>
+    ); 
   }
 
   return (

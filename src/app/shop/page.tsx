@@ -8,16 +8,18 @@ import { SnackbarType } from '@/types/snackbar.type';
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
+import Loading from '@/components/loading.component';
 
 export default function Shop() {
   const [mounted, setMounted] = useState<boolean>(false);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [status, setStatus] = useState<RewardStatus>(RewardStatus.AVAILABLE);
+  const [loading, setLoading] = useState<boolean>(true);
   const { openSnackbar } = useContext(SnackbarContext);
   const { loadRewards, setLoadRewards } = useContext(SessionContext);
 
-  function findRewards() {
-    rewardService.findAll({ status })
+  async function findRewards() {
+    await rewardService.findAll({ status })
       .then((rewards) => {
         setRewards(rewards || []);
       })
@@ -29,13 +31,27 @@ export default function Shop() {
       });
   }
 
+  async function init() {
+    await findRewards();
+
+    setLoading(false);
+  }
+
   useEffect(() => {
     setMounted(true);
     setLoadRewards(true);
   }, [setLoadRewards]);
 
   if (mounted && loadRewards) {
-    findRewards();
+    init();
+  }
+
+  if (loading) {
+    return (
+      <section className='flex flex-wrap items-center justify-center h-[93%]'>
+        <Loading size={20} />
+      </section>
+    );
   }
 
   if (rewards.length) {
@@ -48,7 +64,7 @@ export default function Shop() {
 
   return (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>Você ainda não cadastrou nenhuma recompensa</span>
+      <span>Você não possui recompensas disponíveis</span>
       <div className='flex flex-row items-center gap-1'>
         <span>Experimente criar uma clicando nesse botão:</span>
         <CreateRewardButton />
