@@ -60,26 +60,33 @@ export default function Shop() {
       </section>
     );
   }
-  if (rewards.length) {
-    return (
-      <section className='flex flex-col justify-center gap-10'>
-        <div className='flex items-center justify-center rounded-md'>
-          <StatusSelect status={ rewardStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
-        </div>
 
-        <div className='flex flex-wrap items-center justify-center gap-3'>
-          { rewards.map((reward) => <RewardCard key={ reward._id } reward={ reward } />) }
-        </div>
-      </section>
-    );
-  }
-
-  return (
+  const noAvailableRewardsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
       <span>Você não possui recompensas disponíveis</span>
       <div className='flex flex-row items-center gap-1'>
         <span>Experimente criar uma clicando nesse botão:</span>
         <CreateRewardButton />
+      </div>
+    </section>
+  );
+
+  const noClaimedRewardsMessage = (
+    <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
+      <span>Você não possui recompensas resgatadas</span>
+    </section>
+  );
+
+  return (
+    <section className='flex flex-col justify-center gap-10'>
+      <div className='flex items-center justify-center rounded-md'>
+        <StatusSelect status={ rewardStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
+      </div>
+
+      <div className='flex flex-wrap items-center justify-center gap-3'>
+        { !rewards.length && status === RewardStatus.AVAILABLE ? noAvailableRewardsMessage : null }
+        { !rewards.length && status === RewardStatus.CLAIMED ? noClaimedRewardsMessage : null }
+        { rewards.map((reward) => <RewardCard key={ reward._id } reward={ reward } />) }
       </div>
     </section>
   );

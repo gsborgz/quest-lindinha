@@ -9,12 +9,14 @@ import { questService } from '@/services/quest.service';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { CreateQuestButton } from '@/components/create-quest-button.component';
 import Loading from '@/components/loading.component';
+import StatusSelect from '../../components/status-select.component';
 
 export default function Dashboard() {
   const [mounted, setMounted] = useState<boolean>(false);
   const [quests, setQuests] = useState<Quest[]>([]);
   const [status, setStatus] = useState<QuestStatus>(QuestStatus.PENDING);
   const [loading, setLoading] = useState<boolean>(true);
+  const questStatus = [QuestStatus.PENDING, QuestStatus.COMPLETED, QuestStatus.CANCELED];
   const { openSnackbar } = useContext(SnackbarContext);
   const { loadQuests, setLoadQuests } = useContext(SessionContext);
 
@@ -37,6 +39,11 @@ export default function Dashboard() {
     setLoading(false);
   }
 
+  function updateSelectedStatus(status: QuestStatus) {
+    setStatus(status);
+    setLoadQuests(true);
+  }
+
   useEffect(() => {
     setMounted(true);
     setLoadQuests(true);
@@ -54,21 +61,40 @@ export default function Dashboard() {
     );
   }
 
-  if (quests.length) {
-    return (
-      <section className='flex flex-wrap items-center justify-center gap-10'>
-        { quests.map((quest) => <QuestCard key={ quest._id } quest={ quest } />) }
-      </section>
-    );
-  }
-
-  return (
+  const noPendingQuestsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
       <span>Você não possui missões para completar</span>
       <div className='flex flex-row items-center gap-1'>
         <span>Experimente criar uma clicando nesse botão:</span>
         <CreateQuestButton />
       </div>
+    </section>
+  );
+
+  const noCompletedQuestsMessage = (
+    <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
+      <span>Você não possui missões completas</span>
+    </section>
+  );
+
+  const noCanceledQuestsMessage = (
+    <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
+      <span>Você não possui missões canceladas</span>
+    </section>
+  );
+
+  return (
+    <section className='flex flex-col justify-center gap-10'>
+      <div className='flex items-center justify-center rounded-md'>
+        <StatusSelect status={ questStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
+      </div>
+
+      <section className='flex flex-wrap items-center justify-center gap-10'>
+        { !quests.length && status === QuestStatus.PENDING ? noPendingQuestsMessage : null }
+        { !quests.length && status === QuestStatus.COMPLETED ? noCompletedQuestsMessage : null }
+        { !quests.length && status === QuestStatus.CANCELED ? noCanceledQuestsMessage : null }
+        { quests.map((quest) => <QuestCard key={ quest._id } quest={ quest } />) }
+      </section>
     </section>
   );
 }
