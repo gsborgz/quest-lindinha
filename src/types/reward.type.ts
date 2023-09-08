@@ -29,5 +29,5 @@ export type ClaimRewardButtonProps = {
 
 export enum RewardStatus {
   AVAILABLE = 'available',
-  CLAIMED = 'claimed',
+  CLAIMED = 'claimed'
 }

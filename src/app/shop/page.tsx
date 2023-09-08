@@ -9,12 +9,14 @@ import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
 import Loading from '@/components/loading.component';
+import StatusSelect from '@/components/status-select.component';
 
 export default function Shop() {
   const [mounted, setMounted] = useState<boolean>(false);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [status, setStatus] = useState<RewardStatus>(RewardStatus.AVAILABLE);
   const [loading, setLoading] = useState<boolean>(true);
+  const rewardStatus = [RewardStatus.AVAILABLE, RewardStatus.CLAIMED];
   const { openSnackbar } = useContext(SnackbarContext);
   const { loadRewards, setLoadRewards } = useContext(SessionContext);
 
@@ -37,6 +39,11 @@ export default function Shop() {
     setLoading(false);
   }
 
+  function updateSelectedStatus(status: RewardStatus) {
+    setStatus(status);
+    setLoadRewards(true);
+  }
+
   useEffect(() => {
     setMounted(true);
     setLoadRewards(true);
@@ -53,11 +60,16 @@ export default function Shop() {
       </section>
     );
   }
-
   if (rewards.length) {
     return (
-      <section className='flex flex-wrap items-center justify-center gap-10'>
-        { rewards.map((reward) => <RewardCard key={ reward._id } reward={ reward } />) }
+      <section className='flex flex-col justify-center gap-10'>
+        <div className='flex items-center justify-center rounded-md'>
+          <StatusSelect status={ rewardStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
+        </div>
+
+        <div className='flex flex-wrap items-center justify-center gap-3'>
+          { rewards.map((reward) => <RewardCard key={ reward._id } reward={ reward } />) }
+        </div>
       </section>
     );
   }
