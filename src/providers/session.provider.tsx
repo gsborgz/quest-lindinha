@@ -10,29 +10,42 @@ import { User } from '@/types/user.type';
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
-  const [checkSession, setCheckSession] = useState<boolean>(false);
   const [token, setToken] = useState<string | null | undefined>(null);
   const [user, setUser] = useState<User | null>(null);
-  const publicRoutes = ['/', '/signup'];
   const router = useRouter();
   const pathName = usePathname();
 
   useEffect(() => {
+    const publicRoutes = ['/', '/signup'];
+
     setToken(localStorage.getItem('token'));
-    setCheckSession(true);
-  }, []);
 
-  if (token && publicRoutes.includes(pathName)) {
-    router.push('/dashboard');
-  }
+    console.log(token);
 
-  if (!token && !publicRoutes.includes(pathName)) {
-    router.push('/');
-  }
+    if (token && publicRoutes.includes(pathName)) {
+      
+      console.log('already logged');
+      
+      router.push('/dashboard');
+    }
+  
+    if (!token && !publicRoutes.includes(pathName)) {
+      console.log('no token');
 
-  if (checkSession) {
-    checkSessionData();
-  }
+      router.push('/');
+    }
+
+    if (token && publicRoutes.includes(pathName)) {
+      authService.me()
+        .then(user => {
+          setUser(user);
+        })
+        .catch(() => {
+          clearTokenData();
+        });
+    }
+
+  }, [pathName, router, token]);
 
   async function signin(data: SignInData) {
     authService.signin(data)
@@ -61,37 +74,19 @@ export default function SessionProvider({ children }: { children: React.ReactNod
     if (token) {
       setTokenData(token);
 
-      await setUserData();
-
-      router.push('/dashboard');
+      authService.me()
+        .then(user => {
+          setUser(user);
+        })
+        .catch(() => {
+          clearTokenData();
+        });
     }
   }
 
   function logOut() {
     setUser(null);
     clearTokenData();
-
-    router.push('/');
-  }
-
-  function checkSessionData() {
-    if (token && publicRoutes.includes(pathName)) {
-      setUserData();
-    }
-
-    setCheckSession(false);
-  }
-
-  async function setUserData() {
-    await authService.me()
-      .then(user => {
-        setUser(user);
-      })
-      .catch(() => {
-        clearTokenData();
-
-        router.push('/');
-      });
   }
 
   function setTokenData(token: string) {
