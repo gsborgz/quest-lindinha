@@ -4,7 +4,7 @@ export default function StatusSelect<T>(props: StatusSelectProps<T>) {
   return (
     <section className='flex gap-[0.15rem]'>
       { props.status.map((status, index) => (
-        <button key={ `${status}-${index}` } type='button' onClick={ () => props.onClick(status) } className={ `flex items-center justify-center p-2 w-28 ${bgColor(status, props.selectedStatus)} ${rounded(props.status.length, index)}`}>
+        <button key={ `${status}-${index}` } type='button' onClick={ () => props.onClick(status) } className={ `flex items-center justify-center shadow-md p-2 w-28 ${bgColor(status, props.selectedStatus)} ${rounded(props.status.length, index)}`}>
           { `${status}` }
         </button>
       )) }

@@ -88,7 +88,7 @@ function SidebarButton(props: SidebarButtonProps) {
     <button
       aria-label={ props.ariaLabel }
       type='button'
-      className='flex items-center justify-center transition-colors hover:bg-neutral-200 dark:hover:bg-zinc-700 px-5 py-5'
+      className='flex items-center justify-start transition-colors hover:bg-neutral-200 dark:hover:bg-zinc-700 px-5 py-5 w-full'
       onClick={ props.action }
     >
       <div className='flex h-5 items-center'>
