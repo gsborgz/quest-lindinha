@@ -20,18 +20,11 @@ export default function SessionProvider({ children }: { children: React.ReactNod
 
     setToken(localStorage.getItem('token'));
 
-    console.log(token);
-
     if (token && publicRoutes.includes(pathName)) {
-      
-      console.log('already logged');
-      
       router.push('/dashboard');
     }
   
     if (!token && !publicRoutes.includes(pathName)) {
-      console.log('no token');
-
       router.push('/');
     }
 
