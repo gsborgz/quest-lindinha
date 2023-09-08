@@ -1,6 +1,6 @@
 import { PropsWithChildren, useContext } from 'react';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { ModalProps } from '@/types/modal.type';
+import { ModalProps } from '@/types/components/modal.type';
 import { ModalContext } from '@/contexts/modal.context';
 
 export default function Modal(props: PropsWithChildren<ModalProps>) {

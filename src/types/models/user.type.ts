@@ -1,5 +1,5 @@
-import { Reward } from '@/types/reward.type';
-import { Quest } from '@/types/quest.type';
+import { Reward } from '@/types/models/reward.type';
+import { Quest } from '@/types/models/quest.type';
 
 export class User {
   public _id: string;

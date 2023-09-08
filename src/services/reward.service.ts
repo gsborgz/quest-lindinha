@@ -1,5 +1,5 @@
 import BaseService from '@/services/base.service';
-import { Reward } from '@/types/reward.type';
+import { Reward } from '@/types/models/reward.type';
 import { RequestOptions } from '@/types/base.type';
 
 export default class RewardService extends BaseService {

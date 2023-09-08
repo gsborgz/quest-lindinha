@@ -4,12 +4,12 @@ import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
 import { SessionContext } from '@/contexts/session.context';
 import Input from '@/components/input.component';
-import { SignUpData } from '@/types/auth.type';
+import { SignUpData } from '@/types/models/auth.type';
 import Button from '@/components/button.component';
 import Link from 'next/link';
 import Divider from '@/components/divider.component';
 import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
 
 export default function SignUp() {

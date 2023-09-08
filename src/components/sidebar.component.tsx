@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '@/contexts/menu.context';
-import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/menu.type';
+import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/components/menu.type';
 import { SessionContext } from '@/contexts/session.context';
 
 export default function Sidebar() {

@@ -1,10 +1,10 @@
 'use client'
 
-import { ClaimRewardButtonProps, Reward, RewardCardProps, RewardStatus } from '@/types/reward.type';
+import { ClaimRewardButtonProps, Reward, RewardCardProps, RewardStatus } from '@/types/models/reward.type';
 import { rewardService } from '@/services/reward.service';
 import { useContext, useEffect, useState } from 'react';
 import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';

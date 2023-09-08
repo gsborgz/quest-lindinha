@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/24/solid';
 import QuestDialog from '@/dialogs/quest.dialog';
 import Button from '@/components/button.component';
-import { QuestButtonData } from '@/types/quest.type';
+import { QuestButtonData } from '@/types/models/quest.type';
 import { ModalContext } from '@/contexts/modal.context';
 import { useContext } from 'react';
 

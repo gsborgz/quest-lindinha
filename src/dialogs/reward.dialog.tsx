@@ -1,12 +1,12 @@
 'use client'
 
-import { Reward, RewardDialogData, RewardStatus } from '@/types/reward.type';
+import { Reward, RewardDialogData, RewardStatus } from '@/types/models/reward.type';
 import Modal from '@/components/modal.component';
 import { GiftIcon } from '@heroicons/react/24/solid';
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/contexts/modal.context';
 import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 import Button from '@/components/button.component';
 import Input from '@/components/input.component';
 import { rewardService } from '@/services/reward.service';

@@ -1,5 +1,5 @@
 import BaseService from '@/services/base.service';
-import { Quest } from '@/types/quest.type';
+import { Quest } from '@/types/models/quest.type';
 import { RequestOptions } from '@/types/base.type';
 
 export default class QuestService extends BaseService {

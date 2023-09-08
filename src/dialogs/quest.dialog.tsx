@@ -1,13 +1,13 @@
 import Modal from '@/components/modal.component';
 import { MapIcon } from '@heroicons/react/24/solid'
-import { Quest, QuestDialogData, QuestStatus } from '@/types/quest.type';
+import { Quest, QuestDialogData, QuestStatus } from '@/types/models/quest.type';
 import Input from '@/components/input.component';
 import Button from '@/components/button.component';
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/contexts/modal.context';
 import { questService } from '@/services/quest.service';
 import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 import { SessionContext } from '../contexts/session.context';
 
 export default function QuestDialog(props: QuestDialogData) {

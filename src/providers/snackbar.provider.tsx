@@ -1,6 +1,6 @@
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { useState } from 'react';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 
 export default function SnackbarProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState<boolean>(false);

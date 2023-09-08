@@ -1,4 +1,4 @@
-import { ButtonProps } from '@/types/button.type';
+import { ButtonProps } from '@/types/components/button.type';
 import Link from 'next/link';
 
 export default function Button(props: ButtonProps) {

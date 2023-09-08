@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { ModalContext } from '@/contexts/modal.context';
-import { ModalContent } from '@/types/modal.type';
+import { ModalContent } from '@/types/components/modal.type';
 
 export default function ModalProvider({ children }: { children: React.ReactNode }) {
   const [showModal, setShowModal] = useState(false);

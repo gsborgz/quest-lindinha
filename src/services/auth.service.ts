@@ -1,6 +1,6 @@
 import BaseService from '@/services/base.service';
-import { PasswordResetRequestData, SignInData, SignUpData, SignInResult } from '@/types/auth.type';
-import { User } from '@/types/user.type';
+import { PasswordResetRequestData, SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
+import { User } from '@/types/models/user.type';
 import { BaseMessage, RequestOptions } from '@/types/base.type';
 
 export default class AuthService extends BaseService {

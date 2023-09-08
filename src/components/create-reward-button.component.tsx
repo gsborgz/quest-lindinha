@@ -2,7 +2,7 @@
 
 import { PlusIcon } from '@heroicons/react/24/solid';
 import { ModalContext } from '@/contexts/modal.context';
-import { RewardButtonData } from '@/types/reward.type';
+import { RewardButtonData } from '@/types/models/reward.type';
 import { useContext } from 'react';
 import RewardDialog from '@/dialogs/reward.dialog';
 import Button from '@/components/button.component';

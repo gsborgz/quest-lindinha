@@ -3,13 +3,13 @@
 import Image from 'next/image';
 import Input from '@/components/input.component';
 import { useContext, useEffect, useState } from 'react';
-import { SignInData } from '@/types/auth.type';
+import { SignInData } from '@/types/models/auth.type';
 import Button from '@/components/button.component';
 import { SessionContext } from '@/contexts/session.context';
 import Divider from '@/components/divider.component';
 import Link from 'next/link';
 import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
 
 export default function Home() {

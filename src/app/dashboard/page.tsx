@@ -1,12 +1,12 @@
 'use client'
 
-import { CompleteQuestButtonProps, Quest, QuestCardProps, QuestStatus } from '@/types/quest.type';
+import { CompleteQuestButtonProps, Quest, QuestCardProps, QuestStatus } from '@/types/models/quest.type';
 import { useContext, useEffect, useState } from 'react';
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SessionContext } from '@/contexts/session.context';
 import { questService } from '@/services/quest.service';
-import { SnackbarType } from '@/types/snackbar.type';
+import { SnackbarType } from '@/types/components/snackbar.type';
 import { CreateQuestButton } from '@/components/create-quest-button.component';
 import Loading from '@/components/loading.component';
 

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { SessionContext } from '@/contexts/session.context';
-import { SignInData, SignUpData, SignInResult } from '@/types/auth.type';
+import { SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
 import { authService } from '@/services/auth.service';
 import { useRouter, usePathname } from 'next/navigation';
-import { User } from '@/types/user.type';
+import { User } from '@/types/models/user.type';
 
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
