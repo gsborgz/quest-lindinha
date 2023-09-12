@@ -1,3 +1,5 @@
+import { UserLanguage, UserTheme } from '@/types/models/user.type';
+
 export class SignInResult {
 
   public token: string;
@@ -24,6 +26,8 @@ export class SignUpData {
   public email: string;
   public password: string;
   public password_confirmation: string;
+  public language: UserLanguage;
+  public theme: UserTheme;
   public expires_in: number;
 
   constructor(name: string, email: string, password: string, password_confirmation: string, expires_in: number = 64000) {
