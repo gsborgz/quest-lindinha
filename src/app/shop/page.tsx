@@ -80,7 +80,7 @@ export default function Shop() {
   return (
     <section className='flex flex-col justify-center gap-10'>
       <div className='flex items-center justify-center rounded-md'>
-        <StatusSelect status={ rewardStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
+        <StatusSelect model="reward" status={ rewardStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
       </div>
 
       <div className='flex flex-wrap items-center justify-center gap-3'>

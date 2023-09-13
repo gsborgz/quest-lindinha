@@ -86,7 +86,7 @@ export default function Dashboard() {
   return (
     <section className='flex flex-col justify-center gap-10'>
       <div className='flex items-center justify-center rounded-md'>
-        <StatusSelect status={ questStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
+        <StatusSelect model="quest" status={ questStatus } selectedStatus={ status } onClick={ (status) => updateSelectedStatus(status) } />
       </div>
 
       <section className='flex flex-wrap items-center justify-center gap-10'>
