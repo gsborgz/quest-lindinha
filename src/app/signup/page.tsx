@@ -12,11 +12,13 @@ import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
 import { DictionaryContext } from '@/contexts/dictionary.context';
+import { UserTheme } from '@/types/models/user.type';
+import { useTheme } from 'next-themes';
 
 export default function SignUp() {
   const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
-  const { signup } = useContext(SessionContext);
+  const { language, theme, signup } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -38,7 +40,7 @@ export default function SignUp() {
       return;
     }
 
-    const data = new SignUpData(name, email, password, passwordConfirmation);
+    const data = new SignUpData(name, email, password, passwordConfirmation, language, theme);
 
     signup(data)
       .then(() => {

@@ -7,16 +7,15 @@ import { MenuContext } from '@/contexts/menu.context';
 import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
 import { CreateQuestButton } from '@/components/create-quest-button.component';
-import { useTheme } from 'next-themes';
+import { UserTheme } from '@/types/models/user.type';
 
 export default function Header() {
   const [mounted, setMounted] = React.useState(false);
-  const { user } = useContext(SessionContext);
+  const { user, theme, changeTheme } = useContext(SessionContext);
   const { toggleMenu } = useContext(MenuContext);
-  const { resolvedTheme, setTheme } = useTheme();
   const sunIcon = <SunIcon className='h-5 w-5 text-neutral-50' />;
   const moonIcon = <MoonIcon className='h-5 w-5 text-slate-700' />;
-  const isDarkTheme = resolvedTheme === 'dark';
+  const isDarkTheme = theme === UserTheme.DARK;
 
   useEffect(() => {
     setMounted(true);
@@ -58,7 +57,7 @@ export default function Header() {
           aria-label='Change Theme'
           type='button'
           className='flex items-center justify-center rounded-lg p-2 mx-3 hover:bg-neutral-200 dark:hover:bg-zinc-700 py-[0.65rem] px-2'
-          onClick={ () => setTheme(isDarkTheme ? 'light' : 'dark') }
+          onClick={ () => changeTheme(isDarkTheme ? UserTheme.LIGHT : UserTheme.DARK) }
         >
           { isDarkTheme ? sunIcon : moonIcon }
         </button>

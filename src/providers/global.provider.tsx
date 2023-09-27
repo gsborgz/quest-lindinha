@@ -8,16 +8,16 @@ import DictionaryProvider from '@/providers/dictionary.provider';
 
 export default function GlobalProviders({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
-      <ThemeProvider attribute="class">
-        <DictionaryProvider>
-          <SnackbarProvider>
-            <ModalProvider>
-              { children }
-            </ModalProvider>
-          </SnackbarProvider>
-        </DictionaryProvider>
-      </ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider attribute="class">
+      <SessionProvider>
+          <DictionaryProvider>
+            <SnackbarProvider>
+              <ModalProvider>
+                { children }
+              </ModalProvider>
+            </SnackbarProvider>
+          </DictionaryProvider>
+      </SessionProvider>
+    </ThemeProvider>
   );
 }

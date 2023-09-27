@@ -1,6 +1,6 @@
 import BaseService from '@/services/base.service';
 import { PasswordResetRequestData, SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
-import { User } from '@/types/models/user.type';
+import { User, UserLanguage } from '@/types/models/user.type';
 import { BaseMessage, RequestOptions } from '@/types/base.type';
 
 export default class AuthService extends BaseService {
@@ -48,6 +48,24 @@ export default class AuthService extends BaseService {
     options.uri = '/auth/signout';
 
     return this.delete(options);
+  }
+
+  public async setLanguage(language: UserLanguage): Promise<BaseMessage> {
+    const options = new RequestOptions();
+
+    options.headers = this.getAuthorizationHeader();
+    options.uri = `/auth/set-language/${language}`;
+
+    return this.put(options);
+  }
+
+  public async setTheme(theme: string): Promise<BaseMessage> {
+    const options = new RequestOptions();
+
+    options.headers = this.getAuthorizationHeader();
+    options.uri = `/auth/set-theme/${theme}`;
+
+    return this.put(options);
   }
 
 }
