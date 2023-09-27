@@ -9,9 +9,11 @@ import { questService } from '@/services/quest.service';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { CreateQuestButton } from '@/components/create-quest-button.component';
 import Loading from '@/components/loading.component';
-import StatusSelect from '../../components/status-select.component';
+import StatusSelect from '@/components/status-select.component';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function Dashboard() {
+  const { locale } = useContext(DictionaryContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [quests, setQuests] = useState<Quest[]>([]);
   const [status, setStatus] = useState<QuestStatus>(QuestStatus.PENDING);
@@ -26,7 +28,7 @@ export default function Dashboard() {
         setQuests(quests || []);
       })
       .catch(() => {
-        openSnackbar('Erro ao carregar missões!', SnackbarType.ERROR);
+        openSnackbar(locale('text.load_quests_fail'), SnackbarType.ERROR);
       })
       .finally(() => {
         setLoadQuests(false);
@@ -63,9 +65,9 @@ export default function Dashboard() {
 
   const noPendingQuestsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>Você não possui missões para completar</span>
+      <span>{ locale('text.no_quests') }</span>
       <div className='flex flex-row items-center gap-1'>
-        <span>Experimente criar uma clicando nesse botão:</span>
+        <span>{ locale('text.create_quest_tip') }</span>
         <CreateQuestButton />
       </div>
     </section>
@@ -73,13 +75,13 @@ export default function Dashboard() {
 
   const noCompletedQuestsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>Você não possui missões completas</span>
+      <span>{ locale('text.no_completed_quests') }</span>
     </section>
   );
 
   const noCanceledQuestsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>Você não possui missões canceladas</span>
+      <span>{ locale('text.no_canceled_quests') }</span>
     </section>
   );
 
@@ -126,16 +128,17 @@ function QuestCard(props: QuestCardProps) {
 }
 
 function CompleteQuestButton(props: CompleteQuestButtonProps) {
+  const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadQuests } = useContext(SessionContext);
 
   function completeQuest() {
     questService.complete(props.questId)
       .then(() => {
-        openSnackbar('Missão completa!', SnackbarType.SUCCESS);
+        openSnackbar(locale('text.mission_accomplished'), SnackbarType.SUCCESS);
       })
       .catch(() => {
-        openSnackbar('Erro ao completar missão!', SnackbarType.ERROR);
+        openSnackbar(locale('text.mission_accomplishment_fail'), SnackbarType.ERROR);
       })
       .finally(() => {
         setLoadQuests(true);
@@ -144,7 +147,7 @@ function CompleteQuestButton(props: CompleteQuestButtonProps) {
 
   return (
     <button type="button" onClick={ completeQuest } className='flex flex-col items-center justify-center gap-2 text-slate-50 bg-sky-400 rounded-md p-3 w-full'>
-      <span className='text-xs font-bold'>COMPLETAR</span>
+      <span className='text-xs font-bold'>{ locale('text.accomplish') }</span>
 
       <span className='text-lg font-bold flex items-center justify-center gap-2'>
         <LifebuoyIcon className='h-6 w-6 text-slate-700 dark:text-neutral-50' />
