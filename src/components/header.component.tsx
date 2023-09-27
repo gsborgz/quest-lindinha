@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext } from 'react';
+import React, { use, useContext, useEffect } from 'react';
 import Avatar from '@/components/avatar.component';
 import { Bars3Icon, MoonIcon, SunIcon } from '@heroicons/react/24/solid';
 import { MenuContext } from '@/contexts/menu.context';
@@ -10,12 +10,21 @@ import { CreateQuestButton } from '@/components/create-quest-button.component';
 import { useTheme } from 'next-themes';
 
 export default function Header() {
+  const [mounted, setMounted] = React.useState(false);
   const { user } = useContext(SessionContext);
   const { toggleMenu } = useContext(MenuContext);
   const { resolvedTheme, setTheme } = useTheme();
   const sunIcon = <SunIcon className='h-5 w-5 text-neutral-50' />;
   const moonIcon = <MoonIcon className='h-5 w-5 text-slate-700' />;
   const isDarkTheme = resolvedTheme === 'dark';
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const loggedBarContent = (
     <nav className='w-full grid grid-cols-2 items-center'>
