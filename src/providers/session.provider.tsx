@@ -1,13 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SessionContext } from '@/contexts/session.context';
 import { SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
 import { authService } from '@/services/auth.service';
 import { useRouter, usePathname } from 'next/navigation';
 import { User } from '@/types/models/user.type';
+import { SnackbarContext } from '@/contexts/snackbar.context';
+import { SnackbarType } from '@/types/components/snackbar.type';
 
 export default function SessionProvider({ children }: { children: React.ReactNode }) {
+  const { openSnackbar } = useContext(SnackbarContext);
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
   const [token, setToken] = useState<string | null | undefined>(null);
@@ -42,20 +45,26 @@ export default function SessionProvider({ children }: { children: React.ReactNod
 
   async function signin(data: SignInData) {
     authService.signin(data)
-      .then(response => logIn(response as SignInResult))
-      .catch(error => console.log(error));
+      .then(response => {
+        logIn(response as SignInResult)
+        openSnackbar('Seja bem vindo!', SnackbarType.SUCCESS);
+      })
+      .catch((error) => openSnackbar('Erro ao efetuar o login!', SnackbarType.ERROR));
   }
 
   async function signup(data: SignUpData) {
     authService.signup(data)
-      .then(response => logIn(response as SignInResult))
-      .catch(error => console.log(error));
+      .then(response => {
+        openSnackbar('Conta criada com sucesso. Seja bem vindo!', SnackbarType.SUCCESS);
+        logIn(response as SignInResult)
+      })
+      .catch((error) => openSnackbar('Erro ao criar conta!', SnackbarType.ERROR));
   }
 
   async function signout() {
     authService.signout()
       .then(() => logOut())
-      .catch(error => console.log(error))
+      .catch((error) => openSnackbar('Erro ao limpar dados da sessão!', SnackbarType.ERROR))
       .finally(() => {
         clearTokenData();
       });
@@ -72,7 +81,7 @@ export default function SessionProvider({ children }: { children: React.ReactNod
           setUser(user);
         })
         .catch(() => {
-          clearTokenData();
+          logOut();
         });
     }
   }

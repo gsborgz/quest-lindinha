@@ -8,12 +8,9 @@ import Button from '@/components/button.component';
 import { SessionContext } from '@/contexts/session.context';
 import Divider from '@/components/divider.component';
 import Link from 'next/link';
-import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
 
 export default function Home() {
-  const { openSnackbar } = useContext(SnackbarContext);
   const { signin } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
@@ -32,13 +29,7 @@ export default function Home() {
 
     const data = new SignInData(email, password);
 
-    signin(data)
-      .then(() => {
-        openSnackbar('Seja bem vindo!', SnackbarType.SUCCESS);
-      })
-      .catch(() => {
-        openSnackbar('Erro ao efetuar login!', SnackbarType.ERROR);
-      });
+    signin(data);
   }
 
   if (!mounted) {

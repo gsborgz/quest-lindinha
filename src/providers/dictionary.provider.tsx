@@ -15,8 +15,6 @@ export default function DictionaryProvider({ children }: { children: React.React
     const languageFile: Record<string, any> = language === 'pt-br' ? ptBr : en;
     const file = languageFile[fileName];
 
-    console.log(keyPath);
-
     if (!file) {
       return '';
     }

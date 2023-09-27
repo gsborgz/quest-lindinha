@@ -8,12 +8,9 @@ import { SignUpData } from '@/types/models/auth.type';
 import Button from '@/components/button.component';
 import Link from 'next/link';
 import Divider from '@/components/divider.component';
-import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
 
 export default function SignUp() {
-  const { openSnackbar } = useContext(SnackbarContext);
   const { signup } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
@@ -38,13 +35,7 @@ export default function SignUp() {
 
     const data = new SignUpData(name, email, password, passwordConfirmation);
 
-    signup(data)
-      .then(() => {
-        openSnackbar('Conta criada com sucesso. Seja bem vindo!', SnackbarType.SUCCESS);
-      })
-      .catch(() => {
-        openSnackbar('Erro ao criar conta!', SnackbarType.ERROR);
-      });
+    signup(data);
   }
 
   if (!mounted) {
