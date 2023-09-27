@@ -7,8 +7,10 @@ import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '@/contexts/menu.context';
 import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/components/menu.type';
 import { SessionContext } from '@/contexts/session.context';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function Sidebar() {
+  const { locale } = useContext(DictionaryContext);
   const { menuActive } = useContext(MenuContext);
   const { user, signout } = useContext(SessionContext);
   const [mounted, setMounted] = useState(false);
@@ -20,10 +22,10 @@ export default function Sidebar() {
   const logoutIcon = <ArrowLeftOnRectangleIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />
   const isDarkTheme = resolvedTheme === 'dark';
   const sidebarItems: SidebarItem[] = [
-    { label: 'Início', to: '/dashboard', icon: homeIcon, menuActive },
-    { label: 'Loja', to: '/shop', icon: shoppingBagIcon, menuActive },
-    { label: 'Tema', arialLabel: 'Change Theme', icon: isDarkTheme ? sunIcon : moonIcon, action: () => setTheme(isDarkTheme ? 'light' : 'dark'), menuActive },
-    { label: 'Sair', arialLabel: 'Logout', action: signout, icon: logoutIcon, menuActive }
+    { label: locale('text.home'), to: '/dashboard', icon: homeIcon, menuActive },
+    { label: locale('text.shop'), to: '/shop', icon: shoppingBagIcon, menuActive },
+    { label: locale('text.theme'), arialLabel: 'Change Theme', icon: isDarkTheme ? sunIcon : moonIcon, action: () => setTheme(isDarkTheme ? 'light' : 'dark'), menuActive },
+    { label: locale('text.signout'), arialLabel: 'Logout', action: signout, icon: logoutIcon, menuActive }
   ];
 
   useEffect(() => setMounted(true), []);

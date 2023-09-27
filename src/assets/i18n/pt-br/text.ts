@@ -20,7 +20,14 @@ const text = {
   signup_btn: 'Enviar',
   signup_error: 'Erro ao criar conta!',
   signup_success: 'Conta criada com sucesso. Seja bem vindo!',
-  welcome: 'Seja bem vindo!'
+  welcome: 'Seja bem vindo!',
+  quest: 'Missão',
+  reward: 'Recompensa',
+  loading: 'Carregando...',
+  home: 'Início',
+  shop: 'Loja',
+  theme: 'Tema',
+  signout: 'Sair'
 };
 
 export default text;

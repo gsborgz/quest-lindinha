@@ -6,8 +6,10 @@ import { RewardButtonData } from '@/types/models/reward.type';
 import { useContext } from 'react';
 import RewardDialog from '@/dialogs/reward.dialog';
 import Button from '@/components/button.component';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export function CreateRewardButton(props: RewardButtonData) {
+  const { locale } = useContext(DictionaryContext);
   const { showModal, toggleModal } = useContext(ModalContext);
   const icon = <PlusIcon className='h-5 w-5 ml-[-4px] text-neutral-50' />
 
@@ -17,9 +19,9 @@ export function CreateRewardButton(props: RewardButtonData) {
 
       toggleModal(dialog);
     } else {
-      toggleModal(null)
+      toggleModal(null);
     }
   }
 
-  return <Button icon={ icon } label='Recompensa' onClick={ setModal } full={ props.full } primary />
+  return <Button icon={ icon } label={ locale('text.reward') } onClick={ setModal } full={ props.full } primary />
 }

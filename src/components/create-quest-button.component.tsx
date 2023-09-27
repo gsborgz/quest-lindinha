@@ -4,8 +4,10 @@ import Button from '@/components/button.component';
 import { QuestButtonData } from '@/types/models/quest.type';
 import { ModalContext } from '@/contexts/modal.context';
 import { useContext } from 'react';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export function CreateQuestButton(props: QuestButtonData) {
+  const { locale } = useContext(DictionaryContext);
   const { showModal, toggleModal } = useContext(ModalContext);
   const icon = <PlusIcon className='h-5 w-5 ml-[-4px] text-neutral-50' />
 
@@ -15,9 +17,9 @@ export function CreateQuestButton(props: QuestButtonData) {
 
       toggleModal(dialog);
     } else {
-      toggleModal(null)
+      toggleModal(null);
     }
   }
 
-  return <Button icon={ icon } label='Missão' onClick={ setModal } primary />
+  return <Button icon={ icon } label={ locale('text.quest') } onClick={ setModal } primary />
 }

@@ -20,7 +20,14 @@ const text = {
   signup_btn: 'Register',
   signup_error: 'Failed trying to create account!',
   signup_success: 'Account created successfully. Welcome!',
-  welcome: 'Welcome!'
+  welcome: 'Welcome!',
+  quest: 'Quest',
+  reward: 'Reward',
+  loading: 'Loading...',
+  home: 'Home',
+  shop: 'Shop',
+  theme: 'Theme',
+  signout: 'Logout'
 };
 
 export default text;
