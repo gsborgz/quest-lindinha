@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'My Quest',
-  description: 'An app to help you to achieve your goals.',
+  description: 'An app to help you achieve your goals.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

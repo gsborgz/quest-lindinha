@@ -11,8 +11,10 @@ import Divider from '@/components/divider.component';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function SignUp() {
+  const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { signup } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
@@ -40,10 +42,10 @@ export default function SignUp() {
 
     signup(data)
       .then(() => {
-        openSnackbar('Conta criada com sucesso. Seja bem vindo!', SnackbarType.SUCCESS);
+        openSnackbar(locale('text.signup_succes'), SnackbarType.SUCCESS);
       })
       .catch(() => {
-        openSnackbar('Erro ao criar conta!', SnackbarType.ERROR);
+        openSnackbar(locale('text.signup_error'), SnackbarType.ERROR);
       });
   }
 
@@ -63,7 +65,7 @@ export default function SignUp() {
         <form className='flex flex-col gap-8' onSubmit={ logIn }>
           <Input
             id='user_name'
-            label='Nome'
+            label={ locale('text.name') }
             type='text'
             required
             maxLength={ 50 }
@@ -72,7 +74,7 @@ export default function SignUp() {
 
           <Input
             id='user_email'
-            label='E-mail'
+            label={ locale('text.email') }
             type='email'
             required
             maxLength={ 50 }
@@ -81,7 +83,7 @@ export default function SignUp() {
 
           <Input
             id='user_password'
-            label='Senha'
+            label={ locale('text.password') }
             type='password'
             required
             minLength={ 8 }
@@ -91,7 +93,7 @@ export default function SignUp() {
 
           <Input
             id='user_password_confirmation'
-            label='Confirme sua senha'
+            label={ locale('text.password_confirmation') }
             type='password'
             required
             minLength={ 8 }
@@ -99,13 +101,13 @@ export default function SignUp() {
             onChange={ (event) => setPasswordConfirmation(event.target.value) }
           />
 
-          <Button type='submit' label='ENVIAR' primary />
+          <Button type='submit' label={ locale('text.signup_btn') } primary />
         </form>
 
-        <Divider text='OU' />
+        <Divider text={ locale('text.or') } />
 
         <div className='flex items-center justify-center text-sm'>
-          <Link href='/'>Entrar com uma conta existente</Link>
+          <Link href='/'>{ locale('text.login_with_account') }</Link>
         </div>
       </div>
     </section>

@@ -11,8 +11,10 @@ import Link from 'next/link';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function Home() {
+  const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { signin } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
@@ -34,10 +36,10 @@ export default function Home() {
 
     signin(data)
       .then(() => {
-        openSnackbar('Seja bem vindo!', SnackbarType.SUCCESS);
+        openSnackbar(locale('text.welcome'), SnackbarType.SUCCESS);
       })
       .catch(() => {
-        openSnackbar('Erro ao efetuar login!', SnackbarType.ERROR);
+        openSnackbar(locale('text.signin_fail'), SnackbarType.ERROR);
       });
   }
 
@@ -57,7 +59,7 @@ export default function Home() {
         <form className='flex flex-col gap-8' onSubmit={ logIn }>
           <Input
             id='user_email'
-            label='E-mail'
+            label={ locale('text.email')}
             type='email'
             required
             maxLength={ 50 }
@@ -66,7 +68,7 @@ export default function Home() {
 
           <Input
             id='user_password'
-            label='Senha'
+            label={ locale('text.password')}
             type='password'
             required
             minLength={ 8 }
@@ -74,17 +76,17 @@ export default function Home() {
             onChange={ (event) => setPassword(event.target.value) }
           />
 
-          <Button type='submit' label='ENTRAR' primary />
+          <Button type='submit' label={ locale('text.signin_btn') } primary />
         </form>
 
         <div className='flex items-center justify-center text-sm'>
-          <Link href='/forgot-password'>Esqueci minha senha</Link>
+          <Link href='/forgot-password'>{ locale('text.forgot_password') }</Link>
         </div>
 
-        <Divider text='OU' />
+        <Divider text={ locale('text.or') } />
 
         <div className='flex items-center justify-center text-sm'>
-          <Link href='/signup'>Criar uma conta</Link>
+          <Link href='/signup'>{ locale('text.create_account') }</Link>
         </div>
       </div>
     </section>
