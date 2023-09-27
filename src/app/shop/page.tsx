@@ -10,8 +10,10 @@ import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
 import Loading from '@/components/loading.component';
 import StatusSelect from '@/components/status-select.component';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function Shop() {
+  const { locale } = useContext(DictionaryContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [status, setStatus] = useState<RewardStatus>(RewardStatus.AVAILABLE);
@@ -63,9 +65,9 @@ export default function Shop() {
 
   const noAvailableRewardsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>Você não possui recompensas disponíveis</span>
+      <span>{ locale('text.no_rewards') }</span>
       <div className='flex flex-row items-center gap-1'>
-        <span>Experimente criar uma clicando nesse botão:</span>
+        <span>{ locale('text.no_rewards_tip') }</span>
         <CreateRewardButton />
       </div>
     </section>
@@ -73,7 +75,7 @@ export default function Shop() {
 
   const noClaimedRewardsMessage = (
     <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>Você não possui recompensas resgatadas</span>
+      <span>{ locale('text.no_claimed_rewards') }</span>
     </section>
   );
 
@@ -135,16 +137,17 @@ function RewardCard(props: RewardCardProps) {
 }
 
 function ClaimRewardButton(props: ClaimRewardButtonProps) {
+  const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadRewards } = useContext(SessionContext);
 
   function claimReward() {
     rewardService.claim(props.rewardId)
       .then(() => {
-        openSnackbar('Recompensa resgata!', SnackbarType.SUCCESS);
+        openSnackbar(locale('text.reward_claimed'), SnackbarType.SUCCESS);
       })
       .catch(() => {
-        openSnackbar('Erro ao resgatar recompensa!', SnackbarType.ERROR);
+        openSnackbar(locale('text.reward_claim_fail'), SnackbarType.ERROR);
       })
       .finally(() => {
         setLoadRewards(true);
@@ -153,7 +156,7 @@ function ClaimRewardButton(props: ClaimRewardButtonProps) {
 
   return (
     <button type="button" onClick={ claimReward } className='flex flex-col items-center justify-center gap-2 text-slate-50 bg-sky-400 rounded-md p-3 w-full'>
-      <span className='text-xs font-bold'>Resgatar</span>
+      <span className='text-xs font-bold'>{ locale('text.claim') }</span>
 
       <span className='text-lg font-bold flex items-center justify-center gap-2'>
         <LifebuoyIcon className='h-6 w-6 text-slate-700 dark:text-neutral-50' />

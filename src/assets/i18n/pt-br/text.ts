@@ -27,7 +27,13 @@ const text = {
   home: 'Início',
   shop: 'Loja',
   theme: 'Tema',
-  signout: 'Sair'
+  signout: 'Sair',
+  no_rewards: 'Você não possui recompensas disponíveis',
+  no_rewards_tip: 'Experimente criar uma clicando nesse botão:',
+  no_claimed_rewards: 'Você não possui recompensas resgatadas',
+  reward_claimed: 'Recompensa resgata!',
+  reward_claim_fail: 'Ocorreu um erro ao tentar resgatar a recompensa!',
+  claim: 'Resgatar'
 };
 
 export default text;

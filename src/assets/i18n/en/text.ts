@@ -27,7 +27,13 @@ const text = {
   home: 'Home',
   shop: 'Shop',
   theme: 'Theme',
-  signout: 'Logout'
+  signout: 'Logout',
+  no_rewards: 'You have no rewards available',
+  no_rewards_tip: 'Try creating one by clicking on this button:',
+  no_claimed_rewards: 'You have no claimed rewards',
+  reward_claimed: 'Reward claimed!',
+  reward_claim_fail: 'An error occurred while trying to claim the reward!',
+  claim: 'Claim'
 };
 
 export default text;
