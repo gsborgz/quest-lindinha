@@ -8,9 +8,11 @@ import { ModalContext } from '@/contexts/modal.context';
 import { questService } from '@/services/quest.service';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
-import { SessionContext } from '../contexts/session.context';
+import { SessionContext } from '@/contexts/session.context';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function QuestDialog(props: QuestDialogData) {
+  const { locale } = useContext(DictionaryContext);
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadQuests } = useContext(SessionContext);
@@ -18,7 +20,7 @@ export default function QuestDialog(props: QuestDialogData) {
   const [value, setValue] = useState<number>(100);
   const [date, setDate] = useState<string>('');
   const icon = <MapIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
-  const title = props.quest?.name || 'Nova Missão';
+  const title = props.quest?.name || locale('text.new_quest');
 
   function save(event: React.FormEvent) {
     event.preventDefault();
@@ -38,12 +40,12 @@ export default function QuestDialog(props: QuestDialogData) {
 
     questService.upsert(quest)
       .then(() => {
-        openSnackbar('Certo! Missão iniciada.', SnackbarType.SUCCESS);
+        openSnackbar(locale('text.mission_created'), SnackbarType.SUCCESS);
         closeModal();
         setLoadQuests(true);
       })
       .catch(() => {
-        openSnackbar('Vish... Deu ruim ao criar a missão!', SnackbarType.ERROR);
+        openSnackbar(locale('text.mission_creation_fail'), SnackbarType.ERROR);
       });
   }
 
@@ -60,7 +62,7 @@ export default function QuestDialog(props: QuestDialogData) {
       <form className='flex flex-col gap-8 w-full' onSubmit={ save }>
         <Input
           id='quest_name'
-          label='Nome'
+          label={ locale('text.name') }
           type='string'
           required
           maxLength={ 50 }
@@ -70,7 +72,7 @@ export default function QuestDialog(props: QuestDialogData) {
         <div className='flex flex-row gap-4'>
           <Input
             id='quest_value'
-            label='Valor'
+            label={ locale('text.value') }
             type='number'
             required
             onChange={ (event) => setQuestValue(Number(event.target.value)) }
@@ -78,14 +80,14 @@ export default function QuestDialog(props: QuestDialogData) {
 
           <Input
             id='quest_date'
-            label='Data'
+            label={ locale('text.date') }
             type='datetime-local'
             required
             onChange={ (event) => setDate(event.target.value) }
           />
         </div>
 
-        <Button type='submit' label='CRIAR' primary />
+        <Button type='submit' label={ locale('text.create') } primary />
       </form>
     </Modal>
   );

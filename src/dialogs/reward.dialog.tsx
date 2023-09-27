@@ -11,14 +11,16 @@ import Button from '@/components/button.component';
 import Input from '@/components/input.component';
 import { rewardService } from '@/services/reward.service';
 import { SessionContext } from '@/contexts/session.context';
+import { DictionaryContext } from '@/contexts/dictionary.context';
 
 export default function RewardDialog(props: RewardDialogData) {
+  const { locale } = useContext(DictionaryContext);
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [value, setValue] = useState<number>(100);
-  const title = props.reward?.name || 'Nova Recompensa';
+  const title = props.reward?.name || locale('text.new_reward');
   const icon = <GiftIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
   const { setLoadRewards } = useContext(SessionContext);
 
@@ -40,12 +42,12 @@ export default function RewardDialog(props: RewardDialogData) {
 
     rewardService.upsert(reward)
       .then(() => {
-        openSnackbar('Recompensa criada com sucesso!', SnackbarType.SUCCESS);
+        openSnackbar(locale('text.reward_created'), SnackbarType.SUCCESS);
         closeModal();
         setLoadRewards(true);
       })
       .catch(() => {
-        openSnackbar('Erro ao criar recompensa!', SnackbarType.ERROR);
+        openSnackbar(locale('text.reward_creation_fail'), SnackbarType.ERROR);
       });
   }
 
@@ -62,7 +64,7 @@ export default function RewardDialog(props: RewardDialogData) {
       <form className='flex flex-col gap-8 w-full' onSubmit={ save }>
         <Input
           id='reward_name'
-          label='Nome'
+          label={ locale('text.name')}
           type='string'
           required
           maxLength={ 50 }
@@ -71,7 +73,7 @@ export default function RewardDialog(props: RewardDialogData) {
 
         <Input
           id='reward_description'
-          label='Descrição'
+          label={ locale('text.description') }
           type='string'
           required
           maxLength={ 200 }
@@ -80,13 +82,13 @@ export default function RewardDialog(props: RewardDialogData) {
 
         <Input
           id='reward_value'
-          label='Preço'
+          label={ locale('text.price') }
           type='number'
           required
           onChange={ (event) => setRewardValue(Number(event.target.value)) }
         />
 
-        <Button type='submit' label='CRIAR' primary />
+        <Button type='submit' label={ locale('text.create') } primary />
       </form>
     </Modal>
   );
