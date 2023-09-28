@@ -1,18 +1,18 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { DictionaryContext } from '@/contexts/dictionary.context';
 import { SessionContext } from '@/contexts/session.context';
 import en from '@/assets/i18n/en';
 import ptBr from '@/assets/i18n/pt-br';
+import { UserLanguage } from '@/types/models/user.type';
 
 export default function DictionaryProvider({ children }: { children: React.ReactNode }) {
-  const { user } = useContext(SessionContext);
-  
+  const { language } = useContext(SessionContext);
+
   function locale(keyPath: string, args?: Record<string, any>): string {
-    const language = user?.language || 'en';
     const [fileName, property, subProperty] = keyPath.split('.');
-    const languageFile: Record<string, any> = language === 'pt-br' ? ptBr : en;
+    const languageFile: Record<string, any> = language === UserLanguage.PTBR ? ptBr : en;
     const file = languageFile[fileName];
 
     if (!file) {

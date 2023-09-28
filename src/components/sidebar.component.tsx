@@ -12,18 +12,14 @@ import { UserTheme } from '@/types/models/user.type';
 export default function Sidebar() {
   const { locale } = useContext(DictionaryContext);
   const { menuActive } = useContext(MenuContext);
-  const { user, theme, signout, changeTheme } = useContext(SessionContext);
+  const { user, signout } = useContext(SessionContext);
   const [mounted, setMounted] = useState(false);
-  const sunIcon = <SunIcon className='h-5 w-5 text-neutral-50' />;
-  const moonIcon = <MoonIcon className='h-5 w-5 text-slate-700' />;
   const homeIcon = <HomeIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
   const shoppingBagIcon = <ShoppingBagIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
   const logoutIcon = <ArrowLeftOnRectangleIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />
-  const isDarkTheme = theme === UserTheme.DARK;
   const sidebarItems: SidebarItem[] = [
     { label: locale('text.home'), to: '/dashboard', icon: homeIcon, menuActive },
     { label: locale('text.shop'), to: '/shop', icon: shoppingBagIcon, menuActive },
-    { label: locale('text.theme'), arialLabel: 'Change Theme', icon: isDarkTheme ? sunIcon : moonIcon, action: () => changeTheme(isDarkTheme ? UserTheme.LIGHT : UserTheme.DARK), menuActive },
     { label: locale('text.signout'), arialLabel: 'Logout', action: signout, icon: logoutIcon, menuActive }
   ];
 

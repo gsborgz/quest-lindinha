@@ -9,6 +9,7 @@ const text = {
   email: 'E-mail',
   forgot_password: 'Esqueci minha senha',
   home: 'Início',
+  language: 'Idioma',
   load_quests_fail: 'Erro ao carregar missões!',
   loading: 'Carregando...',
   login_with_account: 'Entrar com uma conta existente',

@@ -9,6 +9,7 @@ const text = {
   email: 'Email',
   forgot_password: 'Forgot my password',
   home: 'Home',
+  language: 'Language',
   load_quests_fail: 'Failed trying to load quests!',
   loading: 'Loading...',
   login_with_account: 'Login with an existing account',
