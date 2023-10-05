@@ -12,6 +12,8 @@ export default function Input(props: InputProps) {
         required={ props.required }
         maxLength={ props.maxLength }
         minLength={ props.minLength }
+        disabled={ props.disabled }
+        value={ props.initialValue }
         onChange={ props.onChange }
       />
     </div>

@@ -1,10 +1,10 @@
 import { PlusIcon } from '@heroicons/react/24/solid';
 import QuestDialog from '@/dialogs/quest.dialog';
 import Button from '@/components/button.component';
-import { QuestButtonData } from '@/types/models/quest.type';
 import { ModalContext } from '@/contexts/modal.context';
 import { useContext } from 'react';
 import { DictionaryContext } from '@/contexts/dictionary.context';
+import { QuestButtonData } from '@/types/models/quest.type';
 
 export function CreateQuestButton(props: QuestButtonData) {
   const { locale } = useContext(DictionaryContext);
@@ -13,7 +13,7 @@ export function CreateQuestButton(props: QuestButtonData) {
 
   function setModal() {
     if (!showModal) {
-      const dialog = <QuestDialog quest={props.quest}  />;
+      const dialog = <QuestDialog />;
 
       toggleModal(dialog);
     } else {
@@ -21,5 +21,5 @@ export function CreateQuestButton(props: QuestButtonData) {
     }
   }
 
-  return <Button icon={ icon } label={ locale('text.quest') } onClick={ setModal } primary />
+  return <Button icon={ icon } label={ locale('text.quest') } onClick={ setModal } full={ props.full } primary />
 }

@@ -17,6 +17,8 @@ const text = {
   mission_accomplishment_fail: 'An error occurred while trying to complete the mission!',
   mission_created: 'Alright! Mission started.',
   mission_creation_fail: 'Oops... Something went wrong while creating the mission!',
+  mission_update_fail: 'Failed trying to update mission!',
+  mission_updated: 'Mission updated successfully!',
   name: 'Name',
   new_quest: 'New quest',
   new_reward: 'New Reward',
@@ -31,12 +33,16 @@ const text = {
   password_confirmation: 'Confirm your password',
   price: 'Price',
   quest: 'Quest',
+  quest_details: 'Quest Details',
   reward: 'Reward',
   reward_claim_fail: 'An error occurred while trying to claim the reward!',
   reward_claimed: 'Reward claimed!',
   reward_created: 'Reward created successfully!',
   reward_creation_fail: 'Oops... Something went wrong while creating the reward!',
+  reward_details: 'Reward Details',
   shop: 'Shop',
+  show_more: 'Show more',
+  show_less: 'Show less',
   signin_btn: 'Login',
   signin_fail: 'Failed trying to log in!',
   signout: 'Logout',
@@ -45,7 +51,10 @@ const text = {
   signup_success: 'Account created successfully. Welcome!',
   theme: 'Theme',
   value: 'Value',
-  welcome: 'Welcome!'
+  welcome: 'Welcome!',
+  cancel: 'Cancel',
+  mission_deleted: 'Mission canceled successfully!',
+  mission_delete_fail: 'Oops... An error occurred while trying to cancel the mission!',
 };
 
 export default text;

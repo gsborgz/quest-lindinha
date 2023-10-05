@@ -1,8 +1,7 @@
 'use client'
 
-import { CompleteQuestButtonProps, Quest, QuestCardProps, QuestStatus } from '@/types/models/quest.type';
+import { Quest, QuestCardProps, QuestStatus } from '@/types/models/quest.type';
 import { useContext, useEffect, useState } from 'react';
-import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SessionContext } from '@/contexts/session.context';
 import { questService } from '@/services/quest.service';
@@ -11,6 +10,9 @@ import { CreateQuestButton } from '@/components/create-quest-button.component';
 import Loading from '@/components/loading.component';
 import StatusSelect from '@/components/status-select.component';
 import { DictionaryContext } from '@/contexts/dictionary.context';
+import { ModalContext } from '@/contexts/modal.context';
+import QuestDialog from '@/dialogs/quest.dialog';
+import CompleteQuestButton from '@/components/complete-quest-button.component';
 
 export default function Dashboard() {
   const { locale } = useContext(DictionaryContext);
@@ -18,9 +20,9 @@ export default function Dashboard() {
   const [quests, setQuests] = useState<Quest[]>([]);
   const [status, setStatus] = useState<QuestStatus>(QuestStatus.PENDING);
   const [loading, setLoading] = useState<boolean>(true);
-  const questStatus = [QuestStatus.PENDING, QuestStatus.COMPLETED, QuestStatus.CANCELED];
   const { openSnackbar } = useContext(SnackbarContext);
   const { loadQuests, setLoadQuests } = useContext(SessionContext);
+  const questStatus = [QuestStatus.PENDING, QuestStatus.COMPLETED];
 
   async function findQuests() {
     await questService.findAll({ status })
@@ -79,12 +81,6 @@ export default function Dashboard() {
     </section>
   );
 
-  const noCanceledQuestsMessage = (
-    <section className='flex flex-col items-center justify-center h-[93%] gap-1'>
-      <span>{ locale('text.no_canceled_quests') }</span>
-    </section>
-  );
-
   return (
     <section className='flex flex-col justify-center gap-10'>
       <div className='flex items-center justify-center rounded-md'>
@@ -94,7 +90,6 @@ export default function Dashboard() {
       <section className='flex flex-wrap items-center justify-center gap-10'>
         { !quests.length && status === QuestStatus.PENDING ? noPendingQuestsMessage : null }
         { !quests.length && status === QuestStatus.COMPLETED ? noCompletedQuestsMessage : null }
-        { !quests.length && status === QuestStatus.CANCELED ? noCanceledQuestsMessage : null }
         { quests.map((quest) => <QuestCard key={ quest._id } quest={ quest } />) }
       </section>
     </section>
@@ -102,7 +97,14 @@ export default function Dashboard() {
 }
 
 function QuestCard(props: QuestCardProps) {
+  const { toggleModal } = useContext(ModalContext);
   const { quest } = props;
+
+  function openQuestModal(quest: Quest): void {
+    const dialog = <QuestDialog questId={ quest._id } />;
+
+    toggleModal(dialog);
+  }
 
   function formatedName(name: string) {
     if (name.length <= 30) {
@@ -118,41 +120,14 @@ function QuestCard(props: QuestCardProps) {
 
   return (
     <div className='flex flex-col items-center justify-center w-60 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg shadow-lg gap-4'>
-      <div className='flex items-center justify-center text-xl font-bold w-full h-14'>
+      <div className='flex items-center justify-center text-xl font-bold w-full h-14 cursor-pointer' onClick={ () => openQuestModal(quest) }>
         { formatedName(quest.name) }
       </div>
 
-      <CompleteQuestButton value={ quest.value } questId={ quest._id } />
+      { quest.status === QuestStatus.PENDING ? (
+        <CompleteQuestButton value={ quest.value } questId={ quest._id } />
+      ) : null }
     </div>
   );
 }
 
-function CompleteQuestButton(props: CompleteQuestButtonProps) {
-  const { locale } = useContext(DictionaryContext);
-  const { openSnackbar } = useContext(SnackbarContext);
-  const { setLoadQuests } = useContext(SessionContext);
-
-  function completeQuest() {
-    questService.complete(props.questId)
-      .then(() => {
-        openSnackbar(locale('text.mission_accomplished'), SnackbarType.SUCCESS);
-      })
-      .catch(() => {
-        openSnackbar(locale('text.mission_accomplishment_fail'), SnackbarType.ERROR);
-      })
-      .finally(() => {
-        setLoadQuests(true);
-      });
-  }
-
-  return (
-    <button type="button" onClick={ completeQuest } className='flex flex-col items-center justify-center gap-2 text-slate-50 bg-sky-400 rounded-md p-3 w-full'>
-      <span className='text-xs font-bold'>{ locale('text.accomplish') }</span>
-
-      <span className='text-lg font-bold flex items-center justify-center gap-2'>
-        <LifebuoyIcon className='h-6 w-6 text-slate-700 dark:text-neutral-50' />
-        { props.value }
-      </span>
-    </button>
-  );
-}

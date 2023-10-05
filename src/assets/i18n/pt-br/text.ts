@@ -17,6 +17,8 @@ const text = {
   mission_accomplishment_fail: 'Ocorreu um erro ao tentar concluir a missão!',
   mission_created: 'Certo! Missão iniciada.',
   mission_creation_fail: 'Vish... Deu ruim ao criar a missão!',
+  mission_update_fail: 'Erro ao atualizar missão!',
+  mission_updated: 'Missão atualizada com sucesso!',
   name: 'Nome',
   new_quest: 'Nova missão',
   new_reward: 'Nova Recompensa',
@@ -31,12 +33,16 @@ const text = {
   password_confirmation: 'Confirme sua senha',
   price: 'Preço',
   quest: 'Missão',
+  quest_details: 'Detalhes da Missão',
   reward: 'Recompensa',
   reward_claim_fail: 'Ocorreu um erro ao tentar resgatar a recompensa!',
   reward_claimed: 'Recompensa resgata!',
   reward_created: 'Recompensa criada com sucesso!',
   reward_creation_fail: 'Vish... Deu ruim ao criar a recompensa!',
+  reward_details: 'Detalhes da Recompensa',
   shop: 'Loja',
+  show_more: 'Mostrar mais',
+  show_less: 'Mostrar menos',
   signin_btn: 'Entrar',
   signin_fail: 'Erro ao efetuar login!',
   signout: 'Sair',
@@ -45,7 +51,10 @@ const text = {
   signup_success: 'Conta criada com sucesso. Seja bem vindo!',
   theme: 'Tema',
   value: 'Valor',
-  welcome: 'Seja bem vindo!'
+  welcome: 'Seja bem vindo!',
+  cancel: 'Cancelar',
+  mission_deleted: 'Missão cancelada com sucesso!',
+  mission_delete_fail: 'Vish... Ocorreu um erro ao tentar cancelar a missão!',
 };
 
 export default text;

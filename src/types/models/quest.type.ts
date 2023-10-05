@@ -1,6 +1,7 @@
 export class Quest {
   public _id: string;
   public name: string;
+  public description: string;
   public date: Date;
   public value: number;
   public status: QuestStatus;
@@ -11,16 +12,15 @@ export class Quest {
 
 export enum QuestStatus {
   PENDING = 'pending',
-  COMPLETED = 'completed',
-  CANCELED = 'canceled'
-}
-
-export type QuestDialogData = {
-  quest?: Quest;
+  COMPLETED = 'completed'
 }
 
 export type QuestButtonData = {
-  quest?: Quest;
+  full?: boolean;
+}
+
+export type QuestDialogData = {
+  questId?: string;
 }
 
 export type QuestCardProps = {
@@ -30,4 +30,5 @@ export type QuestCardProps = {
 export type CompleteQuestButtonProps = {
   value: number;
   questId: string;
+  addAction?: () => void;
 }
