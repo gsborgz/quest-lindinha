@@ -1,4 +1,4 @@
-Esse é o repositório front-end para projeto que atualmente estou chamando só de "Quest". O propósito desse projeto é ajudar pessoas com TDAH a alcançarem suas metas de maneira mais controlada, através da definição de tarefas (aqui chamadas de missões) e recompensas.
+Esse é o repositório front-end para o projeto que atualmente estou chamando só de "Quest". O propósito desse projeto é ajudar pessoas com TDAH a alcançarem suas metas de maneira mais controlada, através da definição de tarefas (aqui chamadas de missões) e recompensas.
 
 --- // ---
 
