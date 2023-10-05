@@ -12,7 +12,7 @@ import SnackbarContainer from '@/components/snackbar-container.component';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'My Quest',
+  title: 'Quest',
   description: 'An app to help you achieve your goals.',
 };
 
