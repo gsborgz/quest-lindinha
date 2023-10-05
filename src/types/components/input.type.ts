@@ -7,6 +7,8 @@ export type InputProps = {
   minLength?: number;
   min?: number;
   max?: number;
+  disabled?: boolean;
+  initialValue?: string | number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 }
