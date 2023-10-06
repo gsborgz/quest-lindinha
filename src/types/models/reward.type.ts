@@ -10,11 +10,10 @@ export class Reward {
 }
 
 export type RewardDialogData = {
-  reward?: Reward;
+  rewardId?: string;
 }
 
 export type RewardButtonData = {
-  reward?: Reward;
   full?: boolean;
 }
 
@@ -25,6 +24,7 @@ export type RewardCardProps = {
 export type ClaimRewardButtonProps = {
   value: number;
   rewardId: string;
+  addAction?: () => void;
 }
 
 export enum RewardStatus {

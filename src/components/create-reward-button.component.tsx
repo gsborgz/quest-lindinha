@@ -15,7 +15,7 @@ export function CreateRewardButton(props: RewardButtonData) {
 
   function setModal() {
     if (!showModal) {
-      const dialog = <RewardDialog reward={props.reward} />;
+      const dialog = <RewardDialog />;
 
       toggleModal(dialog);
     } else {
