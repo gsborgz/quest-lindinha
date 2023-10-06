@@ -193,7 +193,6 @@ export default function QuestDialog(props: QuestDialogData) {
             label={ locale('text.date') }
             type='datetime-local'
             initialValue={ date }
-            required
             disabled={ disableFields }
             onChange={ (event) => setQuestDate(event.target.value) }
           />
