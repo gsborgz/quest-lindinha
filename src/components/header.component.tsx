@@ -2,7 +2,7 @@
 
 import React, { Fragment, useContext, useEffect } from 'react';
 import Avatar from '@/components/avatar.component';
-import { Bars3Icon, MoonIcon, SunIcon, GlobeAltIcon } from '@heroicons/react/24/solid';
+import { Bars3Icon, MoonIcon, SunIcon, GlobeAltIcon, LifebuoyIcon } from '@heroicons/react/24/solid';
 import { MenuContext } from '@/contexts/menu.context';
 import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
@@ -47,7 +47,14 @@ export default function Header() {
       </div>
 
       <div className='flex items-center justify-end px-4 py-3'>
-        <Avatar />
+        <div className='flex items-center gap-4'>
+          <span className='text-sm font-bold flex items-center justify-center gap-1 text-sky-400'>
+            <LifebuoyIcon className='h-5 w-5' />
+            { user?.credits }
+          </span>
+
+          <Avatar />
+        </div>
       </div>
     </nav>
   );
