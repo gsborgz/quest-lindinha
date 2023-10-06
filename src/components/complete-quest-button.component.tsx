@@ -12,12 +12,13 @@ import { useContext } from 'react';
 export default function CompleteQuestButton(props: CompleteQuestButtonProps) {
   const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
-  const { setLoadQuests } = useContext(SessionContext);
+  const { setLoadQuests, addCredits } = useContext(SessionContext);
 
   function completeQuest() {
     questService.complete(props.questId)
       .then(() => {
         openSnackbar(locale('text.mission_accomplished'), SnackbarType.SUCCESS);
+        addCredits(props.value);
 
         if (props.addAction) {
           props.addAction();
@@ -36,7 +37,7 @@ export default function CompleteQuestButton(props: CompleteQuestButtonProps) {
       <span className='text-xs font-bold'>{ locale('text.accomplish') }</span>
 
       <span className='text-lg font-bold flex items-center justify-center gap-2'>
-        <LifebuoyIcon className='h-6 w-6 text-slate-700 dark:text-neutral-50' />
+        <LifebuoyIcon className='h-6 w-6 text-neutral-50' />
         { props.value }
       </span>
     </button>

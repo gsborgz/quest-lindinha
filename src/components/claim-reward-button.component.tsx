@@ -12,23 +12,28 @@ import { ClaimRewardButtonProps } from '@/types/models/reward.type';
 export default function ClaimRewardButton(props: ClaimRewardButtonProps) {
   const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
-  const { setLoadRewards } = useContext(SessionContext);
+  const { user, setLoadRewards, removeCredits } = useContext(SessionContext);
 
   function claimReward() {
-    rewardService.claim(props.rewardId)
-      .then(() => {
-        openSnackbar(locale('text.reward_claimed'), SnackbarType.SUCCESS);
-
-        if (props.addAction) {
-          props.addAction();
-        }
-      })
-      .catch(() => {
-        openSnackbar(locale('text.reward_claim_fail'), SnackbarType.ERROR);
-      })
-      .finally(() => {
-        setLoadRewards(true);
-      });
+    if (user && user.credits >= props.value) {
+      rewardService.claim(props.rewardId)
+        .then(() => {
+          openSnackbar(locale('text.reward_claimed'), SnackbarType.SUCCESS);
+          removeCredits(props.value);
+  
+          if (props.addAction) {
+            props.addAction();
+          }
+        })
+        .catch(() => {
+          openSnackbar(locale('text.reward_claim_fail'), SnackbarType.ERROR);
+        })
+        .finally(() => {
+          setLoadRewards(true);
+        });
+    } else {
+      openSnackbar(locale('text.not_enough_credits'), SnackbarType.ERROR);
+    }
   }
 
   return (
@@ -36,7 +41,7 @@ export default function ClaimRewardButton(props: ClaimRewardButtonProps) {
       <span className='text-xs font-bold'>{ locale('text.claim') }</span>
 
       <span className='text-lg font-bold flex items-center justify-center gap-2'>
-        <LifebuoyIcon className='h-6 w-6 text-slate-700 dark:text-neutral-50' />
+        <LifebuoyIcon className='h-6 w-6 text-neutral-50' />
         { props.value }
       </span>
     </button>

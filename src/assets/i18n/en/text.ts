@@ -31,6 +31,7 @@ const text = {
   no_quests: 'You have no quests to complete',
   no_rewards: 'You have no rewards available',
   no_rewards_tip: 'Try creating one by clicking on this button:',
+  not_enough_credits: 'Not enough credits!',
   or: 'OR',
   password: 'Password',
   password_confirmation: 'Confirm your password',

@@ -14,4 +14,6 @@ export type SessionData = {
   setLoadQuests: (value: boolean) => void;
   changeLanguage: (language: UserLanguage) => void;
   changeTheme: (theme: UserTheme) => void;
+  addCredits: (credits: number) => void;
+  removeCredits: (credits: number) => void;
 }

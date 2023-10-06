@@ -119,11 +119,25 @@ export default function SessionProvider({ children }: { children: React.ReactNod
     }
   }
 
-  function changeTheme(newTheme: UserTheme) {
+  function changeTheme(newTheme: UserTheme): void {
     setTheme(newTheme);
 
     if (user) {
       setUserTheme(newTheme);
+    }
+  }
+
+  function addCredits(credits: number): void {
+    if (user) {
+      user.credits += credits;
+      setUser(user);
+    }
+  }
+
+  function removeCredits(credits: number): void {
+    if (user) {
+      user.credits -= credits;
+      setUser(user);
     }
   }
 
@@ -140,7 +154,9 @@ export default function SessionProvider({ children }: { children: React.ReactNod
       setLoadRewards,
       setLoadQuests,
       changeLanguage,
-      changeTheme
+      changeTheme,
+      addCredits,
+      removeCredits
     }}>
       { children }
     </SessionContext.Provider>
