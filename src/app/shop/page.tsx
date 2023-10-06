@@ -140,7 +140,9 @@ function RewardCard(props: RewardCardProps) {
         { formatedDescription(reward.description) }
       </div>
 
-      <ClaimRewardButton value={ reward.value } rewardId={ reward._id } />
+      { reward.status === RewardStatus.AVAILABLE ? (
+        <ClaimRewardButton value={ reward.value } rewardId={ reward._id } />
+      ) : null }
     </div>
   );
 }
