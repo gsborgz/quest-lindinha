@@ -1,7 +1,12 @@
 {
   "name": "lindinha",
   "version": "0.1.0",
+  "author": "Gabriel da Silva Borges",
   "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
