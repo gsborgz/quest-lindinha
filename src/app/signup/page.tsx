@@ -12,8 +12,6 @@ import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
 import { DictionaryContext } from '@/contexts/dictionary.context';
-import { UserTheme } from '@/types/models/user.type';
-import { useTheme } from 'next-themes';
 
 export default function SignUp() {
   const { locale } = useContext(DictionaryContext);

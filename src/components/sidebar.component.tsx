@@ -1,13 +1,12 @@
 'use client'
 
-import { MoonIcon, SunIcon, ShoppingBagIcon, HomeIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
+import { ShoppingBagIcon, HomeIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { MenuContext } from '@/contexts/menu.context';
 import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/components/menu.type';
 import { SessionContext } from '@/contexts/session.context';
 import { DictionaryContext } from '@/contexts/dictionary.context';
-import { UserTheme } from '@/types/models/user.type';
 
 export default function Sidebar() {
   const { locale } = useContext(DictionaryContext);

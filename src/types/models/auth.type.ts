@@ -12,7 +12,7 @@ export class SignInData {
   public password: string;
   public expires_in: number;
 
-  constructor(email: string, password: string, expires_in: number = 86400) {
+  constructor(email: string, password: string, expires_in = 86400) {
     this.email = email;
     this.password = password;
     this.expires_in = expires_in;
@@ -30,7 +30,7 @@ export class SignUpData {
   public theme: UserTheme;
   public expires_in: number;
 
-  constructor(name: string, email: string, password: string, password_confirmation: string, language: UserLanguage, theme: UserTheme, expires_in: number = 86400) {
+  constructor(name: string, email: string, password: string, password_confirmation: string, language: UserLanguage, theme: UserTheme, expires_in = 86400) {
     this.name = name;
     this.email = email;
     this.password = password;
