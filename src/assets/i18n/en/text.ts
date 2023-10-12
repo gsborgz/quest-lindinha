@@ -58,7 +58,16 @@ const text = {
   signup_success: 'Account created successfully. Welcome!',
   theme: 'Theme',
   value: 'Value',
-  welcome: 'Welcome!'
+  welcome: 'Welcome!',
+  daysRemaining: 'Days remaining',
+  dayRemaining: 'Day remaining',
+  hoursRemaining: 'Hours remaining',
+  hourRemaining: 'Hour remaining',
+  minutesRemaining: 'Minutes remaining',
+  minuteRemaining: 'Minute remaining',
+  secondsRemaining: 'Seconds remaining',
+  secondRemaining: 'Second remaining',
+  expired: 'Expired',
 };
 
 export default text;

@@ -98,7 +98,17 @@ export default function Dashboard() {
 
 function QuestCard(props: QuestCardProps) {
   const { toggleModal } = useContext(ModalContext);
+  const { locale } = useContext(DictionaryContext);
+  const [timeLeft, setTimeLeft] = useState<string>('');
+  const [updateTimeLeftFirstTime, setUpdateTimeLeftFirstTime] = useState<boolean>(true);
   const { quest } = props;
+
+  if (updateTimeLeftFirstTime) {
+    setTimeLeftValue(quest.date);
+    setUpdateTimeLeftFirstTime(false);
+  }
+
+  updateTimeLeft(quest.date);
 
   function openQuestModal(quest: Quest): void {
     const dialog = <QuestDialog questId={ quest._id } />;
@@ -118,10 +128,51 @@ function QuestCard(props: QuestCardProps) {
     return `${ name.substring(0, 27) }...`;
   }
 
+  function updateTimeLeft(date: Date): void {
+    setInterval(() => {
+      setTimeLeftValue(date);
+    }, 1000);
+  }
+
+  function setTimeLeftValue(date: Date): void {
+    let timeLeft = '';
+
+    const now = new Date();
+    const questDate = new Date(date);
+    const distance = questDate.getTime() - now.getTime();
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (days > 1) {
+      timeLeft += `${days} ${locale('text.daysRemaining').toLowerCase()}`;
+    } else if (days === 1) {
+      timeLeft += `${days} ${locale('text.dayRemaining').toLowerCase()}`;
+    } else if (hours > 1 && days < 1) {
+      timeLeft += `${hours} ${locale('text.hoursRemaining').toLowerCase()}`;
+    } else if (hours === 1 && days < 1) {
+      timeLeft += `${hours} ${locale('text.hourRemaining').toLowerCase()}`;
+    } else if (minutes > 1 && hours < 1) {
+      timeLeft += `${minutes} ${locale('text.minutesRemaining').toLowerCase()}`;
+    } else if (minutes === 1 && hours < 1) {
+      timeLeft += `${minutes} ${locale('text.minuteRemaining').toLowerCase()}`;
+    } else if (seconds > 1 && minutes < 1) {
+      timeLeft += `${seconds} ${locale('text.secondsRemaining').toLowerCase()}`;
+    } else if (seconds === 1 && minutes < 1) {
+      timeLeft += `${seconds} ${locale('text.secondRemaining').toLowerCase()}`;
+    } else {
+      timeLeft = locale('text.expired');
+    }
+
+    setTimeLeft(timeLeft);
+  }
+
   return (
     <div className='flex flex-col items-center justify-center w-60 p-4 bg-slate-100 dark:bg-slate-700 rounded-lg shadow-lg gap-4'>
-      <div className='flex items-center justify-center text-xl font-bold w-full h-14 cursor-pointer' onClick={ () => openQuestModal(quest) }>
-        { formatedName(quest.name) }
+      <div className='flex flex-col items-center justify-center w-full h-14 cursor-pointer gap-1' onClick={ () => openQuestModal(quest) }>
+        <span className='text-xs text-slate-400 dark:text-slate-400'>{ quest.date && quest.status === QuestStatus.PENDING ? timeLeft : null }</span>
+        <span className='text-xl font-bold'>{ formatedName(quest.name) }</span>
       </div>
 
       { quest.status === QuestStatus.PENDING ? (
