@@ -146,21 +146,21 @@ function QuestCard(props: QuestCardProps) {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     if (days > 1) {
-      timeLeft += `${days} ${locale('text.daysRemaining').toLowerCase()}`;
+      timeLeft += `${days} ${locale('text.days_remaining').toLowerCase()}`;
     } else if (days === 1) {
-      timeLeft += `${days} ${locale('text.dayRemaining').toLowerCase()}`;
+      timeLeft += `${days} ${locale('text.day_remaining').toLowerCase()}`;
     } else if (hours > 1 && days < 1) {
-      timeLeft += `${hours} ${locale('text.hoursRemaining').toLowerCase()}`;
+      timeLeft += `${hours} ${locale('text.hours_remaining').toLowerCase()}`;
     } else if (hours === 1 && days < 1) {
-      timeLeft += `${hours} ${locale('text.hourRemaining').toLowerCase()}`;
+      timeLeft += `${hours} ${locale('text.hour_remaining').toLowerCase()}`;
     } else if (minutes > 1 && hours < 1) {
-      timeLeft += `${minutes} ${locale('text.minutesRemaining').toLowerCase()}`;
+      timeLeft += `${minutes} ${locale('text.minutes_remaining').toLowerCase()}`;
     } else if (minutes === 1 && hours < 1) {
-      timeLeft += `${minutes} ${locale('text.minuteRemaining').toLowerCase()}`;
+      timeLeft += `${minutes} ${locale('text.minute_remaining').toLowerCase()}`;
     } else if (seconds > 1 && minutes < 1) {
-      timeLeft += `${seconds} ${locale('text.secondsRemaining').toLowerCase()}`;
+      timeLeft += `${seconds} ${locale('text.seconds_remaining').toLowerCase()}`;
     } else if (seconds === 1 && minutes < 1) {
-      timeLeft += `${seconds} ${locale('text.secondRemaining').toLowerCase()}`;
+      timeLeft += `${seconds} ${locale('text.second_remaining').toLowerCase()}`;
     } else {
       timeLeft = locale('text.expired');
     }
