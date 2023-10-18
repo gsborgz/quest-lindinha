@@ -6,13 +6,14 @@ import { SessionContext } from '@/contexts/session.context';
 import en from '@/assets/i18n/en';
 import ptBr from '@/assets/i18n/pt-br';
 import { UserLanguage } from '@/types/models/user.type';
+import { GenericObject } from '@/types/base.type';
 
 export default function DictionaryProvider({ children }: { children: React.ReactNode }) {
   const { language } = useContext(SessionContext);
 
-  function locale(keyPath: string, args?: Record<string, any>): string {
+  function locale(keyPath: string, args?: GenericObject): string {
     const [fileName, property, subProperty] = keyPath.split('.');
-    const languageFile: Record<string, any> = language === UserLanguage.PTBR ? ptBr : en;
+    const languageFile: GenericObject = language === UserLanguage.PTBR ? ptBr : en;
     const file = languageFile[fileName];
 
     if (!file) {

@@ -1,4 +1,4 @@
-import { RequestOptions } from '@/types/base.type';
+import { GenericObject, RequestOptions } from '@/types/base.type';
 
 export default class BaseService {
 
@@ -49,7 +49,7 @@ export default class BaseService {
     return this.dataFetch<E>(options.uri, config, options.query);
   }
 
-  protected getAuthorizationHeader(): Record<string, any> {
+  protected getAuthorizationHeader(): GenericObject {
     const token = localStorage.getItem('token');
 
     return {
@@ -57,7 +57,7 @@ export default class BaseService {
     };
   }
 
-  private async dataFetch<E>(uri: string, config: RequestInit, query?: Record<string, any>): Promise<E> {
+  private async dataFetch<E>(uri: string, config: RequestInit, query?: GenericObject): Promise<E> {
     const url = new URL(`${process.env.API_URL}${uri}`);
 
     if (query) {

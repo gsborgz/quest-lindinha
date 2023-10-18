@@ -1,10 +1,10 @@
 import BaseService from '@/services/base.service';
 import { Reward } from '@/types/models/reward.type';
-import { BaseMessage, RequestOptions } from '@/types/base.type';
+import { BaseMessage, GenericObject, RequestOptions } from '@/types/base.type';
 
 export default class RewardService extends BaseService {
 
-  public async findAll(query?: Record<string, any>): Promise<Reward[]> {
+  public async findAll(query?: GenericObject): Promise<Reward[]> {
     const options = new RequestOptions();
 
     options.headers = this.getAuthorizationHeader();

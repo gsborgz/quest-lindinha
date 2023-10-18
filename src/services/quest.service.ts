@@ -1,10 +1,10 @@
 import BaseService from '@/services/base.service';
 import { Quest } from '@/types/models/quest.type';
-import { BaseMessage, RequestOptions } from '@/types/base.type';
+import { BaseMessage, GenericObject, RequestOptions } from '@/types/base.type';
 
 export default class QuestService extends BaseService {
 
-  public async findAll(query?: Record<string, any>): Promise<Quest[]> {
+  public async findAll(query?: GenericObject): Promise<Quest[]> {
     const options = new RequestOptions();
 
     options.headers = this.getAuthorizationHeader();

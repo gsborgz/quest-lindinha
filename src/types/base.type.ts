@@ -7,8 +7,11 @@ export class BaseMessage {
 export class RequestOptions {
 
   uri: string;
-  data?: Record<string, any>;
-  query?: Record<string, any>;
-  headers?: Record<string, any>;
+  data?: GenericObject;
+  query?: GenericObject;
+  headers?: GenericObject;
 
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GenericObject = Record<string, any>;
