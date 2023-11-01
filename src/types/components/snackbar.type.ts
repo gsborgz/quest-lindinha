@@ -3,9 +3,11 @@ export type SnackbarProps = {
   type: SnackbarType;
 }
 
+export type OpenSnackbarFunction = (message: string, type: SnackbarType, duration?: number) => void;
+
 export type SnackbarData = SnackbarProps & {
   open: boolean;
-  openSnackbar: (message: string, type: SnackbarType, duration?: number) => void;
+  openSnackbar: OpenSnackbarFunction;
 }
 
 export enum SnackbarType {

@@ -1,15 +1,16 @@
 'use client'
 
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
-import { DictionaryContext } from '@/contexts/dictionary.context';
-import { SessionContext } from '@/contexts/session.context';
-import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { CompleteQuestButtonProps } from '@/types/models/quest.type';
-import { questService } from '@/services/quest.service';
 import { useContext } from 'react';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { SnackbarContext } from '@/providers/snackbar.provider';
+import { SessionContext } from '@/providers/session.provider';
+import { QuestServiceContext } from '@/providers/quest-service.provider';
 
 export default function CompleteQuestButton(props: CompleteQuestButtonProps) {
+  const questService = useContext(QuestServiceContext);
   const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadQuests, addCredits } = useContext(SessionContext);

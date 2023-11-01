@@ -1,28 +1,29 @@
 'use client'
 
 import { Reward, RewardCardProps, RewardStatus } from '@/types/models/reward.type';
-import { rewardService } from '@/services/reward.service';
 import { useContext, useEffect, useState } from 'react';
-import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
-import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
 import Loading from '@/components/loading.component';
 import StatusSelect from '@/components/status-select.component';
-import { DictionaryContext } from '@/contexts/dictionary.context';
 import RewardDialog from '@/dialogs/reward.dialog';
-import { ModalContext } from '@/contexts/modal.context';
 import ClaimRewardButton from '@/components/claim-reward-button.component';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { SessionContext } from '@/providers/session.provider';
+import { SnackbarContext } from '@/providers/snackbar.provider';
+import { ModalContext } from '@/providers/modal.provider';
+import { RewardServiceContext } from '@/providers/reward-service.provider';
 
 export default function Shop() {
+  const rewardService = useContext(RewardServiceContext);
   const { locale } = useContext(DictionaryContext);
+  const { openSnackbar } = useContext(SnackbarContext);
+  const { loadRewards, setLoadRewards } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [rewards, setRewards] = useState<Reward[]>([]);
   const [status, setStatus] = useState<RewardStatus>(RewardStatus.AVAILABLE);
   const [loading, setLoading] = useState<boolean>(true);
   const rewardStatus = [RewardStatus.AVAILABLE, RewardStatus.CLAIMED];
-  const { openSnackbar } = useContext(SnackbarContext);
-  const { loadRewards, setLoadRewards } = useContext(SessionContext);
 
   async function findRewards() {
     await rewardService.findAll({ status })

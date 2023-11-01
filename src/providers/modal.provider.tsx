@@ -1,10 +1,13 @@
 'use client'
 
 import { useState } from 'react';
-import { ModalContext } from '@/contexts/modal.context';
 import { ModalContent } from '@/types/components/modal.type';
+import { createContext } from 'react';
+import { ModalData } from '@/types/components/modal.type';
 
-export default function ModalProvider({ children }: { children: React.ReactNode }) {
+export const ModalContext = createContext({} as ModalData);
+
+export function ModalProvider({ children }: { children: React.ReactNode }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState<ModalContent>(null);
 

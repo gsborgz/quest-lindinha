@@ -1,8 +1,8 @@
 'use client'
 
 import { useContext } from 'react';
-import { SnackbarContext } from '@/contexts/snackbar.context';
 import Snackbar from '@/components/snackbar.component';
+import { SnackbarContext } from '@/providers/snackbar.provider';
 
 export default function SnackbarContainer() {
   const { open, message, type } = useContext(SnackbarContext);

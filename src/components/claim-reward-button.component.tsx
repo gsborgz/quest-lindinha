@@ -1,15 +1,16 @@
 'use client'
 
 import { useContext } from 'react';
-import { rewardService } from '@/services/reward.service';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
-import { DictionaryContext } from '@/contexts/dictionary.context';
-import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SessionContext } from '@/contexts/session.context';
 import { ClaimRewardButtonProps } from '@/types/models/reward.type';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { SnackbarContext } from '@/providers/snackbar.provider';
+import { SessionContext } from '@/providers/session.provider';
+import { RewardServiceContext } from '@/providers/reward-service.provider';
 
 export default function ClaimRewardButton(props: ClaimRewardButtonProps) {
+  const rewardService = useContext(RewardServiceContext);
   const { locale } = useContext(DictionaryContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { user, setLoadRewards, removeCredits } = useContext(SessionContext);

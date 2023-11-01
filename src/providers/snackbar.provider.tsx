@@ -1,8 +1,11 @@
-import { SnackbarContext } from '@/contexts/snackbar.context';
 import { useState } from 'react';
 import { SnackbarType } from '@/types/components/snackbar.type';
+import { createContext } from 'react';
+import { SnackbarData } from '@/types/components/snackbar.type';
 
-export default function SnackbarProvider({ children }: { children: React.ReactNode }) {
+export const SnackbarContext = createContext({} as SnackbarData);
+
+export function SnackbarProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const [type, setType] = useState<SnackbarType>(SnackbarType.INFO);

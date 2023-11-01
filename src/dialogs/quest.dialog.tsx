@@ -6,16 +6,17 @@ import { Quest, QuestDialogData, QuestStatus } from '@/types/models/quest.type';
 import Input from '@/components/input.component';
 import Button from '@/components/button.component';
 import { useContext, useEffect, useState } from 'react';
-import { ModalContext } from '@/contexts/modal.context';
-import { questService } from '@/services/quest.service';
-import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
-import { SessionContext } from '@/contexts/session.context';
-import { DictionaryContext } from '@/contexts/dictionary.context';
 import CompleteQuestButton from '@/components/complete-quest-button.component';
-import Divider from '../components/divider.component';
+import Divider from '@/components/divider.component';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { ModalContext } from '@/providers/modal.provider';
+import { SnackbarContext } from '@/providers/snackbar.provider';
+import { SessionContext } from '@/providers/session.provider';
+import { QuestServiceContext } from '@/providers/quest-service.provider';
 
 export default function QuestDialog(props: QuestDialogData) {
+  const questService = useContext(QuestServiceContext);
   const { locale } = useContext(DictionaryContext);
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
@@ -54,7 +55,7 @@ export default function QuestDialog(props: QuestDialogData) {
         setDate(formatedDate);
       });
     }
-  }, [props, quest]);
+  }, [props, quest, questService]);
 
   if (props.questId && !quest) {
     return null;

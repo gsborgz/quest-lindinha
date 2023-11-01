@@ -1,10 +1,10 @@
 import { PlusIcon } from '@heroicons/react/24/solid';
 import QuestDialog from '@/dialogs/quest.dialog';
 import Button from '@/components/button.component';
-import { ModalContext } from '@/contexts/modal.context';
 import { useContext } from 'react';
-import { DictionaryContext } from '@/contexts/dictionary.context';
 import { QuestButtonData } from '@/types/models/quest.type';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { ModalContext } from '@/providers/modal.provider';
 
 export function CreateQuestButton(props: QuestButtonData) {
   const { locale } = useContext(DictionaryContext);

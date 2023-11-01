@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react';
-import { DictionaryContext } from '@/contexts/dictionary.context';
+import { DictionaryContext } from '@/providers/dictionary.provider';
 
 type LoadingProps = {
   size?: number;

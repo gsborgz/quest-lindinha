@@ -1,7 +1,7 @@
 'use client'
 
 import { StatusSelectProps } from '@/types/components/status-select.type';
-import { DictionaryContext } from '@/contexts/dictionary.context';
+import { DictionaryContext } from '@/providers/dictionary.provider';
 import { useContext } from 'react';
 
 export default function StatusSelect<T>(props: StatusSelectProps<T>) {

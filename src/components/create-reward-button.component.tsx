@@ -1,12 +1,12 @@
 'use client'
 
 import { PlusIcon } from '@heroicons/react/24/solid';
-import { ModalContext } from '@/contexts/modal.context';
 import { RewardButtonData } from '@/types/models/reward.type';
 import { useContext } from 'react';
 import RewardDialog from '@/dialogs/reward.dialog';
 import Button from '@/components/button.component';
-import { DictionaryContext } from '@/contexts/dictionary.context';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { ModalContext } from '@/providers/modal.provider';
 
 export function CreateRewardButton(props: RewardButtonData) {
   const { locale } = useContext(DictionaryContext);

@@ -1,14 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react';
-import { SessionContext } from '@/contexts/session.context';
+import { useContext, useEffect, useState } from 'react';
 import { SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
-import { authService } from '@/services/auth.service';
 import { useRouter, usePathname } from 'next/navigation';
 import { User, UserLanguage, UserTheme } from '@/types/models/user.type';
 import { useTheme } from 'next-themes';
+import { createContext } from 'react';
+import { SessionData } from '@/types/providers/session.type';
+import { AuthServiceContext } from '@/providers/auth-service.provider';
 
-export default function SessionProvider({ children }: { children: React.ReactNode }) {
+export const SessionContext = createContext({} as SessionData);
+
+export function SessionProvider({ children }: { children: React.ReactNode }) {
+  const authService = useContext(AuthServiceContext);
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
   const [token, setToken] = useState<string | null | undefined>(null);
@@ -41,24 +45,19 @@ export default function SessionProvider({ children }: { children: React.ReactNod
         });
     }
 
-  }, [pathName, router, token]);
+  }, [authService, pathName, router, token]);
 
   async function signin(data: SignInData) {
-    authService.signin(data)
-      .then(response => logIn(response as SignInResult))
-      .catch(error => console.log(error));
+    authService.signin(data).then(response => logIn(response as SignInResult));
   }
 
   async function signup(data: SignUpData) {
-    authService.signup(data)
-      .then(response => logIn(response as SignInResult))
-      .catch(error => console.log(error));
+    authService.signup(data).then(response => logIn(response as SignInResult));
   }
 
   async function signout() {
     authService.signout()
       .then(() => logOut())
-      .catch(error => console.log(error))
       .finally(() => {
         clearTokenData();
       });

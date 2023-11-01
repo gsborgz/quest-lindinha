@@ -3,13 +3,13 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import Avatar from '@/components/avatar.component';
 import { Bars3Icon, MoonIcon, SunIcon, GlobeAltIcon, LifebuoyIcon } from '@heroicons/react/24/solid';
-import { MenuContext } from '@/contexts/menu.context';
-import { SessionContext } from '@/contexts/session.context';
 import { CreateRewardButton } from '@/components/create-reward-button.component';
 import { CreateQuestButton } from '@/components/create-quest-button.component';
 import { UserLanguage, UserTheme } from '@/types/models/user.type';
 import { Menu, Transition } from '@headlessui/react';
 import { US, BR } from 'country-flag-icons/react/3x2'
+import { SessionContext } from '@/providers/session.provider';
+import { MenuContext } from '@/providers/menu.provider';
 
 export default function Header() {
   const [mounted, setMounted] = React.useState(false);

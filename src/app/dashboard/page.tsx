@@ -2,26 +2,27 @@
 
 import { Quest, QuestCardProps, QuestStatus } from '@/types/models/quest.type';
 import { useContext, useEffect, useState } from 'react';
-import { SnackbarContext } from '@/contexts/snackbar.context';
-import { SessionContext } from '@/contexts/session.context';
-import { questService } from '@/services/quest.service';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { CreateQuestButton } from '@/components/create-quest-button.component';
 import Loading from '@/components/loading.component';
 import StatusSelect from '@/components/status-select.component';
-import { DictionaryContext } from '@/contexts/dictionary.context';
-import { ModalContext } from '@/contexts/modal.context';
 import QuestDialog from '@/dialogs/quest.dialog';
 import CompleteQuestButton from '@/components/complete-quest-button.component';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { SnackbarContext } from '@/providers/snackbar.provider';
+import { SessionContext } from '@/providers/session.provider';
+import { ModalContext } from '@/providers/modal.provider';
+import { QuestServiceContext } from '@/providers/quest-service.provider';
 
 export default function Dashboard() {
+  const questService = useContext(QuestServiceContext);
   const { locale } = useContext(DictionaryContext);
+  const { openSnackbar } = useContext(SnackbarContext);
+  const { loadQuests, setLoadQuests } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [quests, setQuests] = useState<Quest[]>([]);
   const [status, setStatus] = useState<QuestStatus>(QuestStatus.PENDING);
   const [loading, setLoading] = useState<boolean>(true);
-  const { openSnackbar } = useContext(SnackbarContext);
-  const { loadQuests, setLoadQuests } = useContext(SessionContext);
   const questStatus = [QuestStatus.PENDING, QuestStatus.COMPLETED];
 
   async function findQuests() {

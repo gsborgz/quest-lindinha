@@ -4,21 +4,23 @@ import { Reward, RewardDialogData, RewardStatus } from '@/types/models/reward.ty
 import Modal from '@/components/modal.component';
 import { GiftIcon } from '@heroicons/react/24/solid';
 import { useContext, useEffect, useState } from 'react';
-import { ModalContext } from '@/contexts/modal.context';
-import { SnackbarContext } from '@/contexts/snackbar.context';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import Button from '@/components/button.component';
 import Input from '@/components/input.component';
-import { rewardService } from '@/services/reward.service';
-import { SessionContext } from '@/contexts/session.context';
-import { DictionaryContext } from '@/contexts/dictionary.context';
-import ClaimRewardButton from '../components/claim-reward-button.component';
-import Divider from '../components/divider.component';
+import ClaimRewardButton from '@/components/claim-reward-button.component';
+import Divider from '@/components/divider.component';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { ModalContext } from '@/providers/modal.provider';
+import { SnackbarContext } from '@/providers/snackbar.provider';
+import { SessionContext } from '@/providers/session.provider';
+import { RewardServiceContext } from '@/providers/reward-service.provider';
 
 export default function RewardDialog(props: RewardDialogData) {
+  const rewardService = useContext(RewardServiceContext);
   const { locale } = useContext(DictionaryContext);
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
+  const { setLoadRewards } = useContext(SessionContext);
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [value, setValue] = useState<number>(100);
@@ -27,7 +29,6 @@ export default function RewardDialog(props: RewardDialogData) {
   const [showDeleteButton, setShowDeleteButton] = useState<boolean>(false);
   const title = props.rewardId ? locale('text.reward_details') : locale('text.new_reward');
   const icon = <GiftIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
-  const { setLoadRewards } = useContext(SessionContext);
 
   useEffect(() => {
     if (props.rewardId && !reward) {
@@ -43,7 +44,7 @@ export default function RewardDialog(props: RewardDialogData) {
         setValue(response.value);
       });
     }
-  }, [props, reward]);
+  }, [props, reward, rewardService]);
 
   function setRewardName(newValue: string): void {
     setName(newValue);

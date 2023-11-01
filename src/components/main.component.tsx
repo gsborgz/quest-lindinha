@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'react';
-import { SessionContext } from '@/contexts/session.context';
+import { SessionContext } from '@/providers/session.provider';
 
 export default function Main({ children }: { children: React.ReactNode }) {
   const { user } = useContext(SessionContext);

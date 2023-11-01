@@ -1,17 +1,19 @@
 import { GenericObject, RequestOptions } from '@/types/base.type';
+import { LocaleFunction } from '@/types/providers/dictionary.type';
+import { OpenSnackbarFunction, SnackbarType } from '@/types/components/snackbar.type';
 
 export default class BaseService {
 
-  protected async get<E>(options: RequestOptions): Promise<E> {
+  public async get<E>(options: RequestOptions, locale: LocaleFunction, openSnackbar: OpenSnackbarFunction): Promise<E> {
     const config = {
       method: 'GET',
       headers: options.headers,
     };
 
-    return this.dataFetch<E>(options.uri, config, options.query);
+    return this.dataFetch<E>(options.uri, config, locale, openSnackbar, options.query);
   }
 
-  protected async post<E>(options: RequestOptions): Promise<E> {
+  public async post<E>(options: RequestOptions, locale: LocaleFunction, openSnackbar: OpenSnackbarFunction): Promise<E> {
     const config: RequestInit = {
       method: 'POST',
       body: JSON.stringify(options.data),
@@ -21,10 +23,10 @@ export default class BaseService {
       }
     };
 
-    return this.dataFetch<E>(options.uri, config, options.query);
+    return this.dataFetch<E>(options.uri, config, locale, openSnackbar, options.query);
   }
 
-  protected async put<E>(options: RequestOptions): Promise<E> {    
+  public async put<E>(options: RequestOptions, locale: LocaleFunction, openSnackbar: OpenSnackbarFunction): Promise<E> {    
     const config: RequestInit = {
       method: 'PUT',
       headers: {
@@ -37,19 +39,19 @@ export default class BaseService {
       config['body'] = JSON.stringify(options.data);
     }
 
-    return this.dataFetch<E>(options.uri, config, options.query);
+    return this.dataFetch<E>(options.uri, config, locale, openSnackbar, options.query);
   }
 
-  protected async delete<E>(options: RequestOptions): Promise<E> {
+  public async delete<E>(options: RequestOptions, locale: LocaleFunction, openSnackbar: OpenSnackbarFunction): Promise<E> {
     const config: RequestInit = {
       method: 'DELETE',
       headers: options.headers
     };
 
-    return this.dataFetch<E>(options.uri, config, options.query);
+    return this.dataFetch<E>(options.uri, config, locale, openSnackbar, options.query);
   }
 
-  protected getAuthorizationHeader(): GenericObject {
+  public getAuthorizationHeader(): GenericObject {
     const token = localStorage.getItem('token');
 
     return {
@@ -57,24 +59,27 @@ export default class BaseService {
     };
   }
 
-  private async dataFetch<E>(uri: string, config: RequestInit, query?: GenericObject): Promise<E> {
+  private async dataFetch<E>(uri: string, config: RequestInit, locale: LocaleFunction, openSnackbar: OpenSnackbarFunction, query?: GenericObject): Promise<E> {
     const url = new URL(`${process.env.API_URL}${uri}`);
 
     if (query) {
       Object.keys(query).forEach(key => url.searchParams.append(key, query[key]));
     }
 
-    return fetch(url, config)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
+    const response = await fetch(url, config);
 
-        return response.json();
-      })
-      .catch(error => {
-        throw new Error(error);
-      });
+    if (response.ok) {
+      return response.json();
+    }
+
+    const body = await response.json();
+    const message = locale(body.message);
+
+    openSnackbar(message, SnackbarType.ERROR);
+
+    throw new Error(message);
   }
 
 }
+
+export const baseService = new BaseService();

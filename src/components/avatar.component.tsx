@@ -5,10 +5,10 @@ import { BR, US } from 'country-flag-icons/react/3x2';
 import Image from 'next/image';
 import { Fragment, useContext } from 'react';
 import { UserLanguage, UserTheme } from '@/types/models/user.type';
-import { SessionContext } from '@/contexts/session.context';
 import Divider from '@/components/divider.component';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid';
-import { DictionaryContext } from '@/contexts/dictionary.context';
+import { DictionaryContext } from '@/providers/dictionary.provider';
+import { SessionContext } from '@/providers/session.provider';
 
 export default function Avatar() {
   const { locale } = useContext(DictionaryContext);
