@@ -4,14 +4,14 @@ import { useContext } from 'react';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { ClaimRewardButtonProps } from '@/types/models/reward.type';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
-import { RewardServiceContext } from '@/providers/reward-service.provider';
+import { useDictionary } from '../hooks/dictionary.hook';
+import { useRewardService } from '../hooks/reward-service.hook';
 
 export default function ClaimRewardButton(props: ClaimRewardButtonProps) {
-  const rewardService = useContext(RewardServiceContext);
-  const { locale } = useContext(DictionaryContext);
+  const rewardService = useRewardService();
+  const { locale } = useDictionary();
   const { openSnackbar } = useContext(SnackbarContext);
   const { user, setLoadRewards, removeCredits } = useContext(SessionContext);
 

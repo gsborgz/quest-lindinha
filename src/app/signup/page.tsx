@@ -7,15 +7,12 @@ import { SignUpData } from '@/types/models/auth.type';
 import Button from '@/components/button.component';
 import Link from 'next/link';
 import Divider from '@/components/divider.component';
-import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
-import { DictionaryContext } from '@/providers/dictionary.provider';
-import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
+import { useDictionary } from '@/hooks/dictionary.hook';
 
 export default function SignUp() {
-  const { locale } = useContext(DictionaryContext);
-  const { openSnackbar } = useContext(SnackbarContext);
+  const { locale } = useDictionary();
   const { language, theme, signup } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
@@ -40,13 +37,7 @@ export default function SignUp() {
 
     const data = new SignUpData(name, email, password, passwordConfirmation, language, theme);
 
-    signup(data)
-      .then(() => {
-        openSnackbar(locale('text.signup_succes'), SnackbarType.SUCCESS);
-      })
-      .catch(() => {
-        openSnackbar(locale('text.signup_error'), SnackbarType.ERROR);
-      });
+    signup(data);
   }
 
   if (!mounted) {

@@ -7,15 +7,12 @@ import { SignInData } from '@/types/models/auth.type';
 import Button from '@/components/button.component';
 import Divider from '@/components/divider.component';
 import Link from 'next/link';
-import { SnackbarType } from '@/types/components/snackbar.type';
 import Loading from '@/components/loading.component';
-import { DictionaryContext } from '@/providers/dictionary.provider';
-import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
+import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function Home() {
-  const { locale } = useContext(DictionaryContext);
-  const { openSnackbar } = useContext(SnackbarContext);
+  const { locale } = useDictionary();
   const { signin } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
@@ -34,13 +31,7 @@ export default function Home() {
 
     const data = new SignInData(email, password);
 
-    signin(data)
-      .then(() => {
-        openSnackbar(locale('text.welcome'), SnackbarType.SUCCESS);
-      })
-      .catch(() => {
-        openSnackbar(locale('text.signin_fail'), SnackbarType.ERROR);
-      });
+    signin(data);
   }
 
   if (!mounted) {

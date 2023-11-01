@@ -8,15 +8,15 @@ import Loading from '@/components/loading.component';
 import StatusSelect from '@/components/status-select.component';
 import QuestDialog from '@/dialogs/quest.dialog';
 import CompleteQuestButton from '@/components/complete-quest-button.component';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
 import { ModalContext } from '@/providers/modal.provider';
-import { QuestServiceContext } from '@/providers/quest-service.provider';
+import { useDictionary } from '@/hooks/dictionary.hook';
+import { useQuestService } from '@/hooks/quest-service.hook';
 
 export default function Dashboard() {
-  const questService = useContext(QuestServiceContext);
-  const { locale } = useContext(DictionaryContext);
+  const questService = useQuestService();
+  const { locale } = useDictionary();
   const { openSnackbar } = useContext(SnackbarContext);
   const { loadQuests, setLoadQuests } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);
@@ -99,7 +99,7 @@ export default function Dashboard() {
 
 function QuestCard(props: QuestCardProps) {
   const { toggleModal } = useContext(ModalContext);
-  const { locale } = useContext(DictionaryContext);
+  const { locale } = useDictionary();
   const [timeLeft, setTimeLeft] = useState<string>('');
   const [updateTimeLeftFirstTime, setUpdateTimeLeftFirstTime] = useState<boolean>(true);
   const { quest } = props;

@@ -9,15 +9,15 @@ import { useContext, useEffect, useState } from 'react';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import CompleteQuestButton from '@/components/complete-quest-button.component';
 import Divider from '@/components/divider.component';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { ModalContext } from '@/providers/modal.provider';
 import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
-import { QuestServiceContext } from '@/providers/quest-service.provider';
+import { useQuestService } from '@/hooks/quest-service.hook';
+import { useDictionary } from '@/hooks/dictionary.hook';
 
 export default function QuestDialog(props: QuestDialogData) {
-  const questService = useContext(QuestServiceContext);
-  const { locale } = useContext(DictionaryContext);
+  const questService = useQuestService();
+  const { locale } = useDictionary();
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadQuests } = useContext(SessionContext);

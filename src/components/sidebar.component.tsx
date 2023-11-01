@@ -4,12 +4,12 @@ import { ShoppingBagIcon, HomeIcon, ArrowLeftOnRectangleIcon } from '@heroicons/
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/components/menu.type';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { MenuContext } from '@/providers/menu.provider';
 import { SessionContext } from '@/providers/session.provider';
+import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function Sidebar() {
-  const { locale } = useContext(DictionaryContext);
+  const { locale } = useDictionary();
   const { menuActive } = useContext(MenuContext);
   const { user, signout } = useContext(SessionContext);
   const [mounted, setMounted] = useState(false);

@@ -9,15 +9,15 @@ import Button from '@/components/button.component';
 import Input from '@/components/input.component';
 import ClaimRewardButton from '@/components/claim-reward-button.component';
 import Divider from '@/components/divider.component';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { ModalContext } from '@/providers/modal.provider';
 import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
-import { RewardServiceContext } from '@/providers/reward-service.provider';
+import { useRewardService } from '@/hooks/reward-service.hook';
+import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function RewardDialog(props: RewardDialogData) {
-  const rewardService = useContext(RewardServiceContext);
-  const { locale } = useContext(DictionaryContext);
+  const rewardService = useRewardService();
+  const { locale } = useDictionary();
   const { closeModal } = useContext(ModalContext);
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadRewards } = useContext(SessionContext);

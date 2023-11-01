@@ -1,14 +1,13 @@
 'use client'
 
-import { useContext } from 'react';
-import { DictionaryContext } from '@/providers/dictionary.provider';
+import { useDictionary } from '../hooks/dictionary.hook';
 
 type LoadingProps = {
   size?: number;
 };
 
 export default function Loading(props: LoadingProps) {
-  const { locale } = useContext(DictionaryContext);
+  const { locale } = useDictionary();
 
   return (
     <div role="status">

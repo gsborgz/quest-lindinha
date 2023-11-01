@@ -4,14 +4,14 @@ import { LifebuoyIcon } from '@heroicons/react/24/solid';
 import { SnackbarType } from '@/types/components/snackbar.type';
 import { CompleteQuestButtonProps } from '@/types/models/quest.type';
 import { useContext } from 'react';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { SnackbarContext } from '@/providers/snackbar.provider';
 import { SessionContext } from '@/providers/session.provider';
-import { QuestServiceContext } from '@/providers/quest-service.provider';
+import { useDictionary } from '../hooks/dictionary.hook';
+import { useQuestService } from '../hooks/quest-service.hook';
 
 export default function CompleteQuestButton(props: CompleteQuestButtonProps) {
-  const questService = useContext(QuestServiceContext);
-  const { locale } = useContext(DictionaryContext);
+  const questService = useQuestService();
+  const { locale } = useDictionary();
   const { openSnackbar } = useContext(SnackbarContext);
   const { setLoadQuests, addCredits } = useContext(SessionContext);
 

@@ -1,11 +1,10 @@
 'use client'
 
 import { StatusSelectProps } from '@/types/components/status-select.type';
-import { DictionaryContext } from '@/providers/dictionary.provider';
-import { useContext } from 'react';
+import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function StatusSelect<T>(props: StatusSelectProps<T>) {
-  const { locale } = useContext(DictionaryContext);
+  const { locale } = useDictionary();
 
   return (
     <section className='flex gap-[0.15rem]'>

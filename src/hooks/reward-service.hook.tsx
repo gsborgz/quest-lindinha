@@ -1,16 +1,12 @@
-import { createContext, useContext } from 'react';
-import { RewardServiceData } from '@/types/providers/reward-service.type';
+'use client'
+
 import { BaseMessage, GenericObject, RequestOptions } from '@/types/base.type';
+import { RewardServiceData } from '@/types/hooks/reward-service.type';
 import { Reward } from '@/types/models/reward.type';
-import { baseService } from '@/services/base.service';
-import { DictionaryContext } from '@/providers/dictionary.provider';
-import { SnackbarContext } from '@/providers/snackbar.provider';
+import { useBaseService } from '@/hooks/base-service.hook';
 
-export const RewardServiceContext = createContext({} as RewardServiceData);
-
-export function RewardServiceProvider({ children }: { children: React.ReactNode }) {
-  const { locale } = useContext(DictionaryContext);
-  const { openSnackbar } = useContext(SnackbarContext);
+export function useRewardService(): RewardServiceData {
+  const baseService = useBaseService();
 
   async function findAll(query?: GenericObject): Promise<Reward[]> {
     const options = new RequestOptions();
@@ -19,7 +15,7 @@ export function RewardServiceProvider({ children }: { children: React.ReactNode 
     options.query = query;
     options.uri = '/rewards';
 
-    return baseService.get(options, locale, openSnackbar);
+    return baseService.get(options);
   }
 
   async function findOne(id: string): Promise<Reward> {
@@ -28,7 +24,7 @@ export function RewardServiceProvider({ children }: { children: React.ReactNode 
     options.headers = baseService.getAuthorizationHeader();
     options.uri = `/rewards/${id}`;
 
-    return baseService.get(options, locale, openSnackbar);
+    return baseService.get(options);
   }
 
   async function upsert(data: Reward): Promise<Reward> {
@@ -38,7 +34,7 @@ export function RewardServiceProvider({ children }: { children: React.ReactNode 
     options.data = data;
     options.uri = '/rewards';
 
-    return baseService.post(options, locale, openSnackbar);
+    return baseService.post(options);
   }
 
   async function claim(id: string): Promise<BaseMessage> {
@@ -47,7 +43,7 @@ export function RewardServiceProvider({ children }: { children: React.ReactNode 
     options.headers = baseService.getAuthorizationHeader();
     options.uri = `/rewards/${id}/claim`;
 
-    return baseService.put(options, locale, openSnackbar);
+    return baseService.put(options);
   }
 
   async function remove(id: string): Promise<BaseMessage> {
@@ -56,18 +52,14 @@ export function RewardServiceProvider({ children }: { children: React.ReactNode 
     options.headers = baseService.getAuthorizationHeader();
     options.uri = `/rewards/${id}`;
 
-    return baseService.delete(options, locale, openSnackbar);
+    return baseService.delete(options);
   }
 
-  return (
-    <RewardServiceContext.Provider value={{
-      findAll,
-      findOne,
-      upsert,
-      claim,
-      remove
-    }}>
-      { children }
-    </RewardServiceContext.Provider>
-  );
+  return {
+    findAll,
+    findOne,
+    upsert,
+    claim,
+    remove
+  };
 }

@@ -7,11 +7,11 @@ import { Fragment, useContext } from 'react';
 import { UserLanguage, UserTheme } from '@/types/models/user.type';
 import Divider from '@/components/divider.component';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { SessionContext } from '@/providers/session.provider';
+import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function Avatar() {
-  const { locale } = useContext(DictionaryContext);
+  const { locale } = useDictionary();
   const { theme, changeTheme, changeLanguage } = useContext(SessionContext);
   const isDarkTheme = theme === UserTheme.DARK;
   const sunIcon = <SunIcon className='h-5 w-5 text-neutral-50' />;

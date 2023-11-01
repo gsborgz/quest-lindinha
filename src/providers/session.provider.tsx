@@ -1,18 +1,18 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
 import { useRouter, usePathname } from 'next/navigation';
 import { User, UserLanguage, UserTheme } from '@/types/models/user.type';
 import { useTheme } from 'next-themes';
 import { createContext } from 'react';
 import { SessionData } from '@/types/providers/session.type';
-import { AuthServiceContext } from '@/providers/auth-service.provider';
+import { useAuthService } from '../hooks/auth-service.hook';
 
 export const SessionContext = createContext({} as SessionData);
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const authService = useContext(AuthServiceContext);
+  const authService = useAuthService();
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
   const [token, setToken] = useState<string | null | undefined>(null);

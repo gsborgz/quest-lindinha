@@ -8,15 +8,15 @@ import Loading from '@/components/loading.component';
 import StatusSelect from '@/components/status-select.component';
 import RewardDialog from '@/dialogs/reward.dialog';
 import ClaimRewardButton from '@/components/claim-reward-button.component';
-import { DictionaryContext } from '@/providers/dictionary.provider';
 import { SessionContext } from '@/providers/session.provider';
 import { SnackbarContext } from '@/providers/snackbar.provider';
 import { ModalContext } from '@/providers/modal.provider';
-import { RewardServiceContext } from '@/providers/reward-service.provider';
+import { useDictionary } from '@/hooks/dictionary.hook';
+import { useRewardService } from '@/hooks/reward-service.hook';
 
 export default function Shop() {
-  const rewardService = useContext(RewardServiceContext);
-  const { locale } = useContext(DictionaryContext);
+  const rewardService = useRewardService();
+  const { locale } = useDictionary();
   const { openSnackbar } = useContext(SnackbarContext);
   const { loadRewards, setLoadRewards } = useContext(SessionContext);
   const [mounted, setMounted] = useState<boolean>(false);

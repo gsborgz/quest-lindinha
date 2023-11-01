@@ -5,13 +5,10 @@ import en from '@/assets/i18n/en';
 import ptBr from '@/assets/i18n/pt-br';
 import { UserLanguage } from '@/types/models/user.type';
 import { GenericObject } from '@/types/base.type';
-import { createContext } from 'react';
-import { DictionaryData } from '@/types/providers/dictionary.type';
 import { SessionContext } from '@/providers/session.provider';
+import { DictionaryData } from '@/types/hooks/dictionary.type';
 
-export const DictionaryContext = createContext({} as DictionaryData);
-
-export function DictionaryProvider({ children }: { children: React.ReactNode }) {
+export function useDictionary(): DictionaryData {
   const { language } = useContext(SessionContext);
 
   function locale(keyPath: string, args?: GenericObject): string {
@@ -44,9 +41,5 @@ export function DictionaryProvider({ children }: { children: React.ReactNode }) 
     return value;
   }
 
-  return (
-    <DictionaryContext.Provider value={{ locale }}>
-      { children }
-    </DictionaryContext.Provider>
-  );
+  return { locale };
 }
