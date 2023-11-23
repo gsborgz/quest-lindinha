@@ -15,7 +15,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const authService = useAuthService();
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null | undefined>(null);
   const [user, setUser] = useState<User | null>(null);
   const [language, setLanguage] = useState<UserLanguage>(UserLanguage.PTBR);
   const { theme, setTheme } = useTheme();
@@ -24,18 +23,17 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const publicRoutes = ['/', '/signup'];
-
-    setToken(localStorage.getItem('token'));
+    const token = localStorage.getItem('token');
 
     if (token && publicRoutes.includes(pathName)) {
       router.push('/dashboard');
     }
-  
+
     if (!token && !publicRoutes.includes(pathName)) {
       router.push('/');
     }
 
-    if (token && publicRoutes.includes(pathName)) {
+    if (token && !user) {
       authService.me()
         .then(user => {
           setUser(user);
@@ -44,8 +42,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
           clearTokenData();
         });
     }
-
-  }, [authService, pathName, router, token]);
+  }, [authService, pathName, router, user]);
 
   async function signin(data: SignInData) {
     authService.signin(data).then(response => logIn(response as SignInResult));
@@ -102,12 +99,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   function setTokenData(token: string) {
     localStorage.setItem('token', token);
-    setToken(token);
   }
 
   function clearTokenData() {
     localStorage.removeItem('token');
-    setToken(null);
   }
 
   function changeLanguage(newLanguage: UserLanguage) {

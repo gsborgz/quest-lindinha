@@ -45,6 +45,7 @@ const text = {
   no_rewards_tip: 'Experimente criar uma clicando nesse botão:',
   not_enough_credits: 'Não há créditos suficientes!',
   or: 'OU',
+  page_not_found: 'Página não encontrada!',
   password: 'Senha',
   password_confirmation: 'Confirme sua senha',
   password_updated: 'Senha atualizada com sucesso!',
