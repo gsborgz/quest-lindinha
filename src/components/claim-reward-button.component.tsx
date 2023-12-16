@@ -1,11 +1,11 @@
 'use client'
 
 import { useContext } from 'react';
-import { SnackbarType } from '@/types/components/snackbar.type';
+import { SnackbarType } from '@src/types/components/snackbar.type';
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
-import { ClaimRewardButtonProps } from '@/types/models/reward.type';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { SessionContext } from '@/providers/session.provider';
+import { ClaimRewardButtonProps } from '@src/types/models/reward.type';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SessionContext } from '@src/providers/session.provider';
 import { useDictionary } from '../hooks/dictionary.hook';
 import { useRewardService } from '../hooks/reward-service.hook';
 

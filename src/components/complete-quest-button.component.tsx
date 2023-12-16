@@ -1,11 +1,11 @@
 'use client'
 
 import { LifebuoyIcon } from '@heroicons/react/24/solid';
-import { SnackbarType } from '@/types/components/snackbar.type';
-import { CompleteQuestButtonProps } from '@/types/models/quest.type';
+import { SnackbarType } from '@src/types/components/snackbar.type';
+import { CompleteQuestButtonProps } from '@src/types/models/quest.type';
 import { useContext } from 'react';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { SessionContext } from '@/providers/session.provider';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SessionContext } from '@src/providers/session.provider';
 import { useDictionary } from '../hooks/dictionary.hook';
 import { useQuestService } from '../hooks/quest-service.hook';
 

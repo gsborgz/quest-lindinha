@@ -1,9 +1,16 @@
 'use client'
 
-import { QuestServiceData } from '@/types/hooks/quest-service.type';
-import { useBaseService } from '@/hooks/base-service.hook';
-import { BaseMessage, GenericObject, RequestOptions } from '@/types/base.type';
-import { Quest } from '@/types/models/quest.type';
+import { useBaseService } from '@src/hooks/base-service.hook';
+import { BaseMessage, GenericObject, RequestOptions } from '@src/types/base.type';
+import { Quest } from '@src/types/models/quest.type';
+
+export type QuestServiceData = {
+  findAll: (query?: GenericObject) => Promise<Quest[]>;
+  findOne: (id: string) => Promise<Quest>;
+  upsert: (data: Quest) => Promise<Quest>;
+  complete: (id: string) => Promise<BaseMessage>;
+  remove: (id: string) => Promise<BaseMessage>;
+}
 
 export function useQuestService(): QuestServiceData {
   const baseService = useBaseService();

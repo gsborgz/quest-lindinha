@@ -1,18 +1,18 @@
 'use client'
 
-import { Quest, QuestCardProps, QuestStatus } from '@/types/models/quest.type';
+import { Quest, QuestCardProps, QuestStatus } from '@src/types/models/quest.type';
 import { useContext, useEffect, useState } from 'react';
-import { SnackbarType } from '@/types/components/snackbar.type';
-import { CreateQuestButton } from '@/components/create-quest-button.component';
-import Loading from '@/components/loading.component';
-import StatusSelect from '@/components/status-select.component';
-import QuestDialog from '@/dialogs/quest.dialog';
-import CompleteQuestButton from '@/components/complete-quest-button.component';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { SessionContext } from '@/providers/session.provider';
-import { ModalContext } from '@/providers/modal.provider';
-import { useDictionary } from '@/hooks/dictionary.hook';
-import { useQuestService } from '@/hooks/quest-service.hook';
+import { SnackbarType } from '@src/types/components/snackbar.type';
+import { CreateQuestButton } from '@src/components/create-quest-button.component';
+import Loading from '@src/components/loading.component';
+import StatusSelect from '@src/components/status-select.component';
+import QuestDialog from '@src/dialogs/quest.dialog';
+import CompleteQuestButton from '@src/components/complete-quest-button.component';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SessionContext } from '@src/providers/session.provider';
+import { ModalContext } from '@src/providers/modal.provider';
+import { useDictionary } from '@src/hooks/dictionary.hook';
+import { useQuestService } from '@src/hooks/quest-service.hook';
 
 export default function Dashboard() {
   const questService = useQuestService();

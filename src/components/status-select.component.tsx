@@ -1,6 +1,6 @@
 'use client'
 
-import { StatusSelectProps } from '@/types/components/status-select.type';
+import { StatusSelectProps } from '@src/types/components/status-select.type';
 import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function StatusSelect<T>(props: StatusSelectProps<T>) {

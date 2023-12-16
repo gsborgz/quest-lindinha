@@ -1,15 +1,16 @@
 'use client'
 
 import React, { Fragment, useContext, useEffect } from 'react';
-import Avatar from '@/components/avatar.component';
-import { Bars3Icon, MoonIcon, SunIcon, GlobeAltIcon, LifebuoyIcon } from '@heroicons/react/24/solid';
-import { CreateRewardButton } from '@/components/create-reward-button.component';
-import { CreateQuestButton } from '@/components/create-quest-button.component';
-import { UserLanguage, UserTheme } from '@/types/models/user.type';
+import Avatar from '@src/components/avatar.component';
+import { Bars3Icon, MoonIcon, SunIcon, GlobeAltIcon } from '@heroicons/react/24/solid';
+import { CreateRewardButton } from '@src/components/create-reward-button.component';
+import { CreateQuestButton } from '@src/components/create-quest-button.component';
+import { UserLanguage, UserTheme } from '@src/types/models/user.type';
 import { Menu, Transition } from '@headlessui/react';
 import { US, BR } from 'country-flag-icons/react/3x2'
-import { SessionContext } from '@/providers/session.provider';
-import { MenuContext } from '@/providers/menu.provider';
+import { SessionContext } from '@src/providers/session.provider';
+import { MenuContext } from '@src/providers/menu.provider';
+import Credits from '@src/components/credits.component';
 
 export default function Header() {
   const [mounted, setMounted] = React.useState(false);
@@ -48,10 +49,7 @@ export default function Header() {
 
       <div className='flex items-center justify-end px-4 py-3'>
         <div className='flex items-center gap-4'>
-          <span className='text-sm font-bold flex items-center justify-center gap-1 text-sky-400'>
-            <LifebuoyIcon className='h-5 w-5' />
-            { user?.credits }
-          </span>
+          <Credits />
 
           <Avatar />
         </div>

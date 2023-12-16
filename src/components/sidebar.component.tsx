@@ -1,25 +1,23 @@
 'use client'
 
-import { ShoppingBagIcon, HomeIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/solid';
+import { ShoppingBagIcon, HomeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
-import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@/types/components/menu.type';
-import { MenuContext } from '@/providers/menu.provider';
-import { SessionContext } from '@/providers/session.provider';
+import { SidebarButtonProps, SidebarItem, SidebarLinkProps } from '@src/types/components/menu.type';
+import { MenuContext } from '@src/providers/menu.provider';
+import { SessionContext } from '@src/providers/session.provider';
 import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function Sidebar() {
   const { locale } = useDictionary();
   const { menuActive } = useContext(MenuContext);
-  const { user, signout } = useContext(SessionContext);
+  const { user } = useContext(SessionContext);
   const [mounted, setMounted] = useState(false);
   const homeIcon = <HomeIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
   const shoppingBagIcon = <ShoppingBagIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />;
-  const logoutIcon = <ArrowLeftOnRectangleIcon className='h-5 w-5 text-slate-700 dark:text-neutral-50' />
   const sidebarItems: SidebarItem[] = [
     { label: locale('text.home'), to: '/dashboard', icon: homeIcon, menuActive },
-    { label: locale('text.shop'), to: '/shop', icon: shoppingBagIcon, menuActive },
-    { label: locale('text.signout'), arialLabel: 'Logout', action: signout, icon: logoutIcon, menuActive }
+    { label: locale('text.shop'), to: '/shop', icon: shoppingBagIcon, menuActive }
   ];
 
   useEffect(() => setMounted(true), []);

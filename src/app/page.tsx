@@ -1,14 +1,14 @@
 'use client'
 
 import Image from 'next/image';
-import Input from '@/components/input.component';
+import Input from '@src/components/input.component';
 import { useContext, useEffect, useState } from 'react';
-import { SignInData } from '@/types/models/auth.type';
-import Button from '@/components/button.component';
-import Divider from '@/components/divider.component';
+import { SignInData } from '@src/types/models/auth.type';
+import Button from '@src/components/button.component';
+import Divider from '@src/components/divider.component';
 import Link from 'next/link';
-import Loading from '@/components/loading.component';
-import { SessionContext } from '@/providers/session.provider';
+import Loading from '@src/components/loading.component';
+import { SessionContext } from '@src/providers/session.provider';
 import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function Home() {

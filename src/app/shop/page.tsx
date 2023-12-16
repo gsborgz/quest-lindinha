@@ -1,18 +1,18 @@
 'use client'
 
-import { Reward, RewardCardProps, RewardStatus } from '@/types/models/reward.type';
+import { Reward, RewardCardProps, RewardStatus } from '@src/types/models/reward.type';
 import { useContext, useEffect, useState } from 'react';
-import { SnackbarType } from '@/types/components/snackbar.type';
-import { CreateRewardButton } from '@/components/create-reward-button.component';
-import Loading from '@/components/loading.component';
-import StatusSelect from '@/components/status-select.component';
-import RewardDialog from '@/dialogs/reward.dialog';
-import ClaimRewardButton from '@/components/claim-reward-button.component';
-import { SessionContext } from '@/providers/session.provider';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { ModalContext } from '@/providers/modal.provider';
-import { useDictionary } from '@/hooks/dictionary.hook';
-import { useRewardService } from '@/hooks/reward-service.hook';
+import { SnackbarType } from '@src/types/components/snackbar.type';
+import { CreateRewardButton } from '@src/components/create-reward-button.component';
+import Loading from '@src/components/loading.component';
+import StatusSelect from '@src/components/status-select.component';
+import RewardDialog from '@src/dialogs/reward.dialog';
+import ClaimRewardButton from '@src/components/claim-reward-button.component';
+import { SessionContext } from '@src/providers/session.provider';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { ModalContext } from '@src/providers/modal.provider';
+import { useDictionary } from '@src/hooks/dictionary.hook';
+import { useRewardService } from '@src/hooks/reward-service.hook';
 
 export default function Shop() {
   const rewardService = useRewardService();

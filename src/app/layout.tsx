@@ -1,13 +1,13 @@
-import '@/assets/globals.css';
+import '@src/assets/globals.css';
 import { Inter } from 'next/font/google';
-import GlobalProviders from '@/providers/global.provider';
-import Header from '@/components/header.component';
-import Footer from '@/components/footer.component';
-import { MenuProvider } from '@/providers/menu.provider';
-import Main from '@/components/main.component';
-import Sidebar from '@/components/sidebar.component';
-import ModalContainer from '@/components/modal-container.component';
-import SnackbarContainer from '@/components/snackbar-container.component';
+import GlobalProviders from '@src/providers/global.provider';
+import Header from '@src/components/header.component';
+import Footer from '@src/components/footer.component';
+import { MenuProvider } from '@src/providers/menu.provider';
+import Main from '@src/components/main.component';
+import Sidebar from '@src/components/sidebar.component';
+import ModalContainer from '@src/components/modal-container.component';
+import SnackbarContainer from '@src/components/snackbar-container.component';
 
 const inter = Inter({ subsets: ['latin'] });
 

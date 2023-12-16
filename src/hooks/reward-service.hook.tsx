@@ -1,9 +1,16 @@
 'use client'
 
-import { BaseMessage, GenericObject, RequestOptions } from '@/types/base.type';
-import { RewardServiceData } from '@/types/hooks/reward-service.type';
-import { Reward } from '@/types/models/reward.type';
-import { useBaseService } from '@/hooks/base-service.hook';
+import { BaseMessage, GenericObject, RequestOptions } from '@src/types/base.type';
+import { Reward } from '@src/types/models/reward.type';
+import { useBaseService } from '@src/hooks/base-service.hook';
+
+export type RewardServiceData = {
+  findAll: (query?: GenericObject) => Promise<Reward[]>;
+  findOne: (id: string) => Promise<Reward>;
+  upsert: (data: Reward) => Promise<Reward>;
+  claim: (id: string) => Promise<BaseMessage>;
+  remove: (id: string) => Promise<BaseMessage>;
+}
 
 export function useRewardService(): RewardServiceData {
   const baseService = useBaseService();

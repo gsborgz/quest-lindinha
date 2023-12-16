@@ -1,5 +1,5 @@
-import { Reward } from '@/types/models/reward.type';
-import { Quest } from '@/types/models/quest.type';
+import { Reward } from '@src/types/models/reward.type';
+import { Quest } from '@src/types/models/quest.type';
 
 export enum UserLanguage {
   EN = 'en',
@@ -11,8 +11,17 @@ export enum UserTheme {
   DARK = 'dark'
 }
 
+export class UpdateProfileDTO {
+
+  public name: string;
+  public avatar: string;
+
+}
+
 export class User {
+
   public _id: string;
+  public avatar: string;
   public name: string;
   public email: string;
   public password: string;
@@ -23,4 +32,5 @@ export class User {
   public rewards: Reward[];
   public created_at: Date;
   public updated_at: Date;
+
 }

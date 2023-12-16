@@ -1,4 +1,5 @@
 export class Quest {
+
   public _id: string;
   public name: string;
   public description: string;
@@ -8,6 +9,7 @@ export class Quest {
   public user_id: string;
   public created_at: Date;
   public updated_at: Date;
+
 }
 
 export enum QuestStatus {

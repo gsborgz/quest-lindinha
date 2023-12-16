@@ -1,11 +1,18 @@
 'use client'
 
 import { useContext } from 'react';
-import { useDictionary } from '@/hooks/dictionary.hook';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { GenericObject, RequestOptions } from '@/types/base.type';
-import { SnackbarType } from '@/types/components/snackbar.type';
-import { BaseServiceData } from '@/types/hooks/base-service.type';
+import { useDictionary } from '@src/hooks/dictionary.hook';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SnackbarType } from '@src/types/components/snackbar.type';
+import { GenericObject, RequestOptions } from '@src/types/base.type';
+
+export type BaseServiceData = {
+  get: <E>(options: RequestOptions) => Promise<E>;
+  post: <E>(options: RequestOptions) => Promise<E>;
+  put: <E>(options: RequestOptions) => Promise<E>;
+  delete: <E>(options: RequestOptions) => Promise<E>;
+  getAuthorizationHeader: () => GenericObject;
+}
 
 export function useBaseService(): BaseServiceData {
   const { openSnackbar } = useContext(SnackbarContext);

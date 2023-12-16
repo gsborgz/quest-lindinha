@@ -1,8 +1,10 @@
-import { SignInData, SignUpData } from '@/types/models/auth.type';
-import { User, UserLanguage, UserTheme } from '@/types/models/user.type';
+import { SignInData, SignUpData } from '@src/types/models/auth.type';
+import { User, UserLanguage, UserTheme } from '@src/types/models/user.type';
 
 export type SessionData = {
   user: User | null;
+  credits: number;
+  avatar: string;
   loadQuests: boolean;
   loadRewards: boolean;
   language: UserLanguage;
@@ -12,6 +14,8 @@ export type SessionData = {
   signout: () => Promise<void>;
   setLoadRewards: (value: boolean) => void;
   setLoadQuests: (value: boolean) => void;
+  setCredits: (value: number) => void;
+  setAvatar: (value: string) => void;
   changeLanguage: (language: UserLanguage) => void;
   changeTheme: (theme: UserTheme) => void;
   addCredits: (credits: number) => void;

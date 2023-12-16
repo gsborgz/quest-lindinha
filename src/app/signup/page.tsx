@@ -2,18 +2,21 @@
 
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
-import Input from '@/components/input.component';
-import { SignUpData } from '@/types/models/auth.type';
-import Button from '@/components/button.component';
+import Input from '@src/components/input.component';
+import { SignUpData } from '@src/types/models/auth.type';
+import Button from '@src/components/button.component';
 import Link from 'next/link';
-import Divider from '@/components/divider.component';
-import Loading from '@/components/loading.component';
-import { SessionContext } from '@/providers/session.provider';
-import { useDictionary } from '@/hooks/dictionary.hook';
+import Divider from '@src/components/divider.component';
+import Loading from '@src/components/loading.component';
+import { SessionContext } from '@src/providers/session.provider';
+import { useDictionary } from '@src/hooks/dictionary.hook';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SnackbarType } from '@src/types/components/snackbar.type';
 
 export default function SignUp() {
   const { locale } = useDictionary();
   const { language, theme, signup } = useContext(SessionContext);
+  const { openSnackbar } = useContext(SnackbarContext);
   const [mounted, setMounted] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -32,6 +35,8 @@ export default function SignUp() {
     }
 
     if (password !== passwordConfirmation) {
+      openSnackbar(locale('text.passwords_do_not_match'), SnackbarType.ERROR);
+
       return;
     }
 

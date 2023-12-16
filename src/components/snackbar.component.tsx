@@ -1,4 +1,4 @@
-import { SnackbarProps, SnackbarType } from '@/types/components/snackbar.type';
+import { SnackbarProps, SnackbarType } from '@src/types/components/snackbar.type';
 
 export default function Snackbar(props: SnackbarProps) {
   const color = getSnackbarTypeColor(props.type);

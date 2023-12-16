@@ -1,12 +1,17 @@
 'use client'
 
 import { useContext } from 'react';
-import en from '@/assets/i18n/en';
-import ptBr from '@/assets/i18n/pt-br';
-import { UserLanguage } from '@/types/models/user.type';
-import { GenericObject } from '@/types/base.type';
-import { SessionContext } from '@/providers/session.provider';
-import { DictionaryData } from '@/types/hooks/dictionary.type';
+import en from '@src/assets/i18n/en';
+import ptBr from '@src/assets/i18n/pt-br';
+import { UserLanguage } from '@src/types/models/user.type';
+import { GenericObject } from '@src/types/base.type';
+import { SessionContext } from '@src/providers/session.provider';
+
+export type LocaleFunction = (keyPath: string, args?: GenericObject) => string;
+
+export type DictionaryData = {
+  locale: LocaleFunction;
+}
 
 export function useDictionary(): DictionaryData {
   const { language } = useContext(SessionContext);

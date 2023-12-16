@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react';
-import { ModalContent } from '@/types/components/modal.type';
+import { ModalContent } from '@src/types/components/modal.type';
 import { createContext } from 'react';
-import { ModalData } from '@/types/components/modal.type';
+import { ModalData } from '@src/types/components/modal.type';
 
 export const ModalContext = createContext({} as ModalData);
 

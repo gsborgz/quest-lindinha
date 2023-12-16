@@ -1,4 +1,4 @@
-import { ButtonProps } from '@/types/components/button.type';
+import { ButtonProps } from '@src/types/components/button.type';
 import Link from 'next/link';
 
 export default function Button(props: ButtonProps) {
@@ -9,7 +9,7 @@ export default function Button(props: ButtonProps) {
   if (props.to) {
     <Link
       href={ props.to }
-      className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} ${props.full ? 'w-full' : ''} font-bold py-2 px-4 rounded flex gap-2 items-center justify-center` }
+      className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} ${props.full ? 'w-full' : ''} font-bold py-2 px-4 rounded flex gap-2 items-center justify-center select-none` }
     >
       { props.icon || null }
       { props.label || null }
@@ -19,7 +19,7 @@ export default function Button(props: ButtonProps) {
   return (
     <button
       type={ props.type }
-      className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} ${props.full ? 'w-full' : ''} font-bold py-2 px-4 rounded flex gap-2 items-center justify-center` } onClick={ props.onClick }
+      className={ `${props.primary ? teal : (props.secondary ? gray : props.bgColor)} ${props.textColor || textWhite} ${props.full ? 'w-full' : ''} font-bold py-2 px-4 rounded flex gap-2 items-center justify-center select-none` } onClick={ props.onClick }
     >
       { props.icon || null }
       { props.label || null }

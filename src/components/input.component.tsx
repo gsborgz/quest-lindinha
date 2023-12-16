@@ -1,8 +1,8 @@
-import { InputProps } from '@/types/components/input.type';
+import { InputProps } from '@src/types/components/input.type';
 
 export default function Input(props: InputProps) {
   return (
-    <div>
+    <div className='flex-1'>
       <label htmlFor={ props.id } className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'>{ props.label }</label>
 
       <input

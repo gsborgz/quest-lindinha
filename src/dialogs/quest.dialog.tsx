@@ -1,19 +1,19 @@
 'use client'
 
-import Modal from '@/components/modal.component';
+import Modal from '@src/components/modal.component';
 import { MapIcon } from '@heroicons/react/24/solid'
-import { Quest, QuestDialogData, QuestStatus } from '@/types/models/quest.type';
-import Input from '@/components/input.component';
-import Button from '@/components/button.component';
+import { Quest, QuestDialogData, QuestStatus } from '@src/types/models/quest.type';
+import Input from '@src/components/input.component';
+import Button from '@src/components/button.component';
 import { useContext, useEffect, useState } from 'react';
-import { SnackbarType } from '@/types/components/snackbar.type';
-import CompleteQuestButton from '@/components/complete-quest-button.component';
-import Divider from '@/components/divider.component';
-import { ModalContext } from '@/providers/modal.provider';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { SessionContext } from '@/providers/session.provider';
-import { useQuestService } from '@/hooks/quest-service.hook';
-import { useDictionary } from '@/hooks/dictionary.hook';
+import { SnackbarType } from '@src/types/components/snackbar.type';
+import CompleteQuestButton from '@src/components/complete-quest-button.component';
+import Divider from '@src/components/divider.component';
+import { ModalContext } from '@src/providers/modal.provider';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SessionContext } from '@src/providers/session.provider';
+import { useQuestService } from '@src/hooks/quest-service.hook';
+import { useDictionary } from '@src/hooks/dictionary.hook';
 
 export default function QuestDialog(props: QuestDialogData) {
   const questService = useQuestService();

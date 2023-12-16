@@ -1,4 +1,4 @@
-import { UserLanguage, UserTheme } from '@/types/models/user.type';
+import { UserLanguage, UserTheme } from '@src/types/models/user.type';
 
 export class SignInResult {
 
@@ -45,5 +45,20 @@ export class SignUpData {
 export class PasswordResetRequestData {
 
   public email: string;
+
+}
+
+export class ResetPasswordDTO {
+
+  public password: string;
+  public password_confirmation: string;
+
+}
+
+export class UpdatePasswordDTO {
+
+  public current_password: string;
+  public password: string;
+  public password_confirmation: string;
 
 }

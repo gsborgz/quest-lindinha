@@ -1,6 +1,6 @@
-import quest from  '@/assets/i18n/pt-br/quest';
-import reward from '@/assets/i18n/pt-br/reward';
-import text from '@/assets/i18n/pt-br/text';
+import quest from  '@src/assets/i18n/pt-br/quest';
+import reward from '@src/assets/i18n/pt-br/reward';
+import text from '@src/assets/i18n/pt-br/text';
 
 const ptBr = {
   quest,

@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { SignInData, SignUpData, SignInResult } from '@/types/models/auth.type';
+import { SignInData, SignUpData, SignInResult } from '@src/types/models/auth.type';
 import { useRouter, usePathname } from 'next/navigation';
-import { User, UserLanguage, UserTheme } from '@/types/models/user.type';
+import { User, UserLanguage, UserTheme } from '@src/types/models/user.type';
 import { useTheme } from 'next-themes';
 import { createContext } from 'react';
-import { SessionData } from '@/types/providers/session.type';
+import { SessionData } from '@src/types/providers/session.type';
 import { useAuthService } from '../hooks/auth-service.hook';
 
 export const SessionContext = createContext({} as SessionData);
@@ -16,6 +16,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [loadRewards, setLoadRewards] = useState<boolean>(false);
   const [loadQuests, setLoadQuests] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const [avatar, setAvatar] = useState<string>('avatar-1' as string);
+  const [credits, setCredits] = useState<number>(0 as number);
   const [language, setLanguage] = useState<UserLanguage>(UserLanguage.PTBR);
   const { theme, setTheme } = useTheme();
   const router = useRouter();
@@ -37,6 +39,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       authService.me()
         .then(user => {
           setUser(user);
+
+          setAvatar(user.avatar);
+          setCredits(user.credits);
         })
         .catch(() => {
           clearTokenData();
@@ -138,6 +143,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   return (
     <SessionContext.Provider value={{
       user,
+      credits,
+      avatar,
       loadQuests,
       loadRewards,
       language,
@@ -147,6 +154,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       signout,
       setLoadRewards,
       setLoadQuests,
+      setCredits,
+      setAvatar,
       changeLanguage,
       changeTheme,
       addCredits,

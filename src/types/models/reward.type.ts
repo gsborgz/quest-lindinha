@@ -1,4 +1,5 @@
 export class Reward {
+
   public _id: string;
   public name: string;
   public description: string;
@@ -7,6 +8,7 @@ export class Reward {
   public user_id: string;
   public created_at: Date;
   public updated_at: Date;
+
 }
 
 export type RewardDialogData = {

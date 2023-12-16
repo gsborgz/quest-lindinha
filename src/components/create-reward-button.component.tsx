@@ -1,11 +1,11 @@
 'use client'
 
 import { PlusIcon } from '@heroicons/react/24/solid';
-import { RewardButtonData } from '@/types/models/reward.type';
+import { RewardButtonData } from '@src/types/models/reward.type';
 import { useContext } from 'react';
-import RewardDialog from '@/dialogs/reward.dialog';
-import Button from '@/components/button.component';
-import { ModalContext } from '@/providers/modal.provider';
+import RewardDialog from '@src/dialogs/reward.dialog';
+import Button from '@src/components/button.component';
+import { ModalContext } from '@src/providers/modal.provider';
 import { useDictionary } from '../hooks/dictionary.hook';
 
 export function CreateRewardButton(props: RewardButtonData) {

@@ -1,9 +1,9 @@
 import { PlusIcon } from '@heroicons/react/24/solid';
-import QuestDialog from '@/dialogs/quest.dialog';
-import Button from '@/components/button.component';
+import QuestDialog from '@src/dialogs/quest.dialog';
+import Button from '@src/components/button.component';
 import { useContext } from 'react';
-import { QuestButtonData } from '@/types/models/quest.type';
-import { ModalContext } from '@/providers/modal.provider';
+import { QuestButtonData } from '@src/types/models/quest.type';
+import { ModalContext } from '@src/providers/modal.provider';
 import { useDictionary } from '../hooks/dictionary.hook';
 
 export function CreateQuestButton(props: QuestButtonData) {

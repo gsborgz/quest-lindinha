@@ -1,18 +1,18 @@
 'use client'
 
-import { Reward, RewardDialogData, RewardStatus } from '@/types/models/reward.type';
-import Modal from '@/components/modal.component';
+import { Reward, RewardDialogData, RewardStatus } from '@src/types/models/reward.type';
+import Modal from '@src/components/modal.component';
 import { GiftIcon } from '@heroicons/react/24/solid';
 import { useContext, useEffect, useState } from 'react';
-import { SnackbarType } from '@/types/components/snackbar.type';
-import Button from '@/components/button.component';
-import Input from '@/components/input.component';
-import ClaimRewardButton from '@/components/claim-reward-button.component';
-import Divider from '@/components/divider.component';
-import { ModalContext } from '@/providers/modal.provider';
-import { SnackbarContext } from '@/providers/snackbar.provider';
-import { SessionContext } from '@/providers/session.provider';
-import { useRewardService } from '@/hooks/reward-service.hook';
+import { SnackbarType } from '@src/types/components/snackbar.type';
+import Button from '@src/components/button.component';
+import Input from '@src/components/input.component';
+import ClaimRewardButton from '@src/components/claim-reward-button.component';
+import Divider from '@src/components/divider.component';
+import { ModalContext } from '@src/providers/modal.provider';
+import { SnackbarContext } from '@src/providers/snackbar.provider';
+import { SessionContext } from '@src/providers/session.provider';
+import { useRewardService } from '@src/hooks/reward-service.hook';
 import { useDictionary } from '../hooks/dictionary.hook';
 
 export default function RewardDialog(props: RewardDialogData) {

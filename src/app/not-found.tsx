@@ -1,6 +1,6 @@
 'use client'
 
-import { useDictionary } from '@/hooks/dictionary.hook';
+import { useDictionary } from '@src/hooks/dictionary.hook';
 import Image from 'next/image';
 
 export default function Custom404() {

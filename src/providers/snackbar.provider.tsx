@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { SnackbarType } from '@/types/components/snackbar.type';
+import { SnackbarType } from '@src/types/components/snackbar.type';
 import { createContext } from 'react';
-import { SnackbarData } from '@/types/components/snackbar.type';
+import { SnackbarData } from '@src/types/components/snackbar.type';
 
 export const SnackbarContext = createContext({} as SnackbarData);
 
